@@ -1,0 +1,14 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{CE8370EC-1E33-4974-89EA-CC6049E095FB}"
+	ProjectSection(SolutionItems) = preProject
+		GroupMembers.md = GroupMembers.md
+		DCA - Domain model.asta = DCA - Domain model.asta
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+EndGlobal
