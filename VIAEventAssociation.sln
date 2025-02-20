@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		GroupMembers.md = GroupMembers.md
 		DCA - Domain model.asta = DCA - Domain model.asta
 		Domain model.svg = Domain model.svg
+		DCA - Concrete domain model.asta = DCA - Concrete domain model.asta
 	EndProjectSection
 EndProject
 Global
