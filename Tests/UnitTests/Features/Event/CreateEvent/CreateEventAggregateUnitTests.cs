@@ -7,12 +7,8 @@ public class CreateEventAggregateUnitTests
     [Fact]
     public void CreateEvent_Successfully_CreatesEventWithDefaultValues()
     {
-        // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-
         // Act
-        var result = VEAEvent.Create(title, description);
+        var result = VeaEvent.Create();
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -21,47 +17,15 @@ public class CreateEventAggregateUnitTests
         Assert.Equal(EventStatus.Draft, newEvent.Status);
         Assert.Equal(EventVisibility.Private, newEvent.Visibility);
         Assert.Equal(5, newEvent.MaxGuests);
-        Assert.Equal(title, newEvent.Title.Value);
-        Assert.Equal(description, newEvent.Description.Value);
+        Assert.Equal("Working Title", newEvent.Title.Value);
+        Assert.Equal("", newEvent.Description.Value);
     }
-
-    [Fact]
-    public void CreateEvent_Fails_WhenTitleIsEmpty()
-    {
-        // Arrange
-        var title = "";
-        var description = "This is a test event.";
-
-        // Act
-        var result = VEAEvent.Create(title, description);
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidTitle", result.Errors.First().Code);
-    }
-
-    [Fact]
-    public void CreateEvent_Fails_WhenDescriptionIsEmpty()
-    {
-        // Arrange
-        var title = "Test Event";
-        var description = "";
-
-        // Act
-        var result = VEAEvent.Create(title, description);
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidDescription", result.Errors.First().Code);
-    }
-
+    
     [Fact]
     public void PublishEvent_Successfully_ChangesStatusToPublished()
     {
-        // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+
+        var newEvent = VeaEvent.Create().Value;
 
         // Act
         var result = newEvent.Publish();
@@ -75,9 +39,7 @@ public class CreateEventAggregateUnitTests
     public void PublishEvent_Fails_WhenEventIsNotInDraftStatus()
     {
         // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+        var newEvent = VeaEvent.Create().Value;
         newEvent.Publish(); // Change status to Published
 
         // Act
@@ -91,10 +53,9 @@ public class CreateEventAggregateUnitTests
     [Fact]
     public void UpdateTitle_Successfully_ChangesTitle()
     {
-        // Arrange
-        var title = "Test Event";
+
         var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+        var newEvent = VeaEvent.Create().Value;
         var newTitle = "Updated Title";
 
         // Act
@@ -108,10 +69,8 @@ public class CreateEventAggregateUnitTests
     [Fact]
     public void UpdateTitle_Fails_WhenTitleIsEmpty()
     {
-        // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+        
+        var newEvent = VeaEvent.Create().Value;
         var newTitle = "";
 
         // Act
@@ -125,10 +84,8 @@ public class CreateEventAggregateUnitTests
     [Fact]
     public void UpdateDescription_Successfully_ChangesDescription()
     {
-        // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+
+        var newEvent = VeaEvent.Create().Value;
         var newDescription = "Updated Description";
 
         // Act
@@ -143,9 +100,7 @@ public class CreateEventAggregateUnitTests
     public void UpdateDescription_Fails_WhenDescriptionIsEmpty()
     {
         // Arrange
-        var title = "Test Event";
-        var description = "This is a test event.";
-        var newEvent = VEAEvent.Create(title, description).Value;
+        var newEvent = VeaEvent.Create().Value;
         var newDescription = "";
 
         // Act

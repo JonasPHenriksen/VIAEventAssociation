@@ -1,6 +1,65 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=424034a6_002D3028_002D40e1_002D840f_002D87ff54d0f931/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="OperationResultUnitTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.OperationResultTest.OperationResultUnitTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ABooleanAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fe5b3bf527769cb3295444e29d617bf2ebe5666bbe8e9c881a31444ba66846cfa_003FBooleanAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AStringAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F992cf17f9b2cf4215ab3e6471552917c84de3ac1b86e54521136f03ea78c_003FStringAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3759332e_002Dc169_002D4ba7_002Da4c8_002D5d4b7618ad92/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipation_Fails_WhenEventHasStarted #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests.CancelParticipation_Fails_WhenEventHasStarted&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3a0cd2c2_002D4fec_002D4ca3_002Db009_002Dea4a3c0e29e3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AcceptInvitation_Fails_WhenEventIsFull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.AcceptInvitationUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.ActivateEventUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=424034a6_002D3028_002D40e1_002D840f_002D87ff54d0f931/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="OperationResultUnitTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.OperationResultTest.OperationResultUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::CreateEventAggregateUnitTests.CreateEvent_Successfully_CreatesEmptyEventWithDefaultValues&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::CreateEventAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateTitleEventAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateDescriptionEventAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateTimeRangeEventAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.MakeEventPublicAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.MakeEventPrivateAggregateUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.SetMaxNumberOfGuestsEventUnitTests.SetMaxGuests_Success_WhenEventIsInDraftStatus&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.SetMaxNumberOfGuestsEventUnitTests.SetMaxGuests_Fails_WhenEventIsActiveAndReducingGuests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.ActivateEventUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.GuestTests.RegisterGuestUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.ParticipateInEventUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::InviteGuestUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.AcceptInvitationUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.DeclineInvitationUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.ReadyEventUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.SetMaxNumberOfGuestsEventUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=517e6630_002D9c3a_002D4894_002Daa7f_002Dd727f586c25f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateDescription_Fails_WhenEventIsCancelled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateDescriptionEventAggregateUnitTests.UpdateDescription_Fails_WhenEventIsCancelled&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::CreateEventAggregateUnitTests.UpdateDescription_Fails_WhenDescriptionIsEmpty&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.DeclineInvitationUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=65beb1a1_002D67c1_002D4968_002Dbe0f_002D41e41a588588/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipation_Fails_WhenEventHasStarted" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests.CancelParticipation_Fails_WhenEventHasStarted&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9f567608_002D6629_002D4bf8_002D8363_002Dcb406a551005/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InviteGuest_Fails_WhenEventIsFull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::InviteGuestUnitTests.InviteGuest_Fails_WhenEventIsFull&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a32a076a_002D179d_002D4ade_002Dacad_002D0944997a5426/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipation_Fails_WhenEventHasStarted #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests.CancelParticipation_Fails_WhenEventHasStarted&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bfc94a78_002D9a44_002D4c72_002D8501_002D5c4b83afc180/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipationUnitTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::CreateEventAggregateUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
