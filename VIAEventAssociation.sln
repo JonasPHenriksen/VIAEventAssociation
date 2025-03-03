@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Domain model.svg = Domain model.svg
 		DCA - Concrete domain model.asta = DCA - Concrete domain model.asta
 		Concrete domain model.svg = Concrete domain model.svg
+		FeatureStatus.md = FeatureStatus.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CC74B2EF-AEA3-4634-A33B-97613F3887A2}"
@@ -21,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{07DA93D2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{53CA3BE7-CAD6-4C8F-9671-A9D518EF084C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIAEventAssociation.Core.Domain", "src\Core\VIAEventAssociation.Core.Domain\VIAEventAssociation.Core.Domain.csproj", "{EE1D6C0C-D69D-47A9-A230-037C2B729780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +34,7 @@ Global
 		{FC1C8985-AEBF-4F12-8E71-9A2D03C39B4A} = {B2DCD3EB-8C8A-4220-B4A1-D7F0591A17E9}
 		{444E8AC9-E134-4D40-B86B-7EF6FD46F0B1} = {FC1C8985-AEBF-4F12-8E71-9A2D03C39B4A}
 		{53CA3BE7-CAD6-4C8F-9671-A9D518EF084C} = {07DA93D2-9599-43EB-8D88-4F7DE66C661A}
+		{EE1D6C0C-D69D-47A9-A230-037C2B729780} = {B2DCD3EB-8C8A-4220-B4A1-D7F0591A17E9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{444E8AC9-E134-4D40-B86B-7EF6FD46F0B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -41,5 +45,9 @@ Global
 		{53CA3BE7-CAD6-4C8F-9671-A9D518EF084C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53CA3BE7-CAD6-4C8F-9671-A9D518EF084C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53CA3BE7-CAD6-4C8F-9671-A9D518EF084C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1D6C0C-D69D-47A9-A230-037C2B729780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1D6C0C-D69D-47A9-A230-037C2B729780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1D6C0C-D69D-47A9-A230-037C2B729780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1D6C0C-D69D-47A9-A230-037C2B729780}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Aggregates\Guests\Contracts\" />
+      <Folder Include="Aggregates\Locations\Contracts\" />
+      <Folder Include="Aggregates\VEAEvents\Contracts\" />
+      <Folder Include="Common\Bases\" />
+      <Folder Include="Common\Contracts\" />
+      <Folder Include="Common\Values\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Tools\VIAEventAssociation.Core.Tools.OperationResult\VIAEventAssociation.Core.Tools.OperationResult.csproj" />
+    </ItemGroup>
+
+</Project>
