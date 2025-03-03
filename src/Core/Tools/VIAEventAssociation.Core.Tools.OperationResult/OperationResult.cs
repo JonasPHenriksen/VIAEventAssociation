@@ -1,5 +1,4 @@
-﻿
-namespace VIAEventAssociation.Core.Tools.OperationResult
+﻿namespace VIAEventAssociation.Core.Tools.OperationResult
 {
     public class Error
     {
