@@ -8,7 +8,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Success_WhenEventIsInDraftStatus()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
         var newTitle = "Updated Title";
 
         // Act
@@ -23,7 +23,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Success_WhenEventIsInReadyStatus()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
         newEvent.SetStatus(EventStatus.Ready); // Assume a method to set status exists
         var newTitle = "Updated Title";
 
@@ -40,7 +40,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Fails_WhenTitleIsEmpty()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
 
         // Act
         var result = newEvent.UpdateTitle("");
@@ -54,7 +54,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Fails_WhenTitleIsTooShort()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
 
         // Act
         var result = newEvent.UpdateTitle("XY");
@@ -68,7 +68,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Fails_WhenTitleIsTooLong()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
         var longTitle = new string('A', 76); // 76 characters
 
         // Act
@@ -83,7 +83,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Fails_WhenEventIsActive()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
         newEvent.SetStatus(EventStatus.Active); // Assume a method to set status exists
 
         // Act
@@ -98,7 +98,7 @@ public class UpdateTitleEventAggregateUnitTests
     public void UpdateTitle_Fails_WhenEventIsCancelled()
     {
         // Arrange
-        var newEvent = VEAEvent.Create("Initial Title", "Initial Description").Value;
+        var newEvent = VeaEvent.Create().Value;
         newEvent.SetStatus(EventStatus.Cancelled); // Assume a method to set status exists
 
         // Act
