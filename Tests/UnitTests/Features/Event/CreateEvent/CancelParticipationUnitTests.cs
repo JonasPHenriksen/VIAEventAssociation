@@ -59,16 +59,13 @@ public class CancelParticipationUnitTests
     {
         // Arrange
         var newEvent = VeaEvent.Create().Value;
-        newEvent.UpdateTimeRange(DateTime.Now.AddSeconds(3), DateTime.Now.AddSeconds(8));
-        newEvent.SetMaxGuests(10);
+        newEvent.TimeRange = new EventTimeRange(DateTime.Now.AddHours(-1), DateTime.Now.AddSeconds(8));
         newEvent.MakePublic();
         SetEventStatus(newEvent, EventStatus.Active); // Set status to Active
         var guestId = GuestId.New();
 
         // Add the guest to the participants list
         newEvent.Participate(guestId);
-
-        //TODO MAKE A PAST EVENT HACK SINCE WE DON'T WANT TO WAIT AN HOUR
 
         //Act
         var result = newEvent.CancelParticipation(guestId);

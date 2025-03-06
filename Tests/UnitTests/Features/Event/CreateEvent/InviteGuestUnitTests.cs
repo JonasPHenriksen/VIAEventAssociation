@@ -103,18 +103,25 @@ public class InviteGuestUnitTests
         var newEvent = VeaEvent.Create().Value;
         var futureDate = GetTestDate();
         newEvent.UpdateTimeRange(futureDate, futureDate.AddHours(4)); // Event set to a future date
-        newEvent.SetMaxGuests(1); // Only 1 guest allowed
+        newEvent.SetMaxGuests(5); // Only 1 guest allowed
         newEvent.MakePublic();
         SetEventStatus(newEvent, EventStatus.Active); // Set status to Active
 
         // Add one guest to fill the event
         var guestId1 = GuestId.New();
-        newEvent.InviteGuest(guestId1);
-
         var guestId2 = GuestId.New();
+        var guestId3 = GuestId.New();
+        var guestId4 = GuestId.New();
+        var guestId5 = GuestId.New();
+        var guestId6 = GuestId.New();
+        newEvent.InviteGuest(guestId1);
+        newEvent.InviteGuest(guestId2);
+        newEvent.InviteGuest(guestId3);
+        newEvent.InviteGuest(guestId4);
+        newEvent.InviteGuest(guestId5);
 
         // Act
-        var result = newEvent.InviteGuest(guestId2);
+        var result = newEvent.InviteGuest(guestId6);
 
         // Assert
         Assert.False(result.IsSuccess);

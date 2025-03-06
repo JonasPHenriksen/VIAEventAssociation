@@ -49,6 +49,8 @@ public class DeclineInvitationUnitTests
         newEvent.UpdateTimeRange(futureDate, futureDate.AddHours(4)); // Event set to a future date
         newEvent.SetMaxGuests(10);
         newEvent.MakePublic();
+        newEvent.UpdateTitle("Test Title");
+        newEvent.UpdateDescription("Test Description");
         SetEventStatus(newEvent, EventStatus.Active); // Set status to Active
         var guestId = GuestId.New();
 

@@ -8,7 +8,6 @@ public class AcceptInvitationUnitTests
 {
     private DateTime GetTestDate()
     {
-        
         return DateTime.Now.AddYears(1).Date.Add(new TimeSpan(13, 30, 22));
     }
 
