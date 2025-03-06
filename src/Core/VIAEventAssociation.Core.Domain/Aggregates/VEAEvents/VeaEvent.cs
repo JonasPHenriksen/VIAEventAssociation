@@ -5,16 +5,16 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 {
     public class VeaEvent
     {
-        public EventId Id { get; }
-        public EventStatus Status { get; private set; }
-        public EventTitle Title { get; private set; }
-        public EventDescription Description { get; private set; }
-        public EventVisibility Visibility { get; private set; }
-        public int MaxGuests { get; private set; }
-        public EventTimeRange? TimeRange { get; private set; }
-        public HashSet<GuestId> Participants { get; private set; } = new();
-        public HashSet<GuestId> InvitedGuests { get; private set; } = new();
-        public List<GuestId> DeclinedGuests { get; private set; }
+        internal EventId Id { get; }
+        internal EventStatus Status { get;  set; }
+        internal EventTitle Title { get;  set; }
+        internal EventDescription Description { get;  set; }
+        internal EventVisibility Visibility { get;  set; }
+        internal int MaxGuests { get;  set; }
+        internal EventTimeRange? TimeRange { get; set; }
+        internal List<GuestId> InvitedGuests { get; set; } = new List<GuestId>();
+        internal List<GuestId> Participants { get; set; } = new List<GuestId>();
+        internal List<GuestId> DeclinedGuests { get; set; } = new List<GuestId>();
         private VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventVisibility visibility, int maxGuests)
         {
             Id = id;

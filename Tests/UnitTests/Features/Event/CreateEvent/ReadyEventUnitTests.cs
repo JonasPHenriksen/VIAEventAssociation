@@ -22,6 +22,8 @@ public class ReadyEventUnitTests
         // Arrange
         var newEvent = VeaEvent.Create().Value;
         var futureDate = GetTestDate();
+        newEvent.UpdateTitle("Test Title");
+        newEvent.UpdateDescription("Test Description");
         newEvent.UpdateTimeRange(futureDate, futureDate.AddHours(4)); // Event set to a future date
         newEvent.SetMaxGuests(10);
         newEvent.MakePublic();
@@ -83,6 +85,8 @@ public class ReadyEventUnitTests
     {
         // Arrange
         var newEvent = VeaEvent.Create().Value;
+        newEvent.UpdateTitle("Test Title");
+        newEvent.UpdateDescription("Test Description");
 
         // Act
         var result = newEvent.ReadyEvent();
@@ -99,6 +103,8 @@ public class ReadyEventUnitTests
         var newEvent = VeaEvent.Create().Value;
         var pastDate = GetPastDateWithOneYearSubtracted();
         newEvent.UpdateTimeRange(pastDate, pastDate.AddHours(4)); // Past event
+        newEvent.UpdateTitle("Test Title");
+        newEvent.UpdateDescription("Test Description");
 
         // Act
         var result = newEvent.ReadyEvent();

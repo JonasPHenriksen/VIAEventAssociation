@@ -83,18 +83,25 @@ public class ParticipateInEventUnitTests
         var newEvent = VeaEvent.Create().Value;
         var futureDate = GetTestDate();
         newEvent.UpdateTimeRange(futureDate, futureDate.AddHours(4)); // Event set to a future date
-        newEvent.SetMaxGuests(1); // Only 1 guest allowed
+        newEvent.SetMaxGuests(5); // Only 1 guest allowed
         newEvent.MakePublic();
         SetEventStatus(newEvent, EventStatus.Active); // Set status to Active
 
         // Add one guest to fill the event
         var guestId1 = GuestId.New();
-        newEvent.Participate(guestId1);
-
         var guestId2 = GuestId.New();
+        var guestId3 = GuestId.New();
+        var guestId4 = GuestId.New();
+        var guestId5 = GuestId.New();
+        var guestId6 = GuestId.New();
+        newEvent.Participate(guestId1);
+        newEvent.Participate(guestId2);
+        newEvent.Participate(guestId3);
+        newEvent.Participate(guestId4);
+        newEvent.Participate(guestId5);
 
         // Act
-        var result = newEvent.Participate(guestId2);
+        var result = newEvent.Participate(guestId6);
 
         // Assert
         Assert.False(result.IsSuccess);
