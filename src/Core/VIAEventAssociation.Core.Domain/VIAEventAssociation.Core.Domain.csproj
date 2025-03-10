@@ -10,10 +10,7 @@
       <Folder Include="Aggregates\Guests\Contracts\" />
       <Folder Include="Aggregates\Locations\Contracts\" />
       <Folder Include="Aggregates\VEAEvents\Contracts\" />
-      <Folder Include="Common\Bases\" />
-      <Folder Include="Common\Contracts\" />
       <Folder Include="Common\Values\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
