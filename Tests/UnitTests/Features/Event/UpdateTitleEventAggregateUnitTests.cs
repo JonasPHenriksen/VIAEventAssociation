@@ -9,11 +9,16 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Success_WhenEventIsInDraftStatus()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Draft).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Draft)
+                .Build();
             var newTitle = "Updated Title";
 
+            // Act
             var result = newEvent.UpdateTitle(newTitle);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(newTitle, newEvent.Title.Value);
         }
@@ -21,13 +26,16 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Success_WhenEventIsInReadyStatus()
         {
+            // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Ready)
                 .Build();
             var newTitle = "Updated Title";
 
+            // Act
             var result = newEvent.UpdateTitle(newTitle);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(newTitle, newEvent.Title.Value);
             Assert.Equal(EventStatus.Draft, newEvent.Status);
@@ -36,10 +44,15 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenTitleIsEmpty()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Draft).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Draft)
+                .Build();
 
+            // Act
             var result = newEvent.UpdateTitle("");
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidTitle", result.Errors.First().Code);
         }
@@ -47,10 +60,15 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenTitleIsTooShort()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Draft).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Draft)
+                .Build();
 
+            // Act
             var result = newEvent.UpdateTitle("XY");
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidTitleLength", result.Errors.First().Code);
         }
@@ -58,11 +76,16 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenTitleIsTooLong()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Draft).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Draft)
+                .Build();
             var longTitle = new string('A', 76);
 
+            // Act
             var result = newEvent.UpdateTitle(longTitle);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidTitleLength", result.Errors.First().Code);
         }
@@ -70,10 +93,15 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenEventIsActive()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Active).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Active)
+                .Build();
 
+            // Act
             var result = newEvent.UpdateTitle("New Title");
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidStatus", result.Errors.First().Code);
         }
@@ -81,10 +109,15 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenEventIsCancelled()
         {
-            var newEvent = EventFactory.Init().WithStatus(EventStatus.Cancelled).Build();
+            // Arrange
+            var newEvent = EventFactory.Init()
+                .WithStatus(EventStatus.Cancelled)
+                .Build();
 
+            // Act
             var result = newEvent.UpdateTitle("New Title");
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidStatus", result.Errors.First().Code);
         }

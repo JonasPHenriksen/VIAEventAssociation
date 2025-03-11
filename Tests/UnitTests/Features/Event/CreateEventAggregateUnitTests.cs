@@ -5,7 +5,7 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 public class CreateEventAggregateUnitTests
 {
     [Fact]
-    public void CreateEvent_Successfully_CreatesEventWithDefaultValues()
+    public void CreateEvent_Success_SetStatusToDraftAndMaxNumberOfGuestsTo5()
     {
         // Act
         var result = VeaEvent.Create();
@@ -15,101 +15,48 @@ public class CreateEventAggregateUnitTests
         var newEvent = result.Value;
         Assert.NotNull(newEvent);
         Assert.Equal(EventStatus.Draft, newEvent.Status);
-        Assert.Equal(EventVisibility.Private, newEvent.Visibility);
         Assert.Equal(5, newEvent.MaxGuests);
+        Assert.Equal(EventVisibility.Private, newEvent.Visibility);
         Assert.Equal("Working Title", newEvent.Title.Value);
         Assert.Equal("", newEvent.Description.Value);
     }
     
     [Fact]
-    public void PublishEvent_Successfully_ChangesStatusToPublished()
+    public void CreateEvent_Success_SetEventTitleToWorkingTitle()
     {
-
-        var newEvent = VeaEvent.Create().Value;
-
         // Act
-        var result = newEvent.Publish();
+        var result = VeaEvent.Create();
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(EventStatus.Published, newEvent.Status);
+        var newEvent = result.Value;
+        Assert.NotNull(newEvent);
+        Assert.Equal("Working Title", newEvent.Title.Value);
     }
-
+    
     [Fact]
-    public void PublishEvent_Fails_WhenEventIsNotInDraftStatus()
+    public void CreateEvent_Success_SetEventDescriptionToEmptyString()
     {
-        // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        newEvent.Publish(); // Change status to Published
-
         // Act
-        var result = newEvent.Publish();
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidStatus", result.Errors.First().Code);
-    }
-
-    [Fact]
-    public void UpdateTitle_Successfully_ChangesTitle()
-    {
-
-        var description = "This is a test event.";
-        var newEvent = VeaEvent.Create().Value;
-        var newTitle = "Updated Title";
-
-        // Act
-        var result = newEvent.UpdateTitle(newTitle);
+        var result = VeaEvent.Create();
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(newTitle, newEvent.Title.Value);
+        var newEvent = result.Value;
+        Assert.NotNull(newEvent);
+        Assert.Equal("", newEvent.Description.Value);
     }
-
+    
     [Fact]
-    public void UpdateTitle_Fails_WhenTitleIsEmpty()
+    public void CreateEvent_Success_SetEventVisibilityToPrivate()
     {
-        
-        var newEvent = VeaEvent.Create().Value;
-        var newTitle = "";
-
         // Act
-        var result = newEvent.UpdateTitle(newTitle);
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidTitle", result.Errors.First().Code);
-    }
-
-    [Fact]
-    public void UpdateDescription_Successfully_ChangesDescription()
-    {
-
-        var newEvent = VeaEvent.Create().Value;
-        var newDescription = "Updated Description";
-
-        // Act
-        var result = newEvent.UpdateDescription(newDescription);
+        var result = VeaEvent.Create();
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(newDescription, newEvent.Description.Value);
+        var newEvent = result.Value;
+        Assert.NotNull(newEvent);
+        Assert.Equal(EventVisibility.Private, newEvent.Visibility);
     }
-
-    /*
-    [Fact]
-    public void UpdateDescription_Fails_WhenDescriptionIsEmpty()
-    {
-        // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        var newDescription = "";
-
-        // Act
-        var result = newEvent.UpdateDescription(newDescription);
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidDescription", result.Errors.First().Code);
-    }
-    */
 }
