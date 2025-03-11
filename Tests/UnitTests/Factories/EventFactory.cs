@@ -21,6 +21,19 @@ public class EventFactory
         _event.Status = status;
         return this;
     }
+    
+    public EventFactory WithTitle(EventTitle title)
+    {
+        _event.Title = title;
+        return this;
+    }
+    
+    public EventFactory WithDescription(EventDescription description)
+    {
+        _event.Description = description;
+        return this;
+    }
+
 
     public EventFactory WithTimeRange(DateTime start, DateTime end)
     {
