@@ -99,9 +99,6 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
             if (!timeRangeResult.IsSuccess)
                 return OperationResult<Unit>.Failure(timeRangeResult.Errors);
 
-            if (start < DateTime.Now)
-                return OperationResult<Unit>.Failure("InvalidStartTime", "Event cannot start in the past.");
-
             TimeRange = timeRangeResult.Value;
 
             if (Status == EventStatus.Ready)
@@ -145,20 +142,20 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
                 return OperationResult<Unit>.Failure("InvalidStatus", "A cancelled event cannot be modified.");
 
             if (maxGuests < 5)
-                return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests cannot be less than 5.");
+                return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests must be at least 5.");
 
             if (maxGuests > 50)
                 return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests cannot exceed 50.");
 
             if (Status == EventStatus.Active && maxGuests < MaxGuests)
-                return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests cannot be reduced for an active event.");
+                return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests for an active event cannot be reduced. It may only be increased.");
 
             MaxGuests = maxGuests;
 
             return OperationResult<Unit>.Success();
         }
 
-        public OperationResult<Unit> ReadyEvent()
+        public OperationResult<Unit> ReadyEvent() //TODO Constranits already in value objects
         {
             if (Status == EventStatus.Cancelled)
                 return OperationResult<Unit>.Failure("InvalidStatus", "A cancelled event cannot be readied.");
@@ -166,19 +163,22 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
             if (Status != EventStatus.Draft)
                 return OperationResult<Unit>.Failure("InvalidStatus", "Only events in Draft status can be readied.");
 
-            if (Title.Value == "Working Title" || string.IsNullOrWhiteSpace(Title.Value))
+            if (Title.Value == "Working Title")
                 return OperationResult<Unit>.Failure("InvalidTitle", "The title must be changed from the default value.");
 
-            if (string.IsNullOrWhiteSpace(Description.Value) && Description.Value == "")
+            if (string.IsNullOrWhiteSpace(Title.Value))
+                return OperationResult<Unit>.Failure("InvalidTitle", "The title cannot be empty");
+            
+            if (string.IsNullOrWhiteSpace(Description.Value))
                 return OperationResult<Unit>.Failure("InvalidDescription", "The description must be set.");
-
+            
             if (TimeRange == null)
                 return OperationResult<Unit>.Failure("InvalidTimeRange", "The event times must be set.");
 
-            if (Visibility == EventVisibility.Private && MaxGuests < 5)
+            if (MaxGuests <= 5 || MaxGuests >= 50)
                 return OperationResult<Unit>.Failure("InvalidMaxGuests", "The maximum number of guests must be between 5 and 50.");
 
-            if (TimeRange.Start < DateTime.Now)
+            if (TimeRange.Start < DateTime.Now || TimeRange.End < DateTime.Now)
                 return OperationResult<Unit>.Failure("InvalidTimeRange", "An event in the past cannot be readied.");
 
             Status = EventStatus.Ready;

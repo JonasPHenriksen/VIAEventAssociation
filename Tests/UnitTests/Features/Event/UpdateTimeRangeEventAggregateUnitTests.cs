@@ -17,6 +17,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("08:00", "12:15")]
         [InlineData("10:00", "20:00")]
         [InlineData("13:00", "23:00")]
+        [InlineData("18:00", "01:00")]
         public void UpdateTimeRange_Success_WhenEventIsInDraftStatusAndConditionsAreMet(string startTimeStr, string endTimeStr)
         {
             // Arrange
@@ -32,7 +33,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
-            Assert.Equal(endTime, newEvent.TimeRange.End);
+            Assert.Equal(endTime > startTime ? endTime : endTime.AddDays(1), newEvent.TimeRange.End);
         }
 
         [Theory]
@@ -131,7 +132,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         public void UpdateTimeRange_Fails_WhenStartDateIsAfterEndDate(string startTimeStr, string endTimeStr)
         {
             var newEvent = EventFactory.Init().Build();
-            var startTime = GetFutureDate(startTimeStr);
+            var startTime = GetFutureDate(startTimeStr).AddDays(1);
             var endTime = GetFutureDate(endTimeStr);
 
             var result = newEvent.UpdateTimeRange(startTime, endTime);
@@ -186,7 +187,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         {
             var newEvent = EventFactory.Init().Build();
             var startTime = GetFutureDate(startTimeStr);
-            var endTime = GetFutureDate(endTimeStr);
+            var endTime = GetFutureDate(endTimeStr).AddDays(1);
             var duration = endTime - startTime;
 
             Assert.True(duration.TotalMinutes < 60);
@@ -212,7 +213,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var result = newEvent.UpdateTimeRange(startTime, endTime);
 
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event start time must be after 08:00 AM.", result.Errors.First().Message);
+            Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
         }
 
         [Theory]
@@ -225,10 +226,10 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var startTime = GetFutureDate(startTimeStr);
             var endTime = GetFutureDate(endTimeStr);
 
-            var result = newEvent.UpdateTimeRange(startTime, endTime);
+            var result = newEvent.UpdateTimeRange(startTime, endTime.AddDays(1));
 
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event end time must be before 01:00 AM.", result.Errors.First().Message);
+            Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
         }
 
         [Theory]
@@ -249,7 +250,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var result = newEvent.UpdateTimeRange(startTime, endTime);
 
             Assert.False(result.IsSuccess);
-            Assert.Equal("Times cannot be modified when the event is active.", result.Errors.First().Message);
+            Assert.Equal("Time range can only be updated when the event is in Draft or Ready status.", result.Errors.First().Message);
         }
 
         [Theory]
@@ -270,22 +271,24 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var result = newEvent.UpdateTimeRange(startTime, endTime);
 
             Assert.False(result.IsSuccess);
-            Assert.Equal("Cancelled events cannot be modified.", result.Errors.First().Message);
+            Assert.Equal("Time range can only be updated when the event is in Draft or Ready status.", result.Errors.First().Message);
         }
 
         [Theory]
         [InlineData("08:00", "18:01")]
         [InlineData("14:59", "01:00")]
         [InlineData("14:00", "00:01")]
-        [InlineData("14:00", "18:30")]
+        [InlineData("10:00", "21:00")]
         public void UpdateTimeRange_Fails_WhenEventDurationIsLongerThanTenHours(string startTimeStr, string endTimeStr)
         {
             var newEvent = EventFactory.Init().Build();
             var startTime = GetFutureDate(startTimeStr);
             var endTime = GetFutureDate(endTimeStr);
-            var duration = endTime - startTime;
-
-            Assert.True(duration.TotalHours > 10);
+            
+            if (startTime > endTime)
+            {
+                endTime = endTime.AddDays(1);
+            }
 
             var result = newEvent.UpdateTimeRange(startTime, endTime);
 
@@ -321,11 +324,16 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var newEvent = EventFactory.Init().Build();
             var startTime = GetFutureDate(startTimeStr);
             var endTime = GetFutureDate(endTimeStr);
-
+            
+            if (startTime > endTime)
+            {
+                endTime = endTime.AddDays(1);
+            }
+            
             var result = newEvent.UpdateTimeRange(startTime, endTime);
 
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event duration cannot span the invalid time between 01:00 AM and 08:00 AM.", result.Errors.First().Message);
+            Assert.Equal("Event cannot span from 1:00 AM to 08:00 AM.", result.Errors.First().Message);
         }
     }
 }
