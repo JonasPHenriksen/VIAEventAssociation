@@ -6,27 +6,19 @@ namespace UnitTests.Features.Event.CreateEvent;
 
 public class ReadyEventUnitTests
 {
-    private DateTime GetTestDate()
-    {
-        return DateTime.Now.AddYears(1).Date.Add(new TimeSpan(13, 30, 22));
-    }
-
-    private DateTime GetPastDateWithOneYearSubtracted()
-    {
-        return DateTime.Now.AddYears(-1);
-    }
 
     [Fact]
-    public void ReadyEvent_Success_WhenAllFieldsAreValid()
+    public void ReadyEvent_Success_WhenAllRequiredDataIsValid()
     {
         // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        var futureDate = GetTestDate();
-        newEvent.UpdateTitle("Test Title");
-        newEvent.UpdateDescription("Test Description");
-        newEvent.UpdateTimeRange(futureDate, futureDate.AddHours(4)); // Event set to a future date
-        newEvent.SetMaxGuests(10);
-        newEvent.MakePublic();
+        var newEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Draft)
+            .WithTitle(new EventTitle("Event Title"))
+            .WithDescription(new EventDescription("Event Description"))
+            .WithTimeRange(DateTime.UtcNow.AddHours(1), DateTime.UtcNow.AddHours(3))
+            .WithVisibility(EventVisibility.Public)
+            .WithMaxGuests(10)
+            .Build();
 
         // Act
         var result = newEvent.ReadyEvent();
@@ -36,95 +28,103 @@ public class ReadyEventUnitTests
         Assert.Equal(EventStatus.Ready, newEvent.Status);
     }
 
+    [Theory] //TODO time is not dynamic will fail in the future
+    [InlineData("", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The title cannot be empty")]
+    [InlineData("Working Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The title must be changed from the default value.")]
+    [InlineData("Title", "", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The description must be set.")]
+    [InlineData("Title", "Description", "0001-01-01T00:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "An event in the past cannot be readied.")]
+    [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "0001-01-01T00:00:00Z", EventVisibility.Private, 10, "An event in the past cannot be readied.")]
+    [InlineData("Title", "Description", null, null, EventVisibility.Private, 10, "The event times must be set.")]
+    //[InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", null, 10, "Visibility must be set.")] visibility cannot be null
+    [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Public, 4, "The maximum number of guests must be between 5 and 50.")]
+    [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Public, 51, "The maximum number of guests must be between 5 and 50.")]
+    public void ReadyEvent_Fails_WhenRequiredDataIsMissingOrInvalid(
+        string title, string description, string startTime, string endTime, EventVisibility visibility, int maxGuests, string expectedError)
+    {
+        // Arrange
+        var newEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Draft)
+            .WithTitle(new EventTitle(title))
+            .WithDescription(new EventDescription(description))
+            .WithTimeRange(DateTime.Parse(startTime), DateTime.Parse(endTime))
+            .WithVisibility(visibility)
+            .WithMaxGuests(maxGuests)
+            .Build();
+
+        // Act
+        var result = newEvent.ReadyEvent();
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(expectedError, result.Errors.First().Message);
+        Assert.Equal(EventStatus.Draft, newEvent.Status);
+    }
+    
     [Fact]
     public void ReadyEvent_Fails_WhenEventIsCancelled()
     {
         // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        SetEventStatus(newEvent, EventStatus.Cancelled); // Set status to Cancelled
+        var newEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Cancelled)
+            .WithTitle(new EventTitle("Event Title"))
+            .WithDescription(new EventDescription("Event Description"))
+            .WithTimeRange(DateTime.UtcNow.AddYears(1), DateTime.UtcNow.AddYears(1).AddHours(3))
+            .WithVisibility(EventVisibility.Public)
+            .WithMaxGuests(10)
+            .Build();
 
         // Act
         var result = newEvent.ReadyEvent();
 
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidStatus", result.Errors.First().Code);
+        Assert.Equal("A cancelled event cannot be readied.", result.Errors.First().Message);
+        Assert.Equal(EventStatus.Cancelled, newEvent.Status);
     }
-
-    [Fact]
-    public void ReadyEvent_Fails_WhenEventIsNotInDraftStatus()
-    {
-        // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        SetEventStatus(newEvent, EventStatus.Ready); // Set status to Ready
-
-        // Act
-        var result = newEvent.ReadyEvent();
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidStatus", result.Errors.First().Code);
-    }
-
-    [Fact]
-    public void ReadyEvent_Fails_WhenTitleIsDefault()
-    {
-        // Arrange
-        var newEvent = VeaEvent.Create().Value; // Default title
-
-        // Act
-        var result = newEvent.ReadyEvent();
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidTitle", result.Errors.First().Code);
-    }
-
-    [Fact]
-    public void ReadyEvent_Fails_WhenTimeRangeIsNotSet()
-    {
-        // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        newEvent.UpdateTitle("Test Title");
-        newEvent.UpdateDescription("Test Description");
-
-        // Act
-        var result = newEvent.ReadyEvent();
-
-        // Assert
-        Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidTimeRange", result.Errors.First().Code);
-    }
-
+    
     [Fact]
     public void ReadyEvent_Fails_WhenEventIsInThePast()
     {
         // Arrange
-        var newEvent = VeaEvent.Create().Value;
-        var pastDate = GetPastDateWithOneYearSubtracted();
-        newEvent.UpdateTimeRange(pastDate, pastDate.AddHours(4)); // Past event
-        newEvent.UpdateTitle("Test Title");
-        newEvent.UpdateDescription("Test Description");
+        var newEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Draft)
+            .WithTitle(new EventTitle("Event Title"))
+            .WithDescription(new EventDescription("Event Description"))
+            .WithTimeRange(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(-1).AddHours(3)) // Start time in the past
+            .WithVisibility(EventVisibility.Public)
+            .WithMaxGuests(10)
+            .Build();
 
         // Act
         var result = newEvent.ReadyEvent();
 
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal("InvalidTimeRange", result.Errors.First().Code);
+        Assert.Equal("An event in the past cannot be readied.", result.Errors.First().Message);
+        Assert.Equal(EventStatus.Draft, newEvent.Status);
+    }
+    
+    [Fact]
+    public void ReadyEvent_Fails_WhenTitleIsDefault()
+    {
+        // Arrange
+        var newEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Draft)
+            .WithTitle(new EventTitle("Default Title")) // Default title
+            .WithDescription(new EventDescription("Event Description"))
+            .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(3))
+            .WithVisibility(EventVisibility.Public)
+            .WithMaxGuests(10)
+            .Build();
+
+        // Act
+        var result = newEvent.ReadyEvent();
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal("The title must be changed from the default.", result.Errors.First().Message);
+        Assert.Equal(EventStatus.Draft, newEvent.Status);
     }
 
-    // Helper method to set the status using reflection
-    private void SetEventStatus(VeaEvent veaEvent, EventStatus status)
-    {
-        var statusProperty = typeof(VeaEvent).GetProperty("Status", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-        if (statusProperty != null && statusProperty.CanWrite)
-        {
-            statusProperty.SetValue(veaEvent, status);
-        }
-        else
-        {
-            throw new InvalidOperationException("Unable to set Status property.");
-        }
-    }
+
 }
