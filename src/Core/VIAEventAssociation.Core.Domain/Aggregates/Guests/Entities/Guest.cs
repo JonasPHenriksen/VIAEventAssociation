@@ -3,10 +3,10 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 public class Guest
 {
-    internal Email Email { get; }
-    internal Name FirstName { get; }
-    internal Name LastName { get; }
-    internal Uri ProfilePictureUrl { get; }
+    internal Email Email { get; set; }
+    internal Name FirstName { get; set; }
+    internal Name LastName { get; set; }
+    internal Uri ProfilePictureUrl { get; set; }
     
     internal GuestId GuestId { get; }
 

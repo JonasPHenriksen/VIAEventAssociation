@@ -14,7 +14,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.Participate(guest.GuestId);
 
@@ -32,7 +32,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.Participate(guest.GuestId);
 
@@ -50,7 +50,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.Participate(guest.GuestId);
 
@@ -68,7 +68,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.Participate(guest.GuestId);
 
@@ -86,10 +86,10 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guests = Enumerable.Range(0, 5).Select(_ => GuestFactory.CreateGuest()).ToList();
+        var guests = Enumerable.Range(0, 5).Select(_ => GuestFactory.Init().Build().Value).ToList();
         guests.ForEach(g => newEvent.Participate(g.GuestId));
 
-        var extraGuest = GuestFactory.CreateGuest();
+        var extraGuest = GuestFactory.Init().Build().Value;
         var result = newEvent.Participate(extraGuest.GuestId);
 
         Assert.False(result.IsSuccess);
@@ -107,7 +107,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         var result = newEvent.Participate(guest.GuestId);
 
         Assert.False(result.IsSuccess);
@@ -122,8 +122,8 @@ public class ParticipateInEventUnitTests
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
             .WithMaxGuests(10)
             .Build();
-
-        var guest = GuestFactory.CreateGuest();
+        
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.Participate(guest.GuestId);
 
@@ -141,7 +141,7 @@ public class ParticipateInEventUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.Participate(guest.GuestId);
 
         var result = newEvent.Participate(guest.GuestId);

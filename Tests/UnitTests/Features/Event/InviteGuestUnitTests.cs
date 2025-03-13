@@ -17,7 +17,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Ready)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
 
         var result = newEvent.InviteGuest(guestId);
 
@@ -35,7 +35,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
 
         var result = newEvent.InviteGuest(guestId);
 
@@ -53,7 +53,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Draft)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
 
         var result = newEvent.InviteGuest(guestId);
 
@@ -71,7 +71,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Cancelled)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
 
         var result = newEvent.InviteGuest(guestId);
 
@@ -91,10 +91,10 @@ public class InviteGuestUnitTests
 
         for (int i = 0; i < 5; i++)
         {
-            newEvent.InviteGuest(GuestFactory.CreateGuest().GuestId);
+            newEvent.InviteGuest(GuestFactory.Init().Build().Value.GuestId);
         }
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
         var result = newEvent.InviteGuest(guestId);
 
         Assert.False(result.IsSuccess);
@@ -111,7 +111,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
         newEvent.InviteGuest(guestId);
 
         var result = newEvent.InviteGuest(guestId);
@@ -130,7 +130,7 @@ public class InviteGuestUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guestId = GuestFactory.CreateGuest().GuestId;
+        var guestId = GuestFactory.Init().Build().Value.GuestId;
         newEvent.Participate(guestId);
 
         var result = newEvent.InviteGuest(guestId);

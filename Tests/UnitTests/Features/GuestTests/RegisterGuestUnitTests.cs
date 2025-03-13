@@ -16,10 +16,10 @@ namespace UnitTests.Features.GuestTests
         [Fact]
         public void CreateGuest_Succeeds_WhenAllFieldsAreValidStudent()
         {
-            var result = GuestFactory.Init().WithEmail(ValidEmail)
-                                      .WithFirstName(ValidFirstName)
-                                      .WithLastName(ValidLastName)
-                                      .WithProfilePicture(ValidProfilePictureUrl)
+            var result = GuestFactory.Init().WithEmail(new Email(ValidEmail))
+                                      .WithFirstName(new Name(ValidFirstName))
+                                      .WithLastName(new Name(ValidLastName))
+                                      .WithProfilePicture(new Uri(ValidProfilePictureUrl))
                                       .Build();
 
             Assert.True(result.IsSuccess);
@@ -30,10 +30,10 @@ namespace UnitTests.Features.GuestTests
         [Fact]
         public void CreateGuest_Succeeds_WhenAllFieldsAreValidLector()
         {
-            var result = GuestFactory.Init().WithEmail(ValidEmail2)
-                .WithFirstName(ValidFirstName)
-                .WithLastName(ValidLastName)
-                .WithProfilePicture(ValidProfilePictureUrl)
+            var result = GuestFactory.Init().WithEmail(new Email(ValidEmail2))
+                .WithFirstName(new Name(ValidFirstName))
+                .WithLastName(new Name(ValidLastName))
+                .WithProfilePicture(new Uri(ValidProfilePictureUrl))
                 .Build();
 
             Assert.True(result.IsSuccess);

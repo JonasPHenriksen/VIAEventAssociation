@@ -7,7 +7,7 @@ public class Email
 {
     public string Value { get; }
 
-    private Email(string value)
+    internal Email(string value)
     {
         Value = value.ToLower();
     }

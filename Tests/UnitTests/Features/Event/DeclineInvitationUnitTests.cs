@@ -17,7 +17,7 @@ public class DeclineInvitationUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.InviteGuest(guest.GuestId);
 
         var result = newEvent.DeclineInvitation(guest.GuestId);
@@ -37,7 +37,7 @@ public class DeclineInvitationUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         var result1 = newEvent.InviteGuest(guest.GuestId);
         var result2 = newEvent.AcceptInvitation(guest.GuestId);
 
@@ -58,7 +58,7 @@ public class DeclineInvitationUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.DeclineInvitation(guest.GuestId);
 
@@ -76,7 +76,7 @@ public class DeclineInvitationUnitTests
             .WithStatus(EventStatus.Active)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.InviteGuest(guest.GuestId);
 
         newEvent.Status = EventStatus.Cancelled;
