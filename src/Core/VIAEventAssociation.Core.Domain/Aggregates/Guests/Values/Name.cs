@@ -7,7 +7,7 @@ public class Name
 {
     public string Value { get; }
 
-    private Name(string value)
+    internal Name(string value)
     {
         Value = value;
     }

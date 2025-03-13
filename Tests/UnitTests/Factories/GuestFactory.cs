@@ -5,49 +5,46 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 public class GuestFactory
 {
+    private Guest _guest;
     private string _email;
     private string _firstName;
     private string _lastName;
     private string _profilePictureUrl;
 
-    public static GuestFactory Init() => new GuestFactory();
-    public GuestFactory WithEmail(string email)
+    public GuestFactory()
     {
-        _email = email;
+        _guest = Guest.Create("330943@via.dk","Jonas","Henriksen", "https://www.example.com/path/to/resource").Value;
+    }
+    public static GuestFactory Init()
+    {
+        return new GuestFactory();
+    }
+    public GuestFactory WithEmail(Email email)
+    {
+        _guest.Email = email;
         return this;
     }
 
-    public GuestFactory WithFirstName(string firstName)
+    public GuestFactory WithFirstName(Name firstName)
     {
-        _firstName = firstName;
+        _guest.FirstName = firstName;
         return this;
     }
 
-    public GuestFactory WithLastName(string lastName)
+    public GuestFactory WithLastName(Name lastName)
     {
-        _lastName = lastName;
+        _guest.LastName = lastName;
         return this;
     }
     
-    public GuestFactory WithProfilePicture(string imageUrl)
+    public GuestFactory WithProfilePicture(Uri imageUrl)
     {
-        _profilePictureUrl = imageUrl;
+        _guest.ProfilePictureUrl = imageUrl;
         return this;
     }
 
     public OperationResult<Guest> Build()
     {
-        return Guest.Create(_email, _firstName, _lastName, _profilePictureUrl);
-    }
-
-    // Method to easily create a guest with default values
-    public static Guest CreateGuest()
-    {
-        return new GuestFactory()
-            .WithEmail("user123@via.dk")
-            .WithFirstName("John")
-            .WithLastName("Doe")
-            .WithProfilePicture("https://www.example.com/path/to/resource")
-            .Build().Value;
+        return _guest;
     }
 }

@@ -14,7 +14,7 @@ public class CancelParticipationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.Participate(guest.GuestId);
         var result = newEvent.CancelParticipation(guest.GuestId);
 
@@ -32,7 +32,7 @@ public class CancelParticipationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
 
         var result = newEvent.CancelParticipation(guest.GuestId);
 
@@ -51,7 +51,7 @@ public class CancelParticipationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.Participate(guest.GuestId);
 
         newEvent.TimeRange = new EventTimeRange(pastDate,pastDate.AddHours(4));

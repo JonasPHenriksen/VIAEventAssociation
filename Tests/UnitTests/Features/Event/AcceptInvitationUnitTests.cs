@@ -15,7 +15,7 @@ public class AcceptInvitationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         
         var inviteResult = newEvent.InviteGuest(guest.GuestId);
 
@@ -40,7 +40,7 @@ public class AcceptInvitationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest(); // Guest who was never invited
+        var guest = GuestFactory.Init().Build().Value; // Guest who was never invited
 
         // Act
         var result = newEvent.AcceptInvitation(guest.GuestId);
@@ -62,7 +62,7 @@ public class AcceptInvitationUnitTests
             .Build();
         
         var guests = Enumerable.Range(0, 6)
-            .Select(_ => GuestFactory.CreateGuest())
+            .Select(_ => GuestFactory.Init().Build().Value)
             .ToList();
 
         foreach (var guest in guests)
@@ -94,7 +94,7 @@ public class AcceptInvitationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
         
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.InviteGuest(guest.GuestId);
 
         newEvent.Status = EventStatus.Cancelled;
@@ -119,7 +119,7 @@ public class AcceptInvitationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         newEvent.InviteGuest(guest.GuestId);
 
         newEvent.Status = EventStatus.Ready;
@@ -143,7 +143,7 @@ public class AcceptInvitationUnitTests
             .WithVisibility(EventVisibility.Public)
             .Build();
 
-        var guest = GuestFactory.CreateGuest();
+        var guest = GuestFactory.Init().Build().Value;
         var result2 = newEvent.InviteGuest(guest.GuestId);
         
         newEvent.TimeRange = new EventTimeRange(pastDate, pastDate.AddHours(4));
