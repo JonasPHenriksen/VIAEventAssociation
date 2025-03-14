@@ -18,10 +18,6 @@ public class GuestService
             return OperationResult<Guest>.Failure("GuestExists", "A guest with this email already exists.");
 
         var guestResult = Guest.Create(email, firstName, lastName, profilePictureUrl);
-        if (!guestResult.IsSuccess)
-            return guestResult;
-
-        await _guestRepository.SaveAsync(guestResult.Value);
         return guestResult;
     }
 }

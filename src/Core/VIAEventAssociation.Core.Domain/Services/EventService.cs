@@ -11,19 +11,19 @@ namespace VIAEventAssociation.Core.Domain.Services
             return veaEvent.Publish();
         }
 
-        public OperationResult<Unit> UpdateEventDescription(VeaEvent veaEvent, string newDescription)
+        public OperationResult<Unit> UpdateEventDescription(VeaEvent veaEvent, EventDescription newDescription)
         {
             return veaEvent.UpdateDescription(newDescription);
         }
 
-        public OperationResult<Unit> UpdateEventTitle(VeaEvent veaEvent, string newTitle)
+        public OperationResult<Unit> UpdateEventTitle(VeaEvent veaEvent, EventTitle newTitle)
         {
             return veaEvent.UpdateTitle(newTitle);
         }
 
-        public OperationResult<Unit> UpdateEventTimeRange(VeaEvent veaEvent, DateTime start, DateTime end)
+        public OperationResult<Unit> UpdateEventTimeRange(VeaEvent veaEvent, EventTimeRange newTimeRange)
         {
-            return veaEvent.UpdateTimeRange(start, end);
+            return veaEvent.UpdateTimeRange(newTimeRange);
         }
 
         public OperationResult<Unit> MakeEventPublic(VeaEvent veaEvent)
