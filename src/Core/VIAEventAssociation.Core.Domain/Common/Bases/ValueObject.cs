@@ -13,7 +13,6 @@ public abstract class ValueObject
 
     protected abstract IEnumerable<object> GetEqualityComponents();
 
-    // what are we doing here ? https://www.codingame.com/playgrounds/213/using-c-linq---a-practical-overview/aggregate
     public override int GetHashCode()
     {
         return GetEqualityComponents()

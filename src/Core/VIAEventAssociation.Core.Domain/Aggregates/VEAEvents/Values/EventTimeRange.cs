@@ -1,4 +1,6 @@
 using VIAEventAssociation.Core.Tools.OperationResult;
+using VIAEventAssociation.Core.Domain.Common;
+using VIAEventAssociation.Core.Domain.Contracts;
 
 namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 {
@@ -6,14 +8,14 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
     {
         private static readonly TimeSpan RestrictedStartTime = new TimeSpan(1, 1, 0); // 01:01 AM
         private static readonly TimeSpan RestrictedEndTime = new TimeSpan(7, 59, 0);   // 07:59 AM
-        
-        public static OperationResult<EventTimeRange> Create(DateTime start, DateTime end)
+
+        public static OperationResult<EventTimeRange> Create(DateTime start, DateTime end, ISystemTime systemTime)
         {
-            if (DateTime.Now > end || DateTime.Now > start)
-                return OperationResult<EventTimeRange>.Failure("InvalidDuration","Events cannot be started in the past.");
-            
+            if (systemTime.Now > end || systemTime.Now > start)
+                return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Events cannot be started in the past.");
+
             var duration = end - start;
-            
+
             if (duration.TotalSeconds < 0)
             {
                 if (start.Date != end.Date)
@@ -22,7 +24,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
                 }
                 return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Start time must be before end time.");
             }
-            
+
             if (duration.TotalMinutes < 60)
                 return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Event duration must be at least 1 hour.");
 
@@ -31,7 +33,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 
             if (duration.TotalHours > 10)
                 return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Event duration cannot exceed 10 hours.");
-            
+
             // Check if the event starts or ends within the restricted time range (01:01 AM to 07:59 AM)
             if (IsTimeInRestrictedRange(start.TimeOfDay) || IsTimeInRestrictedRange(end.TimeOfDay) || DoesEventSpanRestrictedRange(start, end))
             {

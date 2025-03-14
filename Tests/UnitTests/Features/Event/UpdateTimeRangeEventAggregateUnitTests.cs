@@ -1,4 +1,5 @@
 using UnitTests.Factories;
+using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 using Xunit;
 
@@ -102,23 +103,29 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         }
 
         [Theory]
-        [InlineData("19:00", "23:59")]
-        [InlineData("12:00", "16:30")]
-        [InlineData("08:00", "12:15")]
-        [InlineData("10:00", "20:00")]
-        [InlineData("13:00", "23:00")]
-        [InlineData("19:00", "01:00")]
+        [InlineData("2020-01-01T12:00:00", "2020-01-01T16:30:00")] // Same day
+        [InlineData("2020-01-01T08:00:00", "2020-01-01T12:15:00")] // Same day
+        [InlineData("2020-01-01T10:00:00", "2020-01-01T20:00:00")] // Same day
+        [InlineData("2020-01-01T13:00:00", "2020-01-01T23:00:00")] // Same day
+        [InlineData("2020-01-01T19:00:00", "2020-01-02T01:00:00")] // Spans midnight
         public void UpdateTimeRange_Success_WhenDurationIs10HoursOrLess(string startTimeStr, string endTimeStr)
         {
+            //TODO Make the timeRange tests like this
+            // Arrange
+            var mockSystemTime = new MockTime.SystemTime(); // Use the mock system time
             var newEvent = EventFactory.Init().Build();
-            var startTime = GetFutureDate(startTimeStr);
-            var endTime = GetFutureDate(endTimeStr);
+            var startTime = DateTime.Parse(startTimeStr);
+            var endTime = DateTime.Parse(endTimeStr);
             var duration = endTime - startTime;
-
+            
+            // Assert preconditions
             Assert.True(duration.TotalHours <= 10);
+            var timeRange = EventTimeRange.Create(startTime, endTime,mockSystemTime);
+            
+            // Act
+            var result = newEvent.UpdateTimeRange(timeRange.Value);
 
-            var result = newEvent.UpdateTimeRange(startTime, endTime);
-
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
             Assert.Equal(endTime, newEvent.TimeRange.End);

@@ -13,14 +13,15 @@ namespace UnitTests.Features.Event.CreateEvent
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Draft)
                 .Build();
-            var newDescription = "Updated Description";
+            
+            var newDescription = new EventDescription("New event description"); 
 
             // Act
             var result = newEvent.UpdateDescription(newDescription);
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(newDescription, newEvent.Description.Value);
+            Assert.Equal(newDescription.Value, newEvent.Description.Value);
         }
         
         [Fact]
@@ -30,13 +31,15 @@ namespace UnitTests.Features.Event.CreateEvent
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Draft)
                 .Build();
-
+            
+            var newEventDescription = new EventDescription("");
+            
             // Act
-            var result = newEvent.UpdateDescription("");
+            var result = newEvent.UpdateDescription(newEventDescription);
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal("", newEvent.Description.Value);
+            Assert.Equal(newEventDescription.Value, newEvent.Description.Value);
         }
 
         [Fact]

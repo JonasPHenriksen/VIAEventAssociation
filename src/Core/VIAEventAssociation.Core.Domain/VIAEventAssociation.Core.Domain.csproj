@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="Aggregates\Guests\Contracts\" />
-      <Folder Include="Aggregates\Locations\Contracts\" />
       <Folder Include="Aggregates\VEAEvents\Contracts\" />
       <Folder Include="Common\Values\" />
     </ItemGroup>

@@ -1,4 +1,3 @@
-using UnitTests.Common;
 using UnitTests.Factories;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 
