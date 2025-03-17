@@ -19,6 +19,8 @@ public class Guest
         GuestId = new GuestId(Guid.NewGuid());
     }
 
+    //TODO change the create method to take value objects with operation result to gather all the errors.
+    
     public static OperationResult<Guest> Create(string email, string firstName, string lastName, string profilePictureUrl)
     {
         var errors = new List<Error>();

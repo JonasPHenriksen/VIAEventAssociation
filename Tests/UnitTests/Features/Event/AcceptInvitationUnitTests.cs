@@ -1,5 +1,7 @@
 using UnitTests.Factories;
+using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
+using VIAEventAssociation.Core.Domain.Contracts;
 
 public class AcceptInvitationUnitTests
 {
@@ -134,18 +136,15 @@ public class AcceptInvitationUnitTests
     [Fact]
     public void AcceptInvitation_Fails_WhenEventHasStarted()
     {
-        // Arrange
-        var pastDate = DateTime.Now.AddYears(-1);
+
         var newEvent = EventFactory.Init()
-            .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
+            .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00"))
             .WithMaxGuests(5)
             .WithVisibility(EventVisibility.Public)
             .Build();
 
         var guest = GuestFactory.Init().Build().Value;
         var result2 = newEvent.InviteGuest(guest.GuestId);
-        
-        newEvent.TimeRange = new EventTimeRange(pastDate, pastDate.AddHours(4));
         
         // Act
         var result = newEvent.AcceptInvitation(guest.GuestId);

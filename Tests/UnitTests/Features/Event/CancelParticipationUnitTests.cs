@@ -42,10 +42,9 @@ public class CancelParticipationUnitTests
     [Fact]
     public void CancelParticipation_Fails_WhenEventHasStarted()
     {
-        var pastDate = DateTime.Now.AddYears(-1);
         var newEvent = EventFactory.Init()
             .WithStatus(EventStatus.Active)
-            .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
+            .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00"))
             .WithMaxGuests(10)
             .WithVisibility(EventVisibility.Public)
             .Build();
@@ -53,7 +52,6 @@ public class CancelParticipationUnitTests
         var guest = GuestFactory.Init().Build().Value;
         newEvent.Participate(guest.GuestId);
 
-        newEvent.TimeRange = new EventTimeRange(pastDate,pastDate.AddHours(4));
         var result = newEvent.CancelParticipation(guest.GuestId);
 
         Assert.False(result.IsSuccess);

@@ -1,4 +1,6 @@
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Contracts;
+using VIAEventAssociation.Core.Domain.Services;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
@@ -175,8 +177,8 @@ public class VeaEvent
         if (MaxGuests <= 5 || MaxGuests >= 50)
             return OperationResult<Unit>.Failure("InvalidMaxGuests",
                 "The maximum number of guests must be between 5 and 50.");
-
-        if (TimeRange.Start < DateTime.Now || TimeRange.End < DateTime.Now)
+            
+        if (TimeRange.Start < TimeRange.GetCurrentTime() || TimeRange.End < TimeRange.GetCurrentTime())
             return OperationResult<Unit>.Failure("InvalidTimeRange", "An event in the past cannot be readied.");
 
         Status = EventStatus.Ready;

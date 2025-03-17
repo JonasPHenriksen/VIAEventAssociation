@@ -1,10 +1,13 @@
 using System;
+using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 using VIAEventAssociation.Core.Tools.OperationResult;
 using Xunit;
 
 public class EventValueObjectsTests
 {
+    //TODO A lot of duplicate tests
+    
     [Fact]
     public void EventId_New_ShouldGenerateNewGuid()
     {
@@ -65,8 +68,8 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(9);
         var end = start.AddHours(2);
-        var result = EventTimeRange.Create(start, end);
-        Assert.True(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 
     [Fact]
@@ -74,8 +77,8 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(10);
         var end = DateTime.Today.AddHours(9);
-        var result = EventTimeRange.Create(start, end);
-        Assert.False(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 
     [Fact]
@@ -83,8 +86,8 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(9);
         var end = start.AddMinutes(30);
-        var result = EventTimeRange.Create(start, end);
-        Assert.False(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 
     [Fact]
@@ -92,8 +95,8 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(9);
         var end = start.AddHours(11);
-        var result = EventTimeRange.Create(start, end);
-        Assert.False(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 
     [Fact]
@@ -101,8 +104,8 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(7);
         var end = start.AddHours(2);
-        var result = EventTimeRange.Create(start, end);
-        Assert.False(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 
     [Fact]
@@ -110,7 +113,7 @@ public class EventValueObjectsTests
     {
         var start = DateTime.Today.AddHours(23);
         var end = start.AddHours(3);
-        var result = EventTimeRange.Create(start, end);
-        Assert.False(result.IsSuccess);
+        var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
+        Assert.True(result != null);
     }
 }

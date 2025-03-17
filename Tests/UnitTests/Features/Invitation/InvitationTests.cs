@@ -102,22 +102,27 @@ namespace VIAEventAssociation.Core.Tests.Domain.Aggregates.VEAEvents
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("InvalidEventId", result.Errors[0].Code);
+            Assert.Equal("InvalidData", result.Errors[0].Code);
         }
 
         // Edge Cases
         [Fact]
-        public void Equals_TwoInvitationsWithSameIds_ShouldBeEqual()
+        public void Create_InvitationWithSameIds_ShouldReturnFailure()
         {
             // Arrange
             var eventId = EventId.New();
             var guestId = GuestId.New();
-            var invitation1 = Invitation.Create(eventId, guestId).Value;
-            var invitation2 = Invitation.Create(eventId, guestId).Value;
+    
+            // Act
+            var result1 = Invitation.Create(eventId, guestId);
+            var result2 = Invitation.Create(eventId, guestId);
 
             // Assert
-            Assert.True(invitation1.Equals(invitation2));
-            Assert.Equal(invitation1.GetHashCode(), invitation2.GetHashCode());
+            Assert.True(result1.IsSuccess);
+            Assert.False(result2.IsSuccess);
+            Assert.Equal("Duplicate", result2.Errors.First().Code);
+            Assert.Equal("An invitation with the same credentials already exists.", result2.Errors.First().Message);
         }
+
     }
 }

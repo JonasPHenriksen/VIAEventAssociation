@@ -14,7 +14,7 @@ public class Email
 
     public static OperationResult<Email> Create(string email)
     {
-        var regex = new Regex(@"^[a-zA-Z]{3,4}@via\.dk$|^\d{6}@via\.dk$");
+        var regex = new Regex(@"^(?i)[a-zA-Z]{3,4}@via\.dk$|^\d{6}@via\.dk$");
         if (!regex.IsMatch(email))
             return OperationResult<Email>.Failure("InvalidEmail", "Email must be a valid VIA domain email address.");
 
