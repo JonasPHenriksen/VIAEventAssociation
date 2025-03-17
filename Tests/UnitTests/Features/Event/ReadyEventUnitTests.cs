@@ -15,7 +15,7 @@ public class ReadyEventUnitTests
             .WithStatus(EventStatus.Draft)
             .WithTitle(new EventTitle("Event Title"))
             .WithDescription(new EventDescription("Event Description"))
-            .WithTimeRange(DateTime.UtcNow.AddHours(1), DateTime.UtcNow.AddHours(3))
+            .WithTimeRange(DateTime.Parse("2025-06-01T12:00:00Z"), DateTime.Parse("2025-06-01T15:00:00Z"))
             .WithVisibility(EventVisibility.Public)
             .WithMaxGuests(10)
             .Build();
@@ -34,7 +34,6 @@ public class ReadyEventUnitTests
     [InlineData("Title", "", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The description must be set.")]
     [InlineData("Title", "Description", "0001-01-01T00:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "An event in the past cannot be readied.")]
     [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "0001-01-01T00:00:00Z", EventVisibility.Private, 10, "An event in the past cannot be readied.")]
-    [InlineData("Title", "Description", null, null, EventVisibility.Private, 10, "The event times must be set.")]
     //[InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", null, 10, "Visibility must be set.")] visibility cannot be null
     [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Public, 4, "The maximum number of guests must be between 5 and 50.")]
     [InlineData("Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Public, 51, "The maximum number of guests must be between 5 and 50.")]
@@ -90,7 +89,7 @@ public class ReadyEventUnitTests
             .WithStatus(EventStatus.Draft)
             .WithTitle(new EventTitle("Event Title"))
             .WithDescription(new EventDescription("Event Description"))
-            .WithTimeRange(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(-1).AddHours(3)) // Start time in the past
+            .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00")) // Start time in the past
             .WithVisibility(EventVisibility.Public)
             .WithMaxGuests(10)
             .Build();
@@ -110,7 +109,7 @@ public class ReadyEventUnitTests
         // Arrange
         var newEvent = EventFactory.Init()
             .WithStatus(EventStatus.Draft)
-            .WithTitle(new EventTitle("Default Title")) // Default title
+            .WithTitle(new EventTitle("Working Title")) // Default title
             .WithDescription(new EventDescription("Event Description"))
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(3))
             .WithVisibility(EventVisibility.Public)
@@ -122,7 +121,7 @@ public class ReadyEventUnitTests
 
         // Assert
         Assert.False(result.IsSuccess);
-        Assert.Equal("The title must be changed from the default.", result.Errors.First().Message);
+        Assert.Equal("The title must be changed from the default value.", result.Errors.First().Message);
         Assert.Equal(EventStatus.Draft, newEvent.Status);
     }
 

@@ -52,7 +52,7 @@ namespace UnitTests.Features.Event.CreateEvent
             var newDescription = "Updated Description";
 
             // Act
-            var result = newEvent.UpdateDescription(newDescription);
+            var result = newEvent.UpdateDescription(new EventDescription(newDescription));
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -70,7 +70,9 @@ namespace UnitTests.Features.Event.CreateEvent
             var longDescription = new string('A', 251); // 251 characters
 
             // Act
-            var result = newEvent.UpdateDescription(longDescription);
+            var resultDescription = EventDescription.Create(longDescription);
+            Assert.False(resultDescription.IsSuccess);
+            var result = newEvent.UpdateDescription(resultDescription.Value);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -86,7 +88,7 @@ namespace UnitTests.Features.Event.CreateEvent
                 .Build();
 
             // Act
-            var result = newEvent.UpdateDescription("New Description");
+            var result = newEvent.UpdateDescription(new EventDescription("New event description"));
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -102,7 +104,7 @@ namespace UnitTests.Features.Event.CreateEvent
                 .Build();
 
             // Act
-            var result = newEvent.UpdateDescription("New Description");
+            var result = newEvent.UpdateDescription(new EventDescription("New event description"));
 
             // Assert
             Assert.False(result.IsSuccess);

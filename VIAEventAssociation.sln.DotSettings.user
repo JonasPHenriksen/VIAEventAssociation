@@ -2,7 +2,9 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ABooleanAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fe5b3bf527769cb3295444e29d617bf2ebe5666bbe8e9c881a31444ba66846cfa_003FBooleanAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ACollectionAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F92d63e018a98bbee8258f708b232f49da8d251d3a568e21c9167cae6ac0f7d8_003FCollectionAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AEqualityAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fbe6e1abbf5fe16676fc5dbf3473795ec443ed8e2d215698ae3d4ac81f99298a_003FEqualityAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AObject_002ECoreCLR_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F12777fc8c60ccaa6418271ef2ea6562485b67c10b3799e4e6062947118bf65_003FObject_002ECoreCLR_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AStringAsserts_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F992cf17f9b2cf4215ab3e6471552917c84de3ac1b86e54521136f03ea78c_003FStringAsserts_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThrowHelper_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F6780d13016c376c4491c5618b257d84da7eacf747ed2719783e775546b79b_003FThrowHelper_002Ecs_002Fz_003A2_002D1/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AThrowHelper_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F97123ec472543a8d92d12dd229ac95d8150f74f4066f3dfb924ea99798c4c_003FThrowHelper_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/jonas/.cache/JetBrains/Rider2024.3/resharper-host/temp/Rider/vAny/CoverageData/_VIAEventAssociation.1933320831/Snapshot/snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=02de3e27_002Deea4_002D41ef_002Db343_002D27609e47f8dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="DeclineInvitation_Success_WhenGuestHasAcceptedInvitation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -13,6 +15,14 @@
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::AcceptInvitationUnitTests.AcceptInvitation_Fails_WhenEventIsCancelled&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::AcceptInvitationUnitTests.AcceptInvitation_Fails_WhenEventIsFull&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=14c126c1_002D126e_002D4904_002D8b65_002Da484b9688c03/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateTitle_Fails_WhenTitleIsEmpty" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateTitleEventAggregateUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2bcf2f27_002Df055_002D4938_002Db566_002D443c60d2100f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateTimeRange_Fails_WhenStartTimeIsInThePast" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/jonas/RiderProjects/VIAEventAssociation/Tests/UnitTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;UnitTests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3759332e_002Dc169_002D4ba7_002Da4c8_002D5d4b7618ad92/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipation_Fails_WhenEventHasStarted #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
@@ -60,7 +70,7 @@
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.UpdateTitleEventAggregateUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54c655e2_002D320e_002D4cf0_002Da41b_002D2a7a5f5847e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateTimeRange_Fails_WhenEndTimeIsAfterOneAM" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54c655e2_002D320e_002D4cf0_002Da41b_002D2a7a5f5847e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateTimeRange_Fails_WhenEndTimeIsAfterOneAM" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/home/jonas/RiderProjects/VIAEventAssociation/Tests/UnitTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;UnitTests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=65beb1a1_002D67c1_002D4968_002Dbe0f_002D41e41a588588/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CancelParticipation_Fails_WhenEventHasStarted" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -80,10 +90,10 @@
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::AcceptInvitationUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7eded797_002D5874_002D4d0a_002D82d0_002D5f343290559c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EventTimeRange_Create_ShouldReturnSuccess_WhenValidRange" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::EventValueObjectsTests.EventTimeRange_Create_ShouldReturnSuccess_WhenValidRange&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7eded797_002D5874_002D4d0a_002D82d0_002D5f343290559c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EventTimeRange_Create_ShouldReturnSuccess_WhenValidRange" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::EventValueObjectsTests.EventTimeRange_Create_ShouldReturnSuccess_WhenValidRange&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=82b9d6f7_002D7639_002D4841_002Da5d3_002Dbd3dd54c6d48/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateTimeRange_Success_WhenEventIsInDraftStatusAndConditionsAreMet #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
@@ -117,6 +127,9 @@
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests.CancelParticipation_Fails_WhenEventHasStarted&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aa628154_002Db625_002D43b6_002Db025_002Db022f1f2b156/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateTitleEventAggregateUnitTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/jonas/RiderProjects/VIAEventAssociation/Tests/UnitTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;UnitTests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bcb34b0a_002D788e_002D4db1_002Db00e_002D469efb2e14b7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AcceptInvitation_Fails_WhenEventIsFull #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::AcceptInvitationUnitTests&lt;/TestId&gt;
@@ -127,6 +140,11 @@
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.CreateEvent.CancelParticipationUnitTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::CreateEventAggregateUnitTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::AcceptInvitationUnitTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d021ef3c_002Dc64d_002D4017_002Dac5b_002D36b27777bf3c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateTimeRange_Fails_WhenDurationIsLessThanOneHourAndStartDateIsBeforeEndDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::53CA3BE7-CAD6-4C8F-9671-A9D518EF084C::net8.0::UnitTests.Features.Event.UpdateEventTimeRange.UpdateEventTimeRangeUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecad3fed_002Dcf1d_002D423d_002D9a09_002D9d4a20841eb2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AcceptInvitation_Fails_WhenEventIsFull #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

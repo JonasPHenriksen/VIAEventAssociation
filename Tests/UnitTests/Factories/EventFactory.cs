@@ -1,4 +1,5 @@
 using System.Reflection;
+using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 
@@ -37,7 +38,8 @@ public class EventFactory
 
     public EventFactory WithTimeRange(DateTime start, DateTime end)
     {
-        _event.TimeRange = new EventTimeRange(start, end);
+        var mockSystemTime = new MockTime.SystemTime();
+        _event.TimeRange = new EventTimeRange(start, end, mockSystemTime);
         return this;
     }
 

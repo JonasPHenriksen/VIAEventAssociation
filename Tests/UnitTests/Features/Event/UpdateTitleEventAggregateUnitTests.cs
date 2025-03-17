@@ -16,7 +16,7 @@ namespace UnitTests.Features.Event.CreateEvent
             var newTitle = "Updated Title";
 
             // Act
-            var result = newEvent.UpdateTitle(newTitle);
+            var result = newEvent.UpdateTitle(new EventTitle(newTitle));
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -33,7 +33,7 @@ namespace UnitTests.Features.Event.CreateEvent
             var newTitle = "Updated Title";
 
             // Act
-            var result = newEvent.UpdateTitle(newTitle);
+            var result = newEvent.UpdateTitle(new EventTitle(newTitle));
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -44,29 +44,19 @@ namespace UnitTests.Features.Event.CreateEvent
         [Fact]
         public void UpdateTitle_Fails_WhenTitleIsEmpty()
         {
-            // Arrange
-            var newEvent = EventFactory.Init()
-                .WithStatus(EventStatus.Draft)
-                .Build();
-
             // Act
-            var result = newEvent.UpdateTitle("");
-
+            var resultTitle = EventTitle.Create("");
+            
             // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal("InvalidTitle", result.Errors.First().Code);
+            Assert.False(resultTitle.IsSuccess);
+            Assert.Equal("InvalidTitle", resultTitle.Errors.First().Code);
         }
 
         [Fact]
         public void UpdateTitle_Fails_WhenTitleIsTooShort()
         {
-            // Arrange
-            var newEvent = EventFactory.Init()
-                .WithStatus(EventStatus.Draft)
-                .Build();
-
             // Act
-            var result = newEvent.UpdateTitle("XY");
+            var result = EventTitle.Create("XY");
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -77,13 +67,10 @@ namespace UnitTests.Features.Event.CreateEvent
         public void UpdateTitle_Fails_WhenTitleIsTooLong()
         {
             // Arrange
-            var newEvent = EventFactory.Init()
-                .WithStatus(EventStatus.Draft)
-                .Build();
             var longTitle = new string('A', 76);
-
+            
             // Act
-            var result = newEvent.UpdateTitle(longTitle);
+            var result = EventTitle.Create(longTitle);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -99,7 +86,7 @@ namespace UnitTests.Features.Event.CreateEvent
                 .Build();
 
             // Act
-            var result = newEvent.UpdateTitle("New Title");
+            var result = newEvent.UpdateTitle(new EventTitle("new title"));
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -115,7 +102,7 @@ namespace UnitTests.Features.Event.CreateEvent
                 .Build();
 
             // Act
-            var result = newEvent.UpdateTitle("New Title");
+            var result = newEvent.UpdateTitle(new EventTitle("new title"));
 
             // Assert
             Assert.False(result.IsSuccess);
