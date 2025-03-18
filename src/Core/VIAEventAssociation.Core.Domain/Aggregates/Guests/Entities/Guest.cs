@@ -1,7 +1,8 @@
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Common.Bases;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
-public class Guest
+public class Guest : AggregateRoot
 {
     internal Email Email { get; set; }
     internal Name FirstName { get; set; }

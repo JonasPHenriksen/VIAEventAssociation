@@ -100,7 +100,6 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T19:00:00", "2022-01-02T01:00:00")] // Spans midnight
         public void UpdateTimeRange_Success_WhenDurationIs10HoursOrLess(string startTimeStr, string endTimeStr)
         {
-            //TODO Make the timeRange tests like this
             // Arrange
             var mockSystemTime = new MockTime.SystemTime(); // Use the mock system time
             var newEvent = EventFactory.Init().Build();

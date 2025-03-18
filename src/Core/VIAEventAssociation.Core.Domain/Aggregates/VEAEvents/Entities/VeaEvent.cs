@@ -1,11 +1,12 @@
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Common.Bases;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Domain.Services;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 
-public class VeaEvent
+public class VeaEvent : AggregateRoot
 {
     internal EventId Id { get; set; }
     internal EventStatus Status { get; set; }

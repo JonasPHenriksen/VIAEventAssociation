@@ -1,3 +1,4 @@
+using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;
 

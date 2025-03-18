@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using VIAEventAssociation.Core.Tools.OperationResult;
+using VIAEventAssociation.Core.Domain.Common.Bases;
 
-namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
+namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
 {
-    public class InvitationStatus
+    public class InvitationStatus : ValueObject
     {
         public enum InvitationStatusEnum
         {
@@ -14,7 +16,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
         public InvitationStatusEnum Value { get; }
 
         // Private constructor to enforce immutability
-        private InvitationStatus(InvitationStatusEnum value)
+        internal InvitationStatus(InvitationStatusEnum value)
         {
             Value = value;
         }
@@ -60,18 +62,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
         public bool IsAccepted => Value == InvitationStatusEnum.Accepted;
         public bool IsDeclined => Value == InvitationStatusEnum.Declined;
 
-        // Override Equals and GetHashCode for value object equality
-        public override bool Equals(object? obj)
+        // Override GetEqualityComponents to define equality logic
+        protected override IEnumerable<object> GetEqualityComponents()
         {
-            if (obj is InvitationStatus other)
-                return Value == other.Value;
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
+            yield return Value;
         }
     }
 }
