@@ -1,9 +1,10 @@
 using System.Text.RegularExpressions;
+using VIAEventAssociation.Core.Domain.Common.Bases;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Aggregates.Guests;
 
-public class Name
+public class Name :  ValueObject
 {
     public string Value { get; }
 
@@ -28,5 +29,9 @@ public class Name
         }
 
         return OperationResult<Name>.Success(new Name(string.Join(" ", nameParts)));
+    }
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Value;
     }
 }

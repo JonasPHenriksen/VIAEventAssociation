@@ -7,12 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Aggregates\Guests\Contracts\" />
-      <Folder Include="Aggregates\VEAEvents\Contracts\" />
-      <Folder Include="Common\Values\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Tools\VIAEventAssociation.Core.Tools.OperationResult\VIAEventAssociation.Core.Tools.OperationResult.csproj" />
     </ItemGroup>
     

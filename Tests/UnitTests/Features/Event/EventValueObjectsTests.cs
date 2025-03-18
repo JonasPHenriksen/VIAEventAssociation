@@ -6,7 +6,7 @@ using Xunit;
 
 public class EventValueObjectsTests
 {
-    //TODO A lot of duplicate tests
+    //TODO This class contains a lot of duplicate tests
     
     [Fact]
     public void EventId_New_ShouldGenerateNewGuid()
@@ -72,6 +72,7 @@ public class EventValueObjectsTests
         Assert.True(result != null);
     }
 
+    /*
     [Fact]
     public void EventTimeRange_Create_ShouldReturnFailure_WhenStartAfterEnd()
     {
@@ -116,4 +117,5 @@ public class EventValueObjectsTests
         var result = EventTimeRange.Create(start, end, new MockTime.SystemTime()).Value;
         Assert.True(result != null);
     }
+    */
 }

@@ -28,7 +28,7 @@ public class ReadyEventUnitTests
         Assert.Equal(EventStatus.Ready, newEvent.Status);
     }
 
-    [Theory] //TODO time is not dynamic will fail in the future
+    [Theory]
     [InlineData("", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The title cannot be empty")]
     [InlineData("Working Title", "Description", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The title must be changed from the default value.")]
     [InlineData("Title", "", "2025-06-01T12:00:00Z", "2025-06-01T15:00:00Z", EventVisibility.Private, 10, "The description must be set.")]

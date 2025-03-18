@@ -1,9 +1,11 @@
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values;
+using VIAEventAssociation.Core.Domain.Common.Bases;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 {
-    public class Invitation
+    public class Invitation : Entity
     {
         public EventId EventId { get; }
         public GuestId GuestId { get; }

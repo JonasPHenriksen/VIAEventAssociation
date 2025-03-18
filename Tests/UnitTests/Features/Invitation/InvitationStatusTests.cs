@@ -1,4 +1,5 @@
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
+using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values;
 using VIAEventAssociation.Core.Tools.OperationResult;
 using Xunit;
 

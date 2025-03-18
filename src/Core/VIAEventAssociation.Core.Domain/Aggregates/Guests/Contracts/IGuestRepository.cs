@@ -1,4 +1,4 @@
-namespace VIAEventAssociation.Core.Domain.Contracts;
+namespace VIAEventAssociation.Core.Domain.Common.Contracts;
 
 public interface IGuestRepository
 {
