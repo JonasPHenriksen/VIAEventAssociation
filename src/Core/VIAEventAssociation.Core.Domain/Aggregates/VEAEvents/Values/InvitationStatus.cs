@@ -21,25 +21,24 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
             Value = value;
         }
 
-        // Factory method to create a Pending status
+        // Factory method
         public static InvitationStatus Pending()
         {
             return new InvitationStatus(InvitationStatusEnum.Pending);
         }
 
-        // Factory method to create an Accepted status
+        // Factory method
         public static InvitationStatus Accepted()
         {
             return new InvitationStatus(InvitationStatusEnum.Accepted);
         }
 
-        // Factory method to create a Declined status
+        // Factory method
         public static InvitationStatus Declined()
         {
             return new InvitationStatus(InvitationStatusEnum.Declined);
         }
 
-        // Method to transition to Accepted status
         public OperationResult<InvitationStatus> Accept()
         {
             if (Value != InvitationStatusEnum.Pending)
@@ -48,7 +47,6 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
             return OperationResult<InvitationStatus>.Success(Accepted());
         }
 
-        // Method to transition to Declined status
         public OperationResult<InvitationStatus> Decline()
         {
             if (Value != InvitationStatusEnum.Pending)
@@ -57,12 +55,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
             return OperationResult<InvitationStatus>.Success(Declined());
         }
 
-        // Helper properties to check the current state
         public bool IsPending => Value == InvitationStatusEnum.Pending;
         public bool IsAccepted => Value == InvitationStatusEnum.Accepted;
         public bool IsDeclined => Value == InvitationStatusEnum.Declined;
 
-        // Override GetEqualityComponents to define equality logic
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

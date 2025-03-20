@@ -77,8 +77,8 @@ public class AcceptInvitationUnitTests
         var lastGuest = guests.Last();
         
         // Act
-        
         var result = newEvent.AcceptInvitation(lastGuest.GuestId);
+        
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal("NoMoreRoom", result.Errors.First().Code);
@@ -137,6 +137,7 @@ public class AcceptInvitationUnitTests
     public void AcceptInvitation_Fails_WhenEventHasStarted()
     {
 
+        // Arrange
         var newEvent = EventFactory.Init()
             .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00"))
             .WithMaxGuests(5)

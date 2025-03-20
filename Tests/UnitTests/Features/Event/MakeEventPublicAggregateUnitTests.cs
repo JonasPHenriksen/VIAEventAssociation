@@ -23,7 +23,7 @@ public class MakeEventPublicAggregateUnitTests
             // Assert
             Assert.True(result.IsSuccess);
             Assert.True(newEvent.Visibility == EventVisibility.Public);
-            Assert.Equal(status, newEvent.Status); // Status remains unchanged
+            Assert.Equal(status, newEvent.Status); 
         }
 
         [Fact]
@@ -40,6 +40,6 @@ public class MakeEventPublicAggregateUnitTests
             // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidStatus", result.Errors.First().Code);
-            Assert.False(newEvent.Visibility == EventVisibility.Public); // Event remains private
+            Assert.False(newEvent.Visibility == EventVisibility.Public); 
         }
 }

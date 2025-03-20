@@ -4,9 +4,8 @@ namespace UnitTests.OperationResultTest
 {
     public class OperationResultUnitTests
     {
-        // Test successful result with a value
         [Fact]
-        public void Success_WithValue_ShouldReturnResultWithValue()
+        public void OperationResult_Succeeds_WhenCreatedWithValue()
         {
             var result = OperationResult<string>.Success("Hello, World!");
 
@@ -15,9 +14,8 @@ namespace UnitTests.OperationResultTest
             Assert.Empty(result.Errors);
         }
 
-        // Test successful result without a value (Unit)
         [Fact]
-        public void Success_WithoutValue_ShouldReturnUnit()
+        public void OperationResult_Succeeds_WhenCreatedWithoutValue()
         {
             var result = OperationResult<Unit>.Success();
 
@@ -26,9 +24,8 @@ namespace UnitTests.OperationResultTest
             Assert.Empty(result.Errors);
         }
 
-        // Test failure with a single error
         [Fact]
-        public void Failure_WithSingleError_ShouldReturnResultWithError()
+        public void OperationResult_Fails_WhenCreatedWithSingleError()
         {
             var result = OperationResult<string>.Failure("404", "Not Found");
 
@@ -39,9 +36,8 @@ namespace UnitTests.OperationResultTest
             Assert.Equal("Not Found", result.Errors[0].Message);
         }
 
-        // Test failure with multiple errors
         [Fact]
-        public void Failure_WithMultipleErrors_ShouldReturnResultWithErrors()
+        public void OperationResult_Fails_WhenCreatedWithMultipleErrors()
         {
             var errors = new List<Error>
             {
@@ -58,9 +54,8 @@ namespace UnitTests.OperationResultTest
             Assert.Equal("500", result.Errors[1].Code);
         }
 
-        // Test implicit conversion from value to OperationResult
         [Fact]
-        public void ImplicitConversion_FromValue_ShouldReturnSuccessResult()
+        public void OperationResult_Succeeds_WhenImplicitlyConvertedFromValue()
         {
             OperationResult<string> result = "Hello, World!";
 
@@ -69,9 +64,8 @@ namespace UnitTests.OperationResultTest
             Assert.Empty(result.Errors);
         }
 
-        // Test implicit conversion from Error to OperationResult
         [Fact]
-        public void ImplicitConversion_FromError_ShouldReturnFailureResult()
+        public void OperationResult_Fails_WhenImplicitlyConvertedFromError()
         {
             OperationResult<string> result = new Error("404", "Not Found");
 
@@ -81,9 +75,8 @@ namespace UnitTests.OperationResultTest
             Assert.Equal("404", result.Errors[0].Code);
         }
 
-        // Test implicit conversion from List<Error> to OperationResult
         [Fact]
-        public void ImplicitConversion_FromErrorList_ShouldReturnFailureResult()
+        public void OperationResult_Fails_WhenImplicitlyConvertedFromErrorList()
         {
             var errors = new List<Error>
             {
@@ -98,9 +91,8 @@ namespace UnitTests.OperationResultTest
             Assert.Equal(2, result.Errors.Count);
         }
 
-        // Test Combine method with successful results
         [Fact]
-        public void Combine_WithSuccessfulResults_ShouldReturnSuccessResult()
+        public void OperationResult_Succeeds_WhenCombiningSuccessfulResults()
         {
             var result1 = OperationResult<string>.Success("Result 1");
             var result2 = OperationResult<string>.Success("Result 2");
@@ -112,9 +104,8 @@ namespace UnitTests.OperationResultTest
             Assert.Empty(combinedResult.Errors);
         }
 
-        // Test Combine method with failed results
         [Fact]
-        public void Combine_WithFailedResults_ShouldReturnFailureResultWithAllErrors()
+        public void OperationResult_Fails_WhenCombiningFailedResults()
         {
             var result1 = OperationResult<string>.Failure("404", "Not Found");
             var result2 = OperationResult<string>.Failure("500", "Internal Server Error");
@@ -128,9 +119,8 @@ namespace UnitTests.OperationResultTest
             Assert.Equal("500", combinedResult.Errors[1].Code);
         }
 
-        // Test Combine method with mixed results (success and failure)
         [Fact]
-        public void Combine_WithMixedResults_ShouldReturnFailureResultWithErrors()
+        public void OperationResult_Fails_WhenCombiningMixedResults()
         {
             var result1 = OperationResult<string>.Success("Result 1");
             var result2 = OperationResult<string>.Failure("404", "Not Found");
