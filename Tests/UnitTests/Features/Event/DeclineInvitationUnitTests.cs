@@ -10,6 +10,7 @@ public class DeclineInvitationUnitTests
     [Fact]
     public void DeclineInvitation_Success_WhenGuestHasPendingInvitation()
     {
+        // Arrange
         var newEvent = EventFactory.Init()
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
             .WithMaxGuests(10)
@@ -20,8 +21,10 @@ public class DeclineInvitationUnitTests
         var guest = GuestFactory.Init().Build().Value;
         newEvent.InviteGuest(guest.GuestId);
 
+        // Act
         var result = newEvent.DeclineInvitation(guest.GuestId);
 
+        // Assert
         Assert.True(result.IsSuccess);
         Assert.Contains(guest.GuestId, newEvent.GetDeclinedGuests());
         Assert.DoesNotContain(guest.GuestId, newEvent.GetInvitedGuests());
@@ -30,6 +33,7 @@ public class DeclineInvitationUnitTests
     [Fact]
     public void DeclineInvitation_Success_WhenGuestHasAcceptedInvitation()
     {
+        // Arrange
         var newEvent = EventFactory.Init()
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
             .WithMaxGuests(10)
@@ -38,11 +42,13 @@ public class DeclineInvitationUnitTests
             .Build();
 
         var guest = GuestFactory.Init().Build().Value;
-        var result1 = newEvent.InviteGuest(guest.GuestId);
-        var result2 = newEvent.AcceptInvitation(guest.GuestId);
+        newEvent.InviteGuest(guest.GuestId);
+        newEvent.AcceptInvitation(guest.GuestId);
 
+        // Act
         var result = newEvent.DeclineInvitation(guest.GuestId);
 
+        // Assert
         Assert.True(result.IsSuccess);
         Assert.Contains(guest.GuestId, newEvent.GetDeclinedGuests());
         Assert.DoesNotContain(guest.GuestId, newEvent.GetParticipants());
@@ -51,6 +57,7 @@ public class DeclineInvitationUnitTests
     [Fact]
     public void DeclineInvitation_Fails_WhenInvitationNotFound()
     {
+        // Arrange
         var newEvent = EventFactory.Init()
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
             .WithMaxGuests(10)
@@ -60,8 +67,10 @@ public class DeclineInvitationUnitTests
 
         var guest = GuestFactory.Init().Build().Value;
 
+        // Act
         var result = newEvent.DeclineInvitation(guest.GuestId);
 
+        // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal("InvitationNotFound", result.Errors.First().Code);
     }
@@ -69,6 +78,7 @@ public class DeclineInvitationUnitTests
     [Fact]
     public void DeclineInvitation_Fails_WhenEventIsCancelled()
     {
+        // Arrange
         var newEvent = EventFactory.Init()
             .WithTimeRange(DateTime.Now.AddYears(1), DateTime.Now.AddYears(1).AddHours(4))
             .WithMaxGuests(10)
@@ -81,8 +91,10 @@ public class DeclineInvitationUnitTests
 
         newEvent.Status = EventStatus.Cancelled;
         
+        // Act
         var result = newEvent.DeclineInvitation(guest.GuestId);
 
+        // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal("InvitationDeclineCancel", result.Errors.First().Code);
     }

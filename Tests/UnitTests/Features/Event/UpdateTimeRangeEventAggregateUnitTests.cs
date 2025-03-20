@@ -16,14 +16,17 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T18:00:00", "2023-08-26T01:00:00")]
         public void UpdateTimeRange_Success_WhenEventIsInDraftStatusAndConditionsAreMet(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Draft)
                 .Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, new MockTime.SystemTime()).Value);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
             Assert.Equal(endTime > startTime ? endTime : endTime.AddDays(1), newEvent.TimeRange.End);
@@ -35,14 +38,17 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T08:00:00", "2023-08-25T12:15:00")]
         public void UpdateTimeRange_Success_WhenEventIsInDraftStatusAndCrossesMidnightAndConditionsAreMet(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Draft)
                 .Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, new MockTime.SystemTime()).Value);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
             Assert.Equal(endTime, newEvent.TimeRange.End);
@@ -57,14 +63,17 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T19:00:00", "2023-08-26T01:00:00")]
         public void UpdateTimeRange_Success_WhenEventIsReadyAndChangesToDraft(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Ready)
                 .Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, new MockTime.SystemTime()).Value);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
             Assert.Equal(endTime, newEvent.TimeRange.End);
@@ -81,12 +90,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T19:00:00", "2023-08-26T01:00:00")]
         public void UpdateTimeRange_Success_WhenStartTimeIsInTheFuture(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, new MockTime.SystemTime()).Value);
 
+            // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(startTime, newEvent.TimeRange.Start);
             Assert.Equal(endTime, newEvent.TimeRange.End);
@@ -127,13 +139,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2020-01-02T08:00:00", "2020-01-01T12:15:00")]
         public void UpdateTimeRange_Fails_WhenStartDateIsAfterEndDate(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Events cannot be started in the past.", result.Errors.First().Message);
         }
@@ -146,13 +160,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2020-01-01T08:00:00", "2020-01-01T00:30:00")]
         public void UpdateTimeRange_Fails_WhenStartTimeIsAfterEndTime(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Events cannot be started in the past.", result.Errors.First().Message);
         }
@@ -164,16 +180,18 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T08:00:00", "2022-01-01T08:00:00")]
         public void UpdateTimeRange_Fails_WhenDurationIsLessThanOneHour(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
             var duration = endTime - startTime;
 
             Assert.True(duration.TotalMinutes < 60);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event duration must be at least 1 hour.", result.Errors.First().Message);
         }
@@ -184,16 +202,18 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T23:59:00", "2022-01-02T00:01:00")]
         public void UpdateTimeRange_Fails_WhenDurationIsLessThanOneHourAndStartDateIsBeforeEndDate(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
             var duration = endTime - startTime;
 
             Assert.True(duration.TotalMinutes < 60);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
-                
+            
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event duration must be at least 1 hour.", result.Errors.First().Message);
         }
@@ -206,12 +226,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T00:59:00", "2022-01-01T07:59:00")]
         public void UpdateTimeRange_Fails_WhenStartTimeIsBeforeEightAM(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
             
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
         }
@@ -223,14 +246,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T23:00:00", "2022-01-02T02:30:00")]
         public void UpdateTimeRange_Fails_WhenEndTimeIsAfterOneAM(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
             
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
-
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
         }
@@ -245,6 +269,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2020-01-01T19:00:00", "2020-01-02T01:00:00")]
         public void UpdateTimeRange_Fails_WhenEventIsActive(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Active)
@@ -252,8 +277,10 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, mockSystemTime).Value);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Time range can only be updated when the event is in Draft or Ready status.", result.Errors.First().Message);
         }
@@ -268,6 +295,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2020-01-01T19:00:00", "2020-01-02T01:00:00")]
         public void UpdateTimeRange_Fails_WhenEventIsCancelled(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
             var newEvent = EventFactory.Init()
                 .WithStatus(EventStatus.Cancelled)
@@ -275,8 +303,10 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = newEvent.UpdateTimeRange(EventTimeRange.Create(startTime, endTime, mockSystemTime).Value);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Time range can only be updated when the event is in Draft or Ready status.", result.Errors.First().Message);
         }
@@ -289,13 +319,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2022-01-01T10:00:00", "2022-01-01T21:00:00")]
         public void UpdateTimeRange_Fails_WhenEventDurationIsLongerThanTenHours(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
-            var newEvent = EventFactory.Init().Build();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event duration cannot exceed 10 hours.", result.Errors.First().Message);
         }
@@ -307,12 +339,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T05:59:00", "2023-08-25T07:59:00")]
         public void UpdateTimeRange_Fails_WhenStartTimeIsInThePast(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
         }
@@ -324,12 +359,15 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
         [InlineData("2023-08-25T01:00:00", "2023-08-25T08:00:00")]
         public void UpdateTimeRange_Fails_WhenEventDurationSpansInvalidTime(string startTimeStr, string endTimeStr)
         {
+            // Arrange
             var mockSystemTime = new MockTime.SystemTime();
             var startTime = DateTime.Parse(startTimeStr);
             var endTime = DateTime.Parse(endTimeStr);
 
+            // Act
             var result = EventTimeRange.Create(startTime, endTime, mockSystemTime);
 
+            // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("Event cannot span from 1:00 AM to 08:00 AM.", result.Errors.First().Message);
         }

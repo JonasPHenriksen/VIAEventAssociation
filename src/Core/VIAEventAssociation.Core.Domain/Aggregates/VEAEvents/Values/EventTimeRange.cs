@@ -32,7 +32,6 @@ public record EventTimeRange(DateTime Start, DateTime End, ISystemTime SystemTim
         if (duration.TotalHours > 10)
             return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Event duration cannot exceed 10 hours.");
 
-        // Check if the event starts or ends within the restricted time range (01:01 AM to 07:59 AM)
         if (IsTimeInRestrictedRange(start.TimeOfDay) || IsTimeInRestrictedRange(end.TimeOfDay) || DoesEventSpanRestrictedRange(start, end))
         {
             return OperationResult<EventTimeRange>.Failure("InvalidTimeRange", "Event cannot occur between 01:01 AM and 07:59 AM.");
@@ -61,6 +60,6 @@ public record EventTimeRange(DateTime Start, DateTime End, ISystemTime SystemTim
 
     public DateTime GetCurrentTime()
     {
-        return SystemTime.Now;  // Use the stored systemTime instance
+        return SystemTime.Now;
     }
 }

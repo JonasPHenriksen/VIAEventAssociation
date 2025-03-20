@@ -23,7 +23,7 @@ public class SetMaxNumberOfGuestsEventUnitTests
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(maxGuests, newEvent.MaxGuests); // Maximum number of guests is set
+        Assert.Equal(maxGuests, newEvent.MaxGuests);
     }
     
     [Theory]
@@ -35,7 +35,7 @@ public class SetMaxNumberOfGuestsEventUnitTests
     {
         // Arrange
         var newEvent = EventFactory.Init()
-            .WithStatus(EventStatus.Ready) // Event is in Draft status
+            .WithStatus(EventStatus.Ready) 
             .Build();
 
         // Act
@@ -43,7 +43,7 @@ public class SetMaxNumberOfGuestsEventUnitTests
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(maxGuests, newEvent.MaxGuests); // Maximum number of guests is set
+        Assert.Equal(maxGuests, newEvent.MaxGuests); 
     }
 
     [Theory]
@@ -54,8 +54,8 @@ public class SetMaxNumberOfGuestsEventUnitTests
     {
         // Arrange
         var newEvent = EventFactory.Init()
-            .WithStatus(EventStatus.Active) // Event is in Active status
-            .WithMaxGuests(previousMaxGuests) // Set previous maximum number of guests
+            .WithStatus(EventStatus.Active) 
+            .WithMaxGuests(previousMaxGuests)
             .Build();
 
         // Act
@@ -63,7 +63,7 @@ public class SetMaxNumberOfGuestsEventUnitTests
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(newMaxGuests, newEvent.MaxGuests); // Maximum number of guests is updated
+        Assert.Equal(newMaxGuests, newEvent.MaxGuests);
     }
 
     [Theory]
@@ -74,8 +74,8 @@ public class SetMaxNumberOfGuestsEventUnitTests
     {
         // Arrange
         var newEvent = EventFactory.Init()
-            .WithStatus(EventStatus.Active) // Event is in Active status
-            .WithMaxGuests(previousMaxGuests) // Set previous maximum number of guests
+            .WithStatus(EventStatus.Active)
+            .WithMaxGuests(previousMaxGuests) 
             .Build();
 
         // Act
@@ -84,18 +84,18 @@ public class SetMaxNumberOfGuestsEventUnitTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal("The maximum number of guests for an active event cannot be reduced. It may only be increased.", result.Errors.First().Message);
-        Assert.Equal(previousMaxGuests, newEvent.MaxGuests); // Maximum number of guests remains unchanged
+        Assert.Equal(previousMaxGuests, newEvent.MaxGuests); 
     }
 
     [Theory]
-    [InlineData(10)] // Attempt to set max guests to 10
-    [InlineData(20)] // Attempt to set max guests to 20
-    [InlineData(50)] // Attempt to set max guests to 50
+    [InlineData(10)] 
+    [InlineData(20)] 
+    [InlineData(50)] 
     public void SetMaxGuests_Fails_WhenEventIsCancelled(int newMaxGuests)
     {
         // Arrange
         var newEvent = EventFactory.Init()
-            .WithStatus(EventStatus.Cancelled) // Event is in Cancelled status
+            .WithStatus(EventStatus.Cancelled) 
             .Build();
 
         // Act
@@ -104,7 +104,7 @@ public class SetMaxNumberOfGuestsEventUnitTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal("A cancelled event cannot be modified.", result.Errors.First().Message);
-        Assert.NotEqual(newMaxGuests, newEvent.MaxGuests); // Maximum number of guests remains unchanged
+        Assert.NotEqual(newMaxGuests, newEvent.MaxGuests); 
     }
     
     /* REQ LOCATION

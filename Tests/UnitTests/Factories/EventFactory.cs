@@ -9,7 +9,7 @@ public class EventFactory
 
     public EventFactory()
     {
-        _event = VeaEvent.Create().Value; // Initialize with default event creation
+        _event = VeaEvent.Create().Value; // Initialize with default event creation values
     }
 
     public static EventFactory Init()

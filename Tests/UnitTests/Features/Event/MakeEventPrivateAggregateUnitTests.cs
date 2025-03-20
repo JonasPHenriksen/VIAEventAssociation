@@ -13,15 +13,15 @@ public class MakeEventPrivateAggregateUnitTests
             // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(status)
-                .Build(); //Init to private by default
+                .Build(); 
 
             // Act
             var result = newEvent.MakePrivate();
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.True(newEvent.Visibility == EventVisibility.Private); // Event remains private
-            Assert.Equal(status, newEvent.Status); // Status remains unchanged
+            Assert.True(newEvent.Visibility == EventVisibility.Private);
+            Assert.Equal(status, newEvent.Status);
         }
 
         [Theory]
@@ -32,7 +32,7 @@ public class MakeEventPrivateAggregateUnitTests
             // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(status)
-                .WithVisibility(EventVisibility.Public) // Event is public
+                .WithVisibility(EventVisibility.Public) 
                 .Build();
 
             // Act
@@ -40,8 +40,8 @@ public class MakeEventPrivateAggregateUnitTests
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.True(newEvent.Visibility == EventVisibility.Private); // Event is now private
-            Assert.True(newEvent.Status == EventStatus.Draft); // Status remains unchanged
+            Assert.True(newEvent.Visibility == EventVisibility.Private); 
+            Assert.True(newEvent.Status == EventStatus.Draft);
         }
 
         [Theory]
@@ -52,7 +52,7 @@ public class MakeEventPrivateAggregateUnitTests
             // Arrange
             var newEvent = EventFactory.Init()
                 .WithStatus(status)
-                .WithVisibility(EventVisibility.Public) // Event is public
+                .WithVisibility(EventVisibility.Public) 
                 .Build();
 
             // Act
@@ -61,6 +61,6 @@ public class MakeEventPrivateAggregateUnitTests
             // Assert
             Assert.False(result.IsSuccess);
             Assert.Equal("InvalidStatus", result.Errors.First().Code);
-            Assert.True(newEvent.Visibility == EventVisibility.Public); // Event remains public
+            Assert.True(newEvent.Visibility == EventVisibility.Public); 
         }
 }

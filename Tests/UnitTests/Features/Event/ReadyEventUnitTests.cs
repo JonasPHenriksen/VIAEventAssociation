@@ -89,7 +89,7 @@ public class ReadyEventUnitTests
             .WithStatus(EventStatus.Draft)
             .WithTitle(new EventTitle("Event Title"))
             .WithDescription(new EventDescription("Event Description"))
-            .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00")) // Start time in the past
+            .WithTimeRange(DateTime.Parse("2020-01-01T23:30:00"), DateTime.Parse("2020-01-02T00:15:00")) // Start time in the past (Check Mock Time)
             .WithVisibility(EventVisibility.Public)
             .WithMaxGuests(10)
             .Build();
