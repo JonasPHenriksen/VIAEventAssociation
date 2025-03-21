@@ -1,3 +1,4 @@
+using VIAEventAssociation.Core.Domain.Aggregates.Guests;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;
@@ -15,7 +16,7 @@ public class GuestService
 
     public async Task<OperationResult<Guest>> RegisterGuest(string email, string firstName, string lastName, string profilePictureUrl)
     {
-        if (await _guestRepository.GetByEmailAsync(email) != null)
+        if (await _guestRepository.GetByEmailAsync(new Email(email)) != null)
             return OperationResult<Guest>.Failure("GuestExists", "A guest with this email already exists.");
 
         var guestResult = Guest.Create(email, firstName, lastName, profilePictureUrl);
