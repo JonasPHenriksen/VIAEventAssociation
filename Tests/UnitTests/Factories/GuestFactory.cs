@@ -13,7 +13,7 @@ public class GuestFactory
 
     public GuestFactory()
     {
-        _guest = Guest.Create("330943@via.dk","Jonas","Henriksen", "https://www.example.com/path/to/resource").Value;
+        _guest = Guest.Create(new Email("330943@via.dk"),new Name("Jonas"),new Name("Henriksen"), new Uri("https://www.example.com/path/to/resource")).Value;
     }
     public static GuestFactory Init()
     {

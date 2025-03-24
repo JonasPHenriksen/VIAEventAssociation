@@ -7,28 +7,33 @@ namespace UnitTests.Features.GuestTests
 {
     public class RegisterGuestUnitTests
     {
-        private const string ValidEmail = "330943@via.dk";
-        private const string ValidEmail2 = "STEK@via.dk";
-        private const string ValidFirstName = "John";
-        private const string ValidLastName = "Doe";
-        private const string ValidProfilePictureUrl = "https://example.com/profile.jpg";
+        private const string EmailAddress = "330943@via.dk";
+        private static readonly Email ValidEmail = new Email(EmailAddress);
+        private const string EmailAddress2 = "STEK@via.dk";
+        private static readonly Email ValidEmail2 = new Email(EmailAddress2);
+        private const string FirstName = "John";
+        private static readonly Name ValidFirstName = new Name(FirstName);
+        private const string LastName = "Doe";
+        private static readonly Name ValidLastName = new Name(LastName);
+        private const string ProfilePictureUrl = "https://example.com/profile.jpg";
+        private static readonly Uri ValidProfilePictureUrl = new Uri(ProfilePictureUrl);
 
         [Fact]
         public void CreateGuest_Succeeds_WhenAllFieldsAreValidStudent()
         {
             // Arrange
             var factory = GuestFactory.Init()
-                .WithEmail(new Email(ValidEmail))
-                .WithFirstName(new Name(ValidFirstName))
-                .WithLastName(new Name(ValidLastName))
-                .WithProfilePicture(new Uri(ValidProfilePictureUrl));
+                .WithEmail(ValidEmail)
+                .WithFirstName(ValidFirstName)
+                .WithLastName(ValidLastName)
+                .WithProfilePicture(ValidProfilePictureUrl);
 
             // Act
             var result = factory.Build();
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(ValidEmail.ToLower(), result.Value.Email.Value);
+            Assert.Equal(ValidEmail.Value.ToLower(), result.Value.Email.Value);
             Assert.Equal("John", result.Value.FirstName.Value);
             Assert.Equal("Doe", result.Value.LastName.Value);
         }
@@ -38,17 +43,17 @@ namespace UnitTests.Features.GuestTests
         {
             // Arrange
             var factory = GuestFactory.Init()
-                .WithEmail(new Email(ValidEmail2))
-                .WithFirstName(new Name(ValidFirstName))
-                .WithLastName(new Name(ValidLastName))
-                .WithProfilePicture(new Uri(ValidProfilePictureUrl));
+                .WithEmail(ValidEmail2)
+                .WithFirstName(ValidFirstName)
+                .WithLastName(ValidLastName)
+                .WithProfilePicture(ValidProfilePictureUrl);
 
             // Act
             var result = factory.Build();
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(ValidEmail2.ToLower(), result.Value.Email.Value);
+            Assert.Equal(ValidEmail2.Value.ToLower(), result.Value.Email.Value);
             Assert.Equal("John", result.Value.FirstName.Value);
             Assert.Equal("Doe", result.Value.LastName.Value);
         }
@@ -57,7 +62,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenEmailDomainIsIncorrect()
         {
             // Arrange
-            var invalidEmail = "abc123@gmail.com";
+            var invalidEmail = new Email("abc123@gmail.com");
 
             // Act
             var result = Guest.Create(invalidEmail, ValidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -71,7 +76,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenEmailFormatIsIncorrect()
         {
             // Arrange
-            var invalidEmail = "via.dk@test.com";
+            var invalidEmail = new Email("via.dk@test.com");
 
             // Act
             var result = Guest.Create(invalidEmail, ValidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -85,7 +90,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenFirstNameIsTooShort()
         {
             // Arrange
-            var invalidFirstName = "J";
+            var invalidFirstName = new Name("J");
 
             // Act
             var result = Guest.Create(ValidEmail, invalidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -99,7 +104,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenProfilePictureUrlIsInvalid()
         {
             // Arrange
-            var invalidProfilePictureUrl = "invalid-url";
+            var invalidProfilePictureUrl = new Uri("invalid-url");
 
             // Act
             var result = Guest.Create(ValidEmail, ValidFirstName, ValidLastName, invalidProfilePictureUrl);
@@ -113,7 +118,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenFirstNameContainsNonLetters()
         {
             // Arrange
-            var invalidFirstName = "John123";
+            var invalidFirstName = new Name("John123");
 
             // Act
             var result = Guest.Create(ValidEmail, invalidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -127,7 +132,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenLastNameContainsNonLetters()
         {
             // Arrange
-            var invalidLastName = "Doe#";
+            var invalidLastName = new Name("Doe#");
 
             // Act
             var result = Guest.Create(ValidEmail, ValidFirstName, invalidLastName, ValidProfilePictureUrl);
@@ -141,8 +146,8 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenEmailLocalPartIsTooShortOrTooLong()
         {
             // Arrange
-            var shortEmail = "ab@via.dk";
-            var longEmail = "abcdef@via.dk";
+            var shortEmail = new Email("ab@via.dk");
+            var longEmail = new Email("abcdef@via.dk");
 
             // Act
             var resultShort = Guest.Create(shortEmail, ValidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -159,7 +164,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenEmailLocalPartHasInvalidCharacters()
         {
             // Arrange
-            var invalidEmail = "abc123@via.dk";
+            var invalidEmail = new Email("abc123@via.dk");
 
             // Act
             var result = Guest.Create(invalidEmail, ValidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -173,7 +178,7 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenLastNameIsTooShort()
         {
             // Arrange
-            var invalidLastName = "D";
+            var invalidLastName = new Name("D");
 
             // Act
             var result = Guest.Create(ValidEmail, ValidFirstName, invalidLastName, ValidProfilePictureUrl);
@@ -187,8 +192,8 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Fails_WhenFirstNameOrLastNameContainNonLetterCharacters()
         {
             // Arrange
-            var invalidFirstName = "John123";
-            var invalidLastName = "Doe#";
+            var invalidFirstName = new Name("John123");
+            var invalidLastName = new Name("Doe#");
 
             // Act
             var resultFirstName = Guest.Create(ValidEmail, invalidFirstName, ValidLastName, ValidProfilePictureUrl);
@@ -205,8 +210,8 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Succeeds_WhenNamesAreValidLength()
         {
             // Arrange
-            var validFirstName = "A" + new string('a', 23);
-            var validLastName = "B" + new string('b', 23);
+            var validFirstName = new Name("A" + new string('a', 23));
+            var validLastName = new Name("B" + new string('b', 23));
 
             // Act
             var result = Guest.Create(ValidEmail, validFirstName, validLastName, ValidProfilePictureUrl);
@@ -219,14 +224,14 @@ namespace UnitTests.Features.GuestTests
         public void CreateGuest_Succeeds_WhenEmailIsLowerCase()
         {
             // Arrange
-            var emailUpperCase = "STEK@VIA.DK";
+            var emailUpperCase = new Email("STEK@VIA.DK");
 
             // Act
             var result = Guest.Create(emailUpperCase, ValidFirstName, ValidLastName, ValidProfilePictureUrl);
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(emailUpperCase.ToLower(), result.Value.Email.Value);
+            Assert.Equal(emailUpperCase.Value.ToLower(), result.Value.Email.Value);
         }
     }
 }
