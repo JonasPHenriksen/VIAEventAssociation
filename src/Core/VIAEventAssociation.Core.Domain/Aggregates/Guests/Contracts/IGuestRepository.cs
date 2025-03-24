@@ -6,6 +6,5 @@ public interface IGuestRepository
 {
     Task<Guest?> GetByEmailAsync(Email email);
     Task<Guest?> GetByIdAsync(GuestId id);
-    Task SaveAsync(Guest guest);
     Task AddAsync(Guest guest);
 }

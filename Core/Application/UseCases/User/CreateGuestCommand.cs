@@ -6,19 +6,11 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 public class CreateGuestCommand
 {
-    public Email Email { get; }
-    public Name FirstName { get; }
-    public Name LastName { get; }
-    public Uri ProfilePictureUrl { get; }
-
-    private CreateGuestCommand(Email email, Name firstName, Name lastName, Uri profilePictureUrl)
-    {
-        Email = email;
-        FirstName = firstName;
-        LastName = lastName;
-        ProfilePictureUrl = profilePictureUrl;
-    }
-
+    public Email Email { get; private set; }
+    public Name FirstName { get; private set; }
+    public Name LastName { get; private set; }
+    public Uri ProfilePictureUrl { get; private set; }
+    
     public static OperationResult<CreateGuestCommand> Create(string email, string firstName, string lastName, string profilePictureUrl)
     {
         var errors = new List<Error>();
@@ -38,5 +30,12 @@ public class CreateGuestCommand
             return OperationResult<CreateGuestCommand>.Failure(errors);
 
         return OperationResult<CreateGuestCommand>.Success(new CreateGuestCommand(emailResult.Value, firstNameResult.Value, lastNameResult.Value, uri));
+    }
+    private CreateGuestCommand(Email email, Name firstName, Name lastName, Uri profilePictureUrl)
+    {
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        ProfilePictureUrl = profilePictureUrl;
     }
 }

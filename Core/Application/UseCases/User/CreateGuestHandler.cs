@@ -1,11 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AppEntry;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
-public class CreateGuestCommandHandler
+public class CreateGuestCommandHandler :  ICommandHandler<CreateGuestCommand, OperationResult<Guest>>
 {
     private readonly IGuestRepository _guestRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -16,7 +17,7 @@ public class CreateGuestCommandHandler
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<Guest>> Handle(CreateGuestCommand command, CancellationToken cancellationToken)
+    public async Task<OperationResult<Guest>> HandleAsync(CreateGuestCommand command)
     {
         var existingGuest = await _guestRepository.GetByEmailAsync(command.Email);
         if (existingGuest != null)
@@ -29,7 +30,6 @@ public class CreateGuestCommandHandler
 
         var guest = Guest.Create(command.Email, command.FirstName, command.LastName, command.ProfilePictureUrl);
         
-        // Save the guest to the repository
         await _guestRepository.AddAsync(guest.Value);
         await _unitOfWork.SaveChangesAsync();
 
