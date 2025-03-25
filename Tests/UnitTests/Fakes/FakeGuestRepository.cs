@@ -8,6 +8,8 @@ public class FakeGuestRepository : IGuestRepository
 {
     private readonly ConcurrentDictionary<GuestId, Guest> _guestsById = new();
     private readonly ConcurrentDictionary<Email, Guest> _guestsByEmail = new();
+    
+    public Guest Aggregate { get; set; }
 
     public Task<Guest?> GetByEmailAsync(Email email)
     {
