@@ -5,36 +5,19 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Services;
 
-public class GuestService : IGuestRepository
+public class GuestService
 {
-    public Task<Guest?> GetByEmailAsync(Email email)
+    /*
+    public async Task<OperationResult<Guest>> RegisterGuest(Email email, Name firstName, Name lastName, Uri profilePictureUrl)
     {
-        throw new NotImplementedException();
-    }
+        if (await _guestRepository.GetByEmailAsync(email) != null)
+            return OperationResult<Guest>.Failure("GuestExists", "A guest with this email already exists.");
 
-    public Task<Guest?> GetByIdAsync(GuestId id)
-    {
-        throw new NotImplementedException();
+        var guestResult = Guest.Create(email, firstName, lastName, profilePictureUrl);
+        return guestResult;
     }
+    */
 
-    public Task SaveAsync(Guest guest)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AddAsync(Guest guest)
-    {
-        throw new NotImplementedException();
-    }
 }
 
-/*
-public async Task<OperationResult<Guest>> RegisterGuest(Email email, Name firstName, Name lastName, Uri profilePictureUrl)
-{
-    if (await _guestRepository.GetByEmailAsync(email) != null)
-        return OperationResult<Guest>.Failure("GuestExists", "A guest with this email already exists.");
 
-    var guestResult = Guest.Create(email, firstName, lastName, profilePictureUrl);
-    return guestResult;
-}
-*/

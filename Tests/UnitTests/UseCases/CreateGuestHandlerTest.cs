@@ -11,8 +11,10 @@ public class CreateGuestCommandHandlerTest
     public async Task CanCreateGuestWithValidData()
     {
         // Arrange
-        var newGuest = Guest.Create(new Email("330943@via.dk"), new Name("Jane"), new Name("Smith"), new Uri("https://example.com/profile.jpg")).Value;
-        FakeGuestRepository repo = CreateHandler(newGuest, out var handler);
+        IGuestRepository repo = new FakeGuestRepository();
+        IUnitOfWork uow = new FakeUnitOfWork();
+        ICommandHandler<CreateGuestCommand, OperationResult<Guest>> handler = new CreateGuestCommandHandler(repo, uow);
+        
         var command = CreateGuestCommand.Create("330943@via.dk", "Jane", "Smith", "https://example.com/profile.jpg");
 
         // Act
@@ -29,8 +31,10 @@ public class CreateGuestCommandHandlerTest
     public async Task CannotCreateGuestIfEmailAlreadyExists()
     {
         // Arrange
-        var newGuest = Guest.Create(new Email("330943@via.dk"), new Name("Jane"), new Name("Smith"), new Uri("https://example.com/profile.jpg")).Value;
-        FakeGuestRepository repo = CreateHandler(newGuest, out var handler);
+        IGuestRepository repo = new FakeGuestRepository();
+        IUnitOfWork uow = new FakeUnitOfWork();
+        ICommandHandler<CreateGuestCommand, OperationResult<Guest>> handler = new CreateGuestCommandHandler(repo, uow);
+        
         var command = CreateGuestCommand.Create("330943@via.dk", "Jane", "Smith", "https://example.com/profile.jpg");
         
         // Act
@@ -43,14 +47,4 @@ public class CreateGuestCommandHandlerTest
         Assert.Equal("EmailAlreadyExists", handledResult2.Errors[0].Code);
     }
     
-    private static FakeGuestRepository CreateHandler(Guest guest, out ICommandHandler<CreateGuestCommand, OperationResult<Guest>> handler) //TODO maybe change unit return type
-    {
-        FakeGuestRepository repo = new FakeGuestRepository();
-        repo.Aggregate = guest;
-
-        IUnitOfWork uow = new FakeUnitOfWork();
-
-        handler = new CreateGuestCommandHandler(repo, uow);
-        return repo;
-    }
 }
