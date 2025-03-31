@@ -1,15 +1,17 @@
+using VIAEventAssociation.Core.Tools.OperationResult;
+
 namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 {
     public record EventId(Guid Value)
     {
         public static EventId New() => new(Guid.NewGuid());
         
-        public static EventId FromString(string id)
+        public static OperationResult<EventId> FromString(string id)
         {
             if (Guid.TryParse(id, out var guid))
-                return new EventId(guid);
+                return OperationResult<EventId>.Success(new EventId(guid));
 
-            throw new ArgumentException("Invalid GUID format.", nameof(id));
+            return OperationResult<EventId>.Failure("guid", "Invalid guid format.");
         }
     }
 }

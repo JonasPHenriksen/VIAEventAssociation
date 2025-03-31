@@ -25,7 +25,6 @@ public class FakeGuestRepository : IGuestRepository
 
     public Task SaveAsync(Guest guest)
     {
-        // Assuming Save means to update the existing guest
         _guestsById[guest.GuestId] = guest;
         _guestsByEmail[guest.Email] = guest;
         return Task.CompletedTask;

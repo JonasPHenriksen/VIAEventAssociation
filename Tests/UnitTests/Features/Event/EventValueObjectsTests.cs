@@ -21,7 +21,7 @@ public class EventValueObjectsTests
     {
         var guid = Guid.NewGuid().ToString();
         var eventId = EventId.FromString(guid);
-        Assert.Equal(Guid.Parse(guid), eventId.Value);
+        Assert.Equal(Guid.Parse(guid), eventId.Value.Value);
     }
 
     [Fact]
