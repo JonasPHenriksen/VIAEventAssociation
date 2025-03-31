@@ -4,7 +4,7 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace VIAEventAssociation.Core.Domain.Services
 {
-    public class EventService : IEventService
+    public class EventService : IEventService //TODO We probably don't need any services, unless something complex between aggregates/entities or something used in multiple areas
     {
         public OperationResult<Unit> PublishEvent(VeaEvent veaEvent)
         {
