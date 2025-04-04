@@ -1,6 +1,7 @@
 using UnitTests.Factories;
 using Xunit;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace UnitTests.Features.GuestTests

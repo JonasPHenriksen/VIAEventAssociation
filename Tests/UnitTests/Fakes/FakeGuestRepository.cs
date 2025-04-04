@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 
 namespace UnitTests.Fakes;

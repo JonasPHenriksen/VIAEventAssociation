@@ -29,7 +29,7 @@ public class VeaEvent : AggregateRoot
         Visibility = visibility;
         MaxGuests = maxGuests;
     }
-
+    private VeaEvent(){}
     public static OperationResult<VeaEvent> Create()
     {
         var titleResult = EventTitle.Create("Working Title");
