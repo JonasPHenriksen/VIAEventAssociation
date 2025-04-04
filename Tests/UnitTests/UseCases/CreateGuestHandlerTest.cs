@@ -1,6 +1,7 @@
 using AppEntry;
 using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;

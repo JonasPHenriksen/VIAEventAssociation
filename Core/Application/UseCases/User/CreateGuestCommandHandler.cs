@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppEntry;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;

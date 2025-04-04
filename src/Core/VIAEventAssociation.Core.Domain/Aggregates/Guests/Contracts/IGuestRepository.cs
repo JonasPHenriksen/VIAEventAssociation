@@ -1,4 +1,5 @@
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 
 namespace VIAEventAssociation.Core.Domain.Common.Contracts;
 
