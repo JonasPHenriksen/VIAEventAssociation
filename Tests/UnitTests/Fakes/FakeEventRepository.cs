@@ -16,13 +16,13 @@ public class FakeEventRepository : IEventRepository
 
     public Task AddAsync(VeaEvent veaEvent)
     {
-        _events[veaEvent.Id] = veaEvent;
+        _events[veaEvent.EventId] = veaEvent;
         return Task.CompletedTask;
     }
 
     public Task UpdateAsync(VeaEvent veaEvent)
     {
-        _events[veaEvent.Id] = veaEvent;
+        _events[veaEvent.EventId] = veaEvent;
         return Task.CompletedTask;
     }
 

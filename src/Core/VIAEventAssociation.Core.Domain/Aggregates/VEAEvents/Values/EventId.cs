@@ -13,5 +13,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 
             return OperationResult<EventId>.Failure("guid", "Invalid guid format.");
         }
+        
+        public static OperationResult<EventId> FromGuid(Guid id)
+        {
+            return OperationResult<EventId>.Success(new EventId(id));
+        }
     }
 }
