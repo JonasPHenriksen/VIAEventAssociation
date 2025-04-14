@@ -6,6 +6,6 @@ public interface IGenericRepository<T>
     where T : AggregateRoot
 {
     Task<T> GetAsync(Guid id);
-    Task RemoveAsync(Guid id);
     Task AddAsync(T aggregate);
+    Task RemoveAsync(Guid id);
 }

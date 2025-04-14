@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
 
 
-namespace EfcMappingExamples;
+namespace EfcDataAccess.Context;
 
 public class MyDbContext(DbContextOptions<MyDbContext> options) : DbContext(options)
 {

@@ -18,7 +18,7 @@ public class CreateEventAggregateUnitTests
         Assert.Equal(5, newEvent.MaxGuests);
         Assert.Equal(EventVisibility.Private, newEvent.Visibility);
         Assert.Equal("Working Title", newEvent.Title.Value);
-        Assert.Equal("", newEvent.Description.Value);
+        Assert.Equal("", newEvent.Description.Get);
     }
     
     [Fact]
@@ -44,7 +44,7 @@ public class CreateEventAggregateUnitTests
         Assert.True(result.IsSuccess);
         var newEvent = result.Value;
         Assert.NotNull(newEvent);
-        Assert.Equal("", newEvent.Description.Value);
+        Assert.Equal("", newEvent.Description.Get);
     }
     
     [Fact]
