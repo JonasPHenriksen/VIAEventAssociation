@@ -21,7 +21,7 @@ namespace UnitTests.Features.Event.CreateEvent
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(newDescription.Value, newEvent.Description.Value);
+            Assert.Equal(newDescription.Get, newEvent.Description.Get);
         }
         
         [Fact]
@@ -39,7 +39,7 @@ namespace UnitTests.Features.Event.CreateEvent
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(newEventDescription.Value, newEvent.Description.Value);
+            Assert.Equal(newEventDescription.Get, newEvent.Description.Get);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace UnitTests.Features.Event.CreateEvent
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(newDescription, newEvent.Description.Value);
+            Assert.Equal(newDescription, newEvent.Description.Get);
             Assert.Equal(EventStatus.Draft, newEvent.Status); // Status should revert to Draft
         }
 
