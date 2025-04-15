@@ -12,7 +12,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
         public InvitationStatus Status { get; private set; }
         
         private static Dictionary<(EventId, GuestId), Invitation> _cache = new Dictionary<(EventId, GuestId), Invitation>();
-
+        private Invitation() {} //EFC
         private Invitation(EventId eventId, GuestId guestId, InvitationStatus status)
         {
             EventId = eventId;
