@@ -8,7 +8,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 
 public class VeaEvent : AggregateRoot
 {
-    internal EventId Id { get; set; }
+    public EventId EventId { get; init; }
     internal EventStatus Status { get; set; }
     internal EventTitle Title { get; set; }
     internal EventDescription Description { get; set; }
@@ -16,13 +16,15 @@ public class VeaEvent : AggregateRoot
     internal int MaxGuests { get; set; }
     internal EventTimeRange? TimeRange { get; set; }
     internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
-
     private List<Invitation> _invitations = new List<Invitation>();
+    public VeaEvent(EventId id) => EventId = id;
+    private VeaEvent(){}
+    
 
     private VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status,
         EventVisibility visibility, int maxGuests)
     {
-        Id = id;
+        EventId = id;
         Title = title;
         Description = description;
         Status = status;
@@ -169,7 +171,7 @@ public class VeaEvent : AggregateRoot
         if (string.IsNullOrWhiteSpace(Title.Value))
             return OperationResult<Unit>.Failure("InvalidTitle", "The title cannot be empty");
 
-        if (string.IsNullOrWhiteSpace(Description.Value))
+        if (string.IsNullOrWhiteSpace(Description.Get))
             return OperationResult<Unit>.Failure("InvalidDescription", "The description must be set.");
 
         if (TimeRange == null)
@@ -262,7 +264,7 @@ public class VeaEvent : AggregateRoot
         if (_invitations.Any(i => i.GuestId == guestId && !i.Status.IsDeclined))
             return OperationResult<Unit>.Failure("DuplicateInvitation", "The guest is already invited.");
 
-        var invitationResult = Invitation.Create(Id, guestId);
+        var invitationResult = Invitation.Create(EventId, guestId);
         if (!invitationResult.IsSuccess)
             return OperationResult<Unit>.Failure(invitationResult.Errors);
 

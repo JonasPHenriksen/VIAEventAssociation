@@ -1,3 +1,5 @@
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
+
 namespace UnitTests.Factories;
 
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;

@@ -1,0 +1,4 @@
+Build started...
+Build succeeded.
+The Entity Framework tools version '9.0.2' is older than that of the runtime '9.0.3'. Update the tools for the latest features and bug fixes. See https://aka.ms/AAc1fbw for more information.
+Unable to create a 'DbContext' of type 'MyDbContext'. The exception 'The navigation '_participants' cannot be added to the entity type 'VeaEvent' because there is no corresponding CLR property on the underlying type and navigations properties cannot be added in shadow state.' was thrown while attempting to create an instance. For the different patterns supported at design time, see https://go.microsoft.com/fwlink/?linkid=851728

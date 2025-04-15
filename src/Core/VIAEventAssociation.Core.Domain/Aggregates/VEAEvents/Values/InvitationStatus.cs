@@ -12,6 +12,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
             Accepted,
             Declined
         }
+        private InvitationStatus() {} //EFC
 
         public InvitationStatusEnum Value { get; }
 
