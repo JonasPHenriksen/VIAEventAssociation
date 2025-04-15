@@ -17,7 +17,7 @@ public class GuestRepositoryEfc (MyDbContext context) : RepositoryBaseEfc<Guest>
 
     public async Task<Guest?> GetByGuestIdAsync(GuestId guestId)
     {
-        return await context.Set<Guest>().FindAsync(guestId.Value);
+        return await context.Set<Guest>().FindAsync(guestId);
     }
     public async Task<Guest?> GetByEmailAsync(Email email)
     {
@@ -25,9 +25,4 @@ public class GuestRepositoryEfc (MyDbContext context) : RepositoryBaseEfc<Guest>
         //return await context.Set<Guest>().SingleOrDefaultAsync(g => g.Email == email.Value);
     }
     
-
-    public async Task UpdateAsync(Guest guest)
-    {
-        context.Set<Guest>().Update(guest);
-    }
 }
