@@ -13,11 +13,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 
         public static OperationResult<EventDescription> Create(string description)
         {
-            if (string.IsNullOrWhiteSpace(description) || description.Length > 250)
+            if (description.Length > 250)
             {
                 return OperationResult<EventDescription>.Failure("InvalidDescription", "Description must be 250 characters or fewer.");
             }
-
             return OperationResult<EventDescription>.Success(new EventDescription(description));
         }
 
