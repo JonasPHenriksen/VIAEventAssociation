@@ -54,6 +54,7 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
             .Property<DateTime>("EndTime")
             .HasColumnName("EndTime");
         
+        /*
         builder.OwnsMany<GuestId>("Participants", valueBuilder =>
         {
             valueBuilder.WithOwner().HasForeignKey("VeaEventId");
@@ -74,6 +75,7 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
             
             valueBuilder.ToTable("Participants");
         });
+        */
         
         builder.OwnsMany<Invitation>("_invitations", valueBuilder =>
         {

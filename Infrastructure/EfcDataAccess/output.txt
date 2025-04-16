@@ -1,4 +1,48 @@
 Build started...
 Build succeeded.
 The Entity Framework tools version '9.0.2' is older than that of the runtime '9.0.3'. Update the tools for the latest features and bug fixes. See https://aka.ms/AAc1fbw for more information.
-Unable to create a 'DbContext' of type 'MyDbContext'. The exception 'The navigation '_participants' cannot be added to the entity type 'VeaEvent' because there is no corresponding CLR property on the underlying type and navigations properties cannot be added in shadow state.' was thrown while attempting to create an instance. For the different patterns supported at design time, see https://go.microsoft.com/fwlink/?linkid=851728
+CREATE TABLE "Events" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Events" PRIMARY KEY,
+    "EventId" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "Title" TEXT NOT NULL,
+    "Description" TEXT NOT NULL,
+    "Visibility" INTEGER NOT NULL,
+    "MaxGuests" INTEGER NOT NULL,
+    "EndTime" TEXT NOT NULL,
+    "StartTime" TEXT NOT NULL
+);
+
+
+CREATE TABLE "Guests" (
+    "GuestId" TEXT NOT NULL CONSTRAINT "PK_Guests" PRIMARY KEY,
+    "Email" TEXT NOT NULL,
+    "FirstName" TEXT NOT NULL,
+    "LastName" TEXT NOT NULL,
+    "ProfilePictureUrl" TEXT NOT NULL
+);
+
+
+CREATE TABLE "Participants" (
+    "VeaEventId" TEXT NOT NULL,
+    "GuestId" TEXT NOT NULL,
+    "Value" TEXT NOT NULL,
+    CONSTRAINT "PK_Participants" PRIMARY KEY ("VeaEventId", "GuestId"),
+    CONSTRAINT "FK_Participants_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE
+);
+
+
+CREATE TABLE "Invitation" (
+    "GuestId" TEXT NOT NULL,
+    "VeaEventId" TEXT NOT NULL,
+    "Status" TEXT NOT NULL,
+    CONSTRAINT "PK_Invitation" PRIMARY KEY ("VeaEventId", "GuestId"),
+    CONSTRAINT "FK_Invitation_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Invitation_Guests_GuestId" FOREIGN KEY ("GuestId") REFERENCES "Guests" ("GuestId") ON DELETE CASCADE
+);
+
+
+CREATE INDEX "IX_Invitation_GuestId" ON "Invitation" ("GuestId");
+
+
+
