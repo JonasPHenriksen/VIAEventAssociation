@@ -32,9 +32,4 @@ public class EventRepositoryEfc (MyDbContext context) : RepositoryBaseEfc<VeaEve
     {
         return await context.Set<VeaEvent>().FindAsync(veaEvent.Id);
     }
-
-    public async Task UpdateAsync(VeaEvent guest) //TODO don't have this
-    {
-        context.Set<VeaEvent>().Update(guest);
-    }
 }

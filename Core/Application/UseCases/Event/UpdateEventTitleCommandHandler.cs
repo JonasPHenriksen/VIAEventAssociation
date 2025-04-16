@@ -28,8 +28,7 @@ public class UpdateEventTitleCommandHandler : ICommandHandler<UpdateEventTitleCo
         {
             return OperationResult<Unit>.Failure(updateResult.Errors);
         }
-
-        await _eventRepository.UpdateAsync(eventToUpdate);
+        
         await _unitOfWork.SaveChangesAsync();
 
         return OperationResult<Unit>.Success();

@@ -28,8 +28,7 @@ public class InviteGuestCommandHandler : ICommandHandler<InviteGuestCommand, Ope
         {
             return OperationResult<Unit>.Failure(inviteResult.Errors);
         }
-
-        await _eventRepository.UpdateAsync(eventToUpdate);
+        
         await _unitOfWork.SaveChangesAsync();
 
         return OperationResult<Unit>.Success();

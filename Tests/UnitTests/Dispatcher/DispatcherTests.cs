@@ -2,6 +2,11 @@ using AppEntry;
 using Application.Common.CommandDispatcher;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests;
+using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
+using VIAEventAssociation.Core.Domain.Common.Contracts;
+using VIAEventAssociation.Core.Domain.Contracts;
+using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace UnitTests;
 
@@ -111,4 +116,41 @@ public class DispatcherTests
 
         mockHandler.Verify(h => h.HandleAsync(It.IsAny<string>()), Times.Never);
     }
+    
+    [Fact]
+    public async Task DispatchAsync_CreateGuestCommand_ShouldCallCreateGuestCommandHandler()
+    {
+        var mockGuestRepository = new Mock<IGuestRepository>();
+        var mockUnitOfWork = new Mock<IUnitOfWork>();
+
+        // Mocking GetByEmailAsync to return null (no existing guest)
+        mockGuestRepository.Setup(r => r.GetByEmailAsync(It.IsAny<Email>())).ReturnsAsync((Guest)null);
+    
+        // Mocking AddAsync to simulate adding the guest
+        mockGuestRepository.Setup(r => r.AddAsync(It.IsAny<Guest>())).Returns(Task.CompletedTask);
+    
+        // Mocking SaveChangesAsync to simulate saving changes
+        mockUnitOfWork.Setup(u => u.SaveChangesAsync()).Returns(Task.CompletedTask);
+
+        var services = new ServiceCollection();
+        services.AddSingleton(mockGuestRepository.Object);
+        services.AddSingleton(mockUnitOfWork.Object);
+        services.AddSingleton<ICommandHandler<CreateGuestCommand, OperationResult<Guest>>, CreateGuestCommandHandler>();
+    
+        var serviceProvider = services.BuildServiceProvider();
+        var dispatcher = new Dispatcher(serviceProvider);
+
+        var command = CreateGuestCommand.Create("test@example.com", "John", "Doe", "http://profilepic.url");
+
+        var result = await dispatcher.DispatchAsync<CreateGuestCommand, OperationResult<Guest>>(command.Value);
+
+        // Verify that AddAsync was called once
+        mockGuestRepository.Verify(r => r.AddAsync(It.IsAny<Guest>()), Times.Once);
+
+        // Verify that SaveChangesAsync was called once
+        mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
+    }
+
+
+    
 }
