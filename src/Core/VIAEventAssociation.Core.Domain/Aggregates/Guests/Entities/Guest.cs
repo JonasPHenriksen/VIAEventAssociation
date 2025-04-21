@@ -7,10 +7,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities
     public class Guest : AggregateRoot
     {
         public GuestId GuestId { get; }
-        internal Email Email { get; set; }
-        internal Name FirstName { get; set; }
-        internal Name LastName { get; set; }
-        internal Uri ProfilePictureUrl { get; set; }
+        public Email Email { get; internal set; }
+        public Name FirstName { get; internal set; }
+        public Name LastName { get; internal set; }
+        public Uri ProfilePictureUrl { get; internal set; }
         public Guest(GuestId id) => GuestId = id;
         private Guest(){}
 

@@ -37,4 +37,11 @@ public class FakeGuestRepository : IGuestRepository
         _guestsByEmail[guest.Email] = guest;
         return Task.CompletedTask;
     }
+    
+    public Task RemoveAsync(GuestId id)
+    {
+        _guestsById.TryGetValue(id, out var guest);
+        _guestsById.TryRemove(id, out _);
+        return Task.FromResult(guest);
+    }
 }
