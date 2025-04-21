@@ -140,7 +140,7 @@ public class DispatcherTests
         var serviceProvider = services.BuildServiceProvider();
         var dispatcher = new Dispatcher(serviceProvider);
 
-        var command = CreateGuestCommand.Create("test@example.com", "John", "Doe", "http://profilepic.url");
+        var command = CreateGuestCommand.Create("330943@via.dk", "John", "Doe", "http://profilepic.url");
 
         var result = await dispatcher.DispatchAsync<CreateGuestCommand, OperationResult<Guest>>(command.Value);
 

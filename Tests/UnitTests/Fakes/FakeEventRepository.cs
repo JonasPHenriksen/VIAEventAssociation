@@ -26,7 +26,7 @@ public class FakeEventRepository : IEventRepository
         return Task.CompletedTask;
     }
 
-    public Task DeleteAsync(EventId id)
+    public Task RemoveAsync(EventId id)
     {
         _events.TryRemove(id, out _);
         return Task.CompletedTask;

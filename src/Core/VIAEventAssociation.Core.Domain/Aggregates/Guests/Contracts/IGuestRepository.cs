@@ -8,4 +8,5 @@ public interface IGuestRepository //TODO: These will be implemented in the infra
     Task<Guest?> GetByEmailAsync(Email email);
     Task<Guest?> GetByGuestIdAsync(GuestId id);
     Task AddAsync(Guest guest);
+    Task RemoveAsync(GuestId id);
 }

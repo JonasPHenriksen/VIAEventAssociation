@@ -9,11 +9,11 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 public class VeaEvent : AggregateRoot
 {
     public EventId EventId { get; init; }
-    internal EventStatus Status { get; set; }
-    internal EventTitle Title { get; set; }
-    internal EventDescription Description { get; set; }
-    internal EventVisibility Visibility { get; set; }
-    internal int MaxGuests { get; set; }
+    public EventStatus Status { get; internal set; }
+    public EventTitle Title { get; internal set; }
+    public EventDescription Description { get; internal set; }
+    public EventVisibility Visibility { get; internal set; }
+    public int MaxGuests { get; internal set; }
     internal EventTimeRange? TimeRange { get; set; }
     internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
     private List<Invitation> _invitations = new List<Invitation>();

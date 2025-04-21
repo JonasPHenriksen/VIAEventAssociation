@@ -21,12 +21,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DmContextConfiguration\" />
+      <ProjectReference Include="..\..\Infrastructure\EfcDataAccess\EfcDataAccess.csproj" />
+      <ProjectReference Include="..\UnitTests\UnitTests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Infrastructure\EfcDataAccess\EfcDataAccess.csproj" />
-      <ProjectReference Include="..\UnitTests\UnitTests.csproj" />
+      <Folder Include="DmContextConfiguration\" />
     </ItemGroup>
 
 </Project>

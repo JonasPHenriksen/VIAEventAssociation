@@ -6,6 +6,6 @@ namespace VIAEventAssociation.Core.Domain.Contracts
     {
         Task<VeaEvent?> GetByIdAsync(EventId id);
         Task AddAsync(VeaEvent veaEvent);
-        Task DeleteAsync(EventId id);
+        Task RemoveAsync(EventId id);
     }
 }

@@ -10,19 +10,22 @@ namespace EfcDataAccess.Repositories;
 
 public class GuestRepositoryEfc (MyDbContext context) : RepositoryBaseEfc<Guest> (context), IGuestRepository
 {
-    public override async Task<Guest?> GetAsync(Guid id)
-    {
-        return await context.Set<Guest>().FindAsync(id);
-    }
-
     public async Task<Guest?> GetByGuestIdAsync(GuestId guestId)
     {
         return await context.Set<Guest>().FindAsync(guestId);
     }
     public async Task<Guest?> GetByEmailAsync(Email email)
     {
-        throw new InvalidOperationException("An unhandled exception occurred.");
-        //return await context.Set<Guest>().SingleOrDefaultAsync(g => g.Email == email.Value);
+        return await context.Set<Guest>().SingleOrDefaultAsync(g => g.Email == email);
+    }
+    
+    public async Task RemoveAsync(GuestId id)
+    {
+        var guestToDelete = await context.Set<Guest>().FindAsync(id);
+        if (guestToDelete != null)
+        {
+            context.Set<Guest>().Remove(guestToDelete);
+        }
     }
     
 }
