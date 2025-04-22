@@ -17,21 +17,7 @@ public class VeaEvent : AggregateRoot
     internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
     private List<Invitation> _invitations = new List<Invitation>();
     public VeaEvent(EventId id) => EventId = id;
-    
-    internal EventTimeRange? TimeRange
-    {
-        get => _timeRange;
-        set
-        {
-            _timeRange = value;
-            if (value != null)
-            {
-                _startTime = value.Start;
-                _endTime = value.End;
-            }
-        }
-    }
-    private EventTimeRange? _timeRange;
+    public EventTimeRange? TimeRange { get; internal set; }
     private VeaEvent(){}
     
 

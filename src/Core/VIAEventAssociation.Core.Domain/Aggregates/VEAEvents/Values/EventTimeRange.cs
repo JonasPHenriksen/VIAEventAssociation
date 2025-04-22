@@ -1,11 +1,26 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
-public record EventTimeRange(DateTime Start, DateTime End, ISystemTime SystemTime)
+public record EventTimeRange
 {
     private static readonly TimeSpan RestrictedStartTime = new TimeSpan(1, 1, 0); // 01:01 AM
     private static readonly TimeSpan RestrictedEndTime = new TimeSpan(7, 59, 0);   // 07:59 AM
+    
+    public DateTime Start { get; init; }
+    public DateTime End { get; init; }
 
+    [NotMapped]
+    public ISystemTime SystemTime { get; init; } = null!;
+
+    private EventTimeRange() { }
+
+    public EventTimeRange(DateTime start, DateTime end, ISystemTime systemTime)
+    {
+        Start = start;
+        End = end;
+        SystemTime = systemTime;
+    }
     public static OperationResult<EventTimeRange> Create(DateTime start, DateTime end, ISystemTime systemTime)
     {
         // Use the systemTime stored within the object for checking times
