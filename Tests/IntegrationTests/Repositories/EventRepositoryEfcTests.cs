@@ -74,7 +74,7 @@ public class EventRepositoryEfcTests
 
         Assert.Equal(veaEvent.Id, loaded.Id);
         //Assert.Single(context.Entry(loaded).Collection("Participants").CurrentValue as IEnumerable<object>);
-        Assert.Single(context.Entry(loaded).Collection("_invitations").CurrentValue as IEnumerable<object>);
+        Assert.Single(context.Entry(loaded).Collection("_invitations").CurrentValue as IEnumerable<object>); //TODO split up these test and make them more isolated
 
         await eventRepo.RemoveAsync(loaded.Id);
         await uow.SaveChangesAsync();

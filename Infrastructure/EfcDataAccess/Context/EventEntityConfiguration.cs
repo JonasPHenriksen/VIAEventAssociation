@@ -66,7 +66,7 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
                 )
                 .HasColumnName("GuestId");
 
-            valueBuilder.HasKey("VeaEventId", "GuestId"); //TODO Find a way to remove value field in db table
+            valueBuilder.HasKey("VeaEventId", "GuestId"); //TODO Find a way to remove value field in db table, still not able to map this properly
 
             valueBuilder.HasOne<Guest>()
                 .WithMany()

@@ -12,7 +12,7 @@ public class VeaEvent : AggregateRoot
     public EventStatus Status { get; internal set; }
     public EventTitle Title { get; internal set; }
     public EventDescription Description { get; internal set; }
-    public EventVisibility Visibility { get; internal set; }
+    public EventVisibility Visibility { get; internal set; } //TODO look into the access of these fields (Guest as well), encapsulation is important
     public int MaxGuests { get; internal set; }
     internal EventTimeRange? TimeRange { get; set; }
     internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
