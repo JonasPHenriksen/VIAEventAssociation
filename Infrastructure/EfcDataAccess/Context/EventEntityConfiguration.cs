@@ -46,14 +46,9 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
         builder
             .Property("MaxGuests");
         
-        builder
-            .Property<DateTime>("StartTime")
-            .HasColumnName("StartTime");
+        builder.Property<DateTime>("_startTime").HasColumnName("StartTime");
+        builder.Property<DateTime>("_endTime").HasColumnName("EndTime");
 
-        builder
-            .Property<DateTime>("EndTime")
-            .HasColumnName("EndTime");
-        
         /*
         builder.OwnsMany<GuestId>("Participants", valueBuilder =>
         {
