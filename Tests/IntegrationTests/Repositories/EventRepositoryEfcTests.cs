@@ -55,7 +55,7 @@ public class EventRepositoryEfcTests
             .WithTimeRange(DateTime.Now.AddDays(5), DateTime.Now.AddDays(5).AddHours(2))
             .Build();
         
-        //veaEvent.Participate(guest.GuestId);
+        veaEvent.Participate(guest.GuestId);
         veaEvent.InviteGuest(guest2.GuestId);
         
         await eventRepo.AddAsync(veaEvent);
@@ -66,14 +66,14 @@ public class EventRepositoryEfcTests
         context.ChangeTracker.Clear();
         
         var loaded = await eventRepo.GetAsync(veaEvent.Id);
-        //var participants = context.Entry(loaded!).Collection("Participants");
+        var participants = context.Entry(loaded!).Collection("Participants");
         var invitations = context.Entry(loaded!).Collection("_invitations");
 
-        //await participants.LoadAsync();
+        await participants.LoadAsync();
         await invitations.LoadAsync();
 
         Assert.Equal(veaEvent.Id, loaded.Id);
-        //Assert.Single(context.Entry(loaded).Collection("Participants").CurrentValue as IEnumerable<object>);
+        Assert.Single(context.Entry(loaded).Collection("Participants").CurrentValue as IEnumerable<object>);
         Assert.Single(context.Entry(loaded).Collection("_invitations").CurrentValue as IEnumerable<object>); //TODO split up these test and make them more isolated
 
         await eventRepo.RemoveAsync(loaded.Id);

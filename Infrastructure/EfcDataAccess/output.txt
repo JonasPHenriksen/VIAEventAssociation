@@ -1,6 +1,5 @@
 Build started...
 Build succeeded.
-The Entity Framework tools version '9.0.2' is older than that of the runtime '9.0.3'. Update the tools for the latest features and bug fixes. See https://aka.ms/AAc1fbw for more information.
 CREATE TABLE "Events" (
     "Id" TEXT NOT NULL CONSTRAINT "PK_Events" PRIMARY KEY,
     "EventId" TEXT NOT NULL,
@@ -23,12 +22,11 @@ CREATE TABLE "Guests" (
 );
 
 
-CREATE TABLE "Participants" (
-    "VeaEventId" TEXT NOT NULL,
-    "GuestId" TEXT NOT NULL,
+CREATE TABLE "GuestId" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_GuestId" PRIMARY KEY AUTOINCREMENT,
     "Value" TEXT NOT NULL,
-    CONSTRAINT "PK_Participants" PRIMARY KEY ("VeaEventId", "GuestId"),
-    CONSTRAINT "FK_Participants_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE
+    "VeaEventId" TEXT NOT NULL,
+    CONSTRAINT "FK_GuestId_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE
 );
 
 
@@ -40,6 +38,9 @@ CREATE TABLE "Invitation" (
     CONSTRAINT "FK_Invitation_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE,
     CONSTRAINT "FK_Invitation_Guests_GuestId" FOREIGN KEY ("GuestId") REFERENCES "Guests" ("GuestId") ON DELETE CASCADE
 );
+
+
+CREATE INDEX "IX_GuestId_VeaEventId" ON "GuestId" ("VeaEventId");
 
 
 CREATE INDEX "IX_Invitation_GuestId" ON "Invitation" ("GuestId");
