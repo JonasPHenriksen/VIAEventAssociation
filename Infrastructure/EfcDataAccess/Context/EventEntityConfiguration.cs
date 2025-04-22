@@ -49,28 +49,12 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
         builder.Property<DateTime>("_startTime").HasColumnName("StartTime");
         builder.Property<DateTime>("_endTime").HasColumnName("EndTime");
 
-        /*
-        builder.OwnsMany<GuestId>("Participants", valueBuilder =>
+        builder.OwnsMany<GuestId>("Participants", participantBuilder =>
         {
-            valueBuilder.WithOwner().HasForeignKey("VeaEventId");
-
-            valueBuilder.Property<GuestId>("GuestId")
-                .HasConversion(
-                    guestId => guestId.Value,
-                    guid => new GuestId(guid)
-                )
-                .HasColumnName("GuestId");
-
-            valueBuilder.HasKey("VeaEventId", "GuestId"); //TODO Find a way to remove value field in db table, still not able to map this properly
-
-            valueBuilder.HasOne<Guest>()
-                .WithMany()
-                .HasForeignKey("GuestId")
-                .HasPrincipalKey(g => g.GuestId);
-            
-            valueBuilder.ToTable("Participants");
+            participantBuilder.Property<int>("Id").ValueGeneratedOnAdd();
+            participantBuilder.HasKey("Id");
+            participantBuilder.Property(x => x.Value);
         });
-        */
         
         builder.OwnsMany<Invitation>("_invitations", valueBuilder =>
         {
