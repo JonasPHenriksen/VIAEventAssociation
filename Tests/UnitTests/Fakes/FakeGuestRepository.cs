@@ -18,7 +18,7 @@ public class FakeGuestRepository : IGuestRepository
         return Task.FromResult(guest);
     }
 
-    public Task<Guest?> GetByGuestIdAsync(GuestId id)
+    public Task<Guest?> GetAsync(GuestId id)
     {
         _guestsById.TryGetValue(id, out var guest);
         return Task.FromResult(guest);

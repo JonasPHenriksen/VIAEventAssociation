@@ -2,10 +2,9 @@
 
 namespace DCAExamples.Core.Domain.Common.Repositories;
 
-public interface IGenericRepository<T>
-    where T : AggregateRoot
+public interface IGenericRepository<T, TId>
 {
-    Task<T> GetAsync(Guid id);
+    Task<T?> GetAsync(TId id);
     Task AddAsync(T aggregate);
-    Task RemoveAsync(Guid id);
+    Task RemoveAsync(TId id);
 }

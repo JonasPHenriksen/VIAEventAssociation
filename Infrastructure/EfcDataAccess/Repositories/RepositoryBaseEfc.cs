@@ -5,21 +5,20 @@ using VIAEventAssociation.Core.Domain.Common.Bases;
 
 namespace EfcDataAccess.Repositories;
 
-public abstract class RepositoryBaseEfc<T>(DbContext context) 
-    : IGenericRepository<T> 
-    where T : AggregateRoot
+public abstract class RepositoryBaseEfc<TAgg, TId>(DbContext context) :
+    IGenericRepository<TAgg, TId>
+    where TAgg : AggregateRoot
 {
-    public virtual async Task<T> GetAsync(Guid id) //TODO we could use the base and give them Guid instead of direct value objects
+    public virtual async Task<TAgg> GetAsync(TId id)
     {
-        T? root = await context.Set<T>().FindAsync(id);
+        TAgg? root = await context.Set<TAgg>().FindAsync(id);
         return root!;
     }
-    public virtual async Task AddAsync(T aggregate)
-        => await context.Set<T>().AddAsync(aggregate);
-    
-    public virtual async Task RemoveAsync(Guid id)
+    public virtual async Task RemoveAsync(TId id)
     {
-        T? root = await context.Set<T>().FindAsync(id);
-        context.Set<T>().Remove(root!);
+        TAgg? root = await context.Set<TAgg>().FindAsync(id);
+        context.Set<TAgg>().Remove(root!);
     }
+    public virtual async Task AddAsync(TAgg aggregate)
+        => await context.Set<TAgg>().AddAsync(aggregate);
 }

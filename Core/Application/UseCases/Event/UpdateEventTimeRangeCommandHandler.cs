@@ -17,7 +17,7 @@ public class UpdateEventTimeRangeCommandHandler : ICommandHandler<UpdateEventTim
 
     public async Task<OperationResult<Unit>> HandleAsync(UpdateEventTimeRangeCommand command)
     {
-        var eventToUpdate = await _eventRepository.GetByIdAsync(command.NewEventId);
+        var eventToUpdate = await _eventRepository.GetAsync(command.NewEventId);
         if (eventToUpdate == null)
         {
             return OperationResult<Unit>.Failure("EventNotFound", "The specified event does not exist.");

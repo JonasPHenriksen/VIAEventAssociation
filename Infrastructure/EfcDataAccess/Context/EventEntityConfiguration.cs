@@ -10,7 +10,7 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
 {
     public void Configure(EntityTypeBuilder<VeaEvent> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.HasKey(e => e.EventId);
 
         builder
             .Property(m => m.EventId)

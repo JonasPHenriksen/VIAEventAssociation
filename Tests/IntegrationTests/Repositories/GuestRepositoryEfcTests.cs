@@ -47,7 +47,7 @@ public class GuestRepositoryEfcTests
         await unitOfWork.SaveChangesAsync();
         context.ChangeTracker.Clear();
 
-        var loaded = await repo.GetByGuestIdAsync(guest.GuestId);
+        var loaded = await repo.GetAsync(guest.GuestId);
         Assert.Equal(guest.Id, loaded?.Id);
     }
     
@@ -80,13 +80,13 @@ public class GuestRepositoryEfcTests
         await repo.AddAsync(guest);
         await unitOfWork.SaveChangesAsync();
         context.ChangeTracker.Clear();
-        var loaded = await repo.GetByGuestIdAsync(guest.GuestId);
+        var loaded = await repo.GetAsync(guest.GuestId);
         Assert.Equal(guest, loaded);
         
         await repo.RemoveAsync(guest.GuestId);
         await unitOfWork.SaveChangesAsync();
 
-        var loaded2 = await repo.GetByGuestIdAsync(guest.GuestId);
+        var loaded2 = await repo.GetAsync(guest.GuestId);
         Assert.Equal(loaded2, null);
     }
     
