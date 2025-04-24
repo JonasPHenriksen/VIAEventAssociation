@@ -17,7 +17,7 @@ public class UpdateEventTitleCommandHandler : ICommandHandler<UpdateEventTitleCo
 
     public async Task<OperationResult<Unit>> HandleAsync(UpdateEventTitleCommand command)
     {
-        var eventToUpdate = await _eventRepository.GetByIdAsync(command.NewEventId);
+        var eventToUpdate = await _eventRepository.GetAsync(command.NewEventId);
         if (eventToUpdate == null)
         {
             return OperationResult<Unit>.Failure("EventNotFound", "The specified event does not exist.");

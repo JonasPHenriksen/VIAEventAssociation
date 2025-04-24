@@ -17,7 +17,7 @@ public class InviteGuestCommandHandler : ICommandHandler<InviteGuestCommand, Ope
 
     public async Task<OperationResult<Unit>> HandleAsync(InviteGuestCommand command)
     {
-        var eventToUpdate = await _eventRepository.GetByIdAsync(command.newEventId);
+        var eventToUpdate = await _eventRepository.GetAsync(command.newEventId);
         if (eventToUpdate == null)
         {
             return OperationResult<Unit>.Failure("EventNotFound", "The specified event does not exist.");

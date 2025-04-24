@@ -65,7 +65,7 @@ public class EventRepositoryEfcTests
           
         context.ChangeTracker.Clear();
         
-        var loaded = await eventRepo.GetAsync(veaEvent.Id);
+        var loaded = await eventRepo.GetAsync(veaEvent.EventId);
         var participants = context.Entry(loaded!).Collection("Participants");
         var invitations = context.Entry(loaded!).Collection("_invitations");
 
@@ -76,10 +76,10 @@ public class EventRepositoryEfcTests
         Assert.Single(context.Entry(loaded).Collection("Participants").CurrentValue as IEnumerable<object>);
         Assert.Single(context.Entry(loaded).Collection("_invitations").CurrentValue as IEnumerable<object>); //TODO split up these test and make them more isolated
 
-        await eventRepo.RemoveAsync(loaded.Id);
+        await eventRepo.RemoveAsync(loaded.EventId);
         await uow.SaveChangesAsync();
         context.ChangeTracker.Clear();
-        var loaded2 = await eventRepo.GetAsync(veaEvent.Id);
+        var loaded2 = await eventRepo.GetAsync(veaEvent.EventId);
         
         Assert.Equal(loaded2, null);
     }

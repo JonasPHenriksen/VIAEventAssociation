@@ -1,11 +1,10 @@
+using DCAExamples.Core.Domain.Common.Repositories;
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 
 namespace VIAEventAssociation.Core.Domain.Contracts
 {
-    public interface IEventRepository
+    public interface IEventRepository : IGenericRepository<VeaEvent, EventId>
     {
-        Task<VeaEvent?> GetByIdAsync(EventId id);
-        Task AddAsync(VeaEvent veaEvent);
-        Task RemoveAsync(EventId id);
     }
+
 }

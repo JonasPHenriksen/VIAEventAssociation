@@ -8,12 +8,12 @@ public class FakeEventRepository : IEventRepository
 {
     private readonly ConcurrentDictionary<EventId, VeaEvent> _events = new();
 
-    public Task<VeaEvent?> GetByIdAsync(EventId id)
+    public Task<VeaEvent?> GetAsync(EventId id)
     {
         _events.TryGetValue(id, out var veaEvent);
         return Task.FromResult(veaEvent);
     }
-
+    
     public Task AddAsync(VeaEvent veaEvent)
     {
         _events[veaEvent.EventId] = veaEvent;
