@@ -31,12 +31,6 @@ public class VeaEvent : AggregateRoot
         Visibility = visibility;
         MaxGuests = maxGuests;
     }
-    
-    private DateTime _startTime;
-    private DateTime _endTime;
-
-
-
 
     public static OperationResult<VeaEvent> Create()
     {
@@ -249,7 +243,6 @@ public class VeaEvent : AggregateRoot
         if (Participants.Contains(guestId))
         {
             Participants.Remove(guestId);
-            return OperationResult<Unit>.Success();
         }
 
         return OperationResult<Unit>.Success();

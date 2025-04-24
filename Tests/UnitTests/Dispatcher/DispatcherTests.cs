@@ -123,13 +123,10 @@ public class DispatcherTests
         var mockGuestRepository = new Mock<IGuestRepository>();
         var mockUnitOfWork = new Mock<IUnitOfWork>();
 
-        // Mocking GetByEmailAsync to return null (no existing guest)
         mockGuestRepository.Setup(r => r.GetByEmailAsync(It.IsAny<Email>())).ReturnsAsync((Guest)null);
     
-        // Mocking AddAsync to simulate adding the guest
         mockGuestRepository.Setup(r => r.AddAsync(It.IsAny<Guest>())).Returns(Task.CompletedTask);
     
-        // Mocking SaveChangesAsync to simulate saving changes
         mockUnitOfWork.Setup(u => u.SaveChangesAsync()).Returns(Task.CompletedTask);
 
         var services = new ServiceCollection();
@@ -142,12 +139,10 @@ public class DispatcherTests
 
         var command = CreateGuestCommand.Create("330943@via.dk", "John", "Doe", "http://profilepic.url");
 
-        var result = await dispatcher.DispatchAsync<CreateGuestCommand, OperationResult<Guest>>(command.Value);
+        await dispatcher.DispatchAsync<CreateGuestCommand, OperationResult<Guest>>(command.Value);
 
-        // Verify that AddAsync was called once
         mockGuestRepository.Verify(r => r.AddAsync(It.IsAny<Guest>()), Times.Once);
 
-        // Verify that SaveChangesAsync was called once
         mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
     }
 

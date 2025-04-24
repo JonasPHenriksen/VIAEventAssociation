@@ -34,8 +34,189 @@ public class EventRepositoryEfcTests
         return factory.Build().Value;
     }
     
+        [Fact]
+    public async Task AddGuest_ShouldAddGuestToRepository()
+    {
+        using var context = MyDbContext.SetupContext();
+        var guestRepo = new GuestRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var guest = GetGuest();
+        await guestRepo.AddAsync(guest);
+        await uow.SaveChangesAsync();
+
+        var loadedGuest = await guestRepo.GetAsync(guest.GuestId);
+        Assert.NotNull(loadedGuest);
+    }
+
     [Fact]
-    public async Task AddAndGet_EventWithParticipantsAndInvitations_ShouldBeSame()
+    public async Task CreateEvent_ShouldSaveEventToRepository()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var veaEvent = EventFactory.Init()
+            .WithStatus(EventStatus.Active)
+            .WithVisibility(EventVisibility.Public)
+            .WithTimeRange(DateTime.Now.AddDays(5), DateTime.Now.AddDays(5).AddHours(2))
+            .Build();
+
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        Assert.NotNull(loadedEvent);
+    }
+
+    [Fact]
+    public async Task AddParticipantToEvent_ShouldAddParticipant()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var guestRepo = new GuestRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var guest = GetGuest();
+        await guestRepo.AddAsync(guest);
+        await uow.SaveChangesAsync();
+
+        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Active).WithVisibility(EventVisibility.Public).WithTimeRange(DateTime.Now.AddDays(1),DateTime.Now.AddDays(1).AddHours(1)).Build(); //TODO Probably change the Creator to take EventTimeRangeObject
+        veaEvent.Participate(guest.GuestId);
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+        
+        context.ChangeTracker.Clear();
+
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        var participants = context.Entry(loadedEvent!).Collection("Participants");
+        await participants.LoadAsync();
+
+        Assert.Single(participants.CurrentValue as IEnumerable<object>);
+    }
+
+    [Fact]
+    public async Task InviteGuestToEvent_ShouldAddInvitation()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var guestRepo = new GuestRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var guest1 = GetGuest();
+        var guest2 = GetGuest();
+        await guestRepo.AddAsync(guest1);
+        await guestRepo.AddAsync(guest2);
+        await uow.SaveChangesAsync();
+
+        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Ready).Build(); //TODO Stronger Constraint on Inviting Guests? TimeRange is not checked for example.
+        veaEvent.InviteGuest(guest2.GuestId);
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        context.ChangeTracker.Clear();
+        
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        var invitations = context.Entry(loadedEvent!).Collection("_invitations");
+
+        await invitations.LoadAsync();
+
+        Assert.Single(invitations.CurrentValue as IEnumerable<object>);
+    }
+
+    [Fact]
+    public async Task RetrieveEvent_ShouldReturnCorrectEvent()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var veaEvent = EventFactory.Init().Build();
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        Assert.Equal(veaEvent.Id, loadedEvent.Id);
+    }
+    
+        [Fact]
+    public async Task RemoveEvent_ShouldDeleteEventFromRepository()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var veaEvent = EventFactory.Init().Build();
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        // Remove the event
+        await eventRepo.RemoveAsync(veaEvent.EventId);
+        await uow.SaveChangesAsync();
+
+        // Verify that the event has been removed
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        Assert.Null(loadedEvent);
+    }
+
+    [Fact]
+    public async Task EventParticipantsCount_ShouldMatchExpectedCount()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var guestRepo = new GuestRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var guest1 = GetGuest();
+        var guest2 = GetGuest();
+        await guestRepo.AddAsync(guest1);
+        await guestRepo.AddAsync(guest2);
+        await uow.SaveChangesAsync();
+
+        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Active).WithVisibility(EventVisibility.Public).WithTimeRange(DateTime.Now.AddDays(1),DateTime.Now.AddDays(1).AddHours(1)).Build();
+        veaEvent.Participate(guest1.GuestId);
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        context.ChangeTracker.Clear();
+        
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        var participants = context.Entry(loadedEvent!).Collection("Participants");
+        await participants.LoadAsync();
+
+        Assert.Single(participants.CurrentValue as IEnumerable<object>);
+    }
+
+    [Fact]
+    public async Task EventInvitationsCount_ShouldMatchExpectedCount()
+    {
+        using var context = MyDbContext.SetupContext();
+        var eventRepo = new EventRepositoryEfc(context);
+        var guestRepo = new GuestRepositoryEfc(context);
+        var uow = new SqliteUnitOfWork(context);
+
+        var guest1 = GetGuest();
+        var guest2 = GetGuest();
+        await guestRepo.AddAsync(guest1);
+        await guestRepo.AddAsync(guest2);
+        await uow.SaveChangesAsync();
+        
+        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Ready).Build();
+        veaEvent.InviteGuest(guest2.GuestId);
+        await eventRepo.AddAsync(veaEvent);
+        await uow.SaveChangesAsync();
+
+        context.ChangeTracker.Clear();
+        
+        var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
+        var invitations = context.Entry(loadedEvent!).Collection("_invitations");
+        await invitations.LoadAsync();
+
+        Assert.Single(invitations.CurrentValue as IEnumerable<object>);
+    }
+    
+    [Fact]
+    public async Task CombinedInitCreationOfEventWithGuests()
     {
         using var context = MyDbContext.SetupContext();
         var eventRepo = new EventRepositoryEfc(context);
@@ -57,7 +238,6 @@ public class EventRepositoryEfcTests
         
         veaEvent.Participate(guest.GuestId);
         veaEvent.InviteGuest(guest2.GuestId);
-        
         await eventRepo.AddAsync(veaEvent);
         await uow.SaveChangesAsync();
 
