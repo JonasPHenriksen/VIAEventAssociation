@@ -13,7 +13,6 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents.Values
             Declined
         }
         private InvitationStatus() {} //EFC
-
         public InvitationStatusEnum Value { get; }
 
         // Private constructor to enforce immutability

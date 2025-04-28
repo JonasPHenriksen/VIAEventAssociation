@@ -9,15 +9,14 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
 public class VeaEvent : AggregateRoot
 {
     public EventId EventId { get; init; }
-    public EventStatus Status { get; internal set; }
-    public EventTitle Title { get; internal set; }
-    public EventDescription Description { get; internal set; }
-    public EventVisibility Visibility { get; internal set; } //TODO look into the access of these fields (Guest as well), encapsulation is important
-    public int MaxGuests { get; internal set; }
+    internal EventStatus Status { get; set; }
+    internal EventTitle Title { get; set; }
+    internal EventDescription Description { get; set; }
+    internal EventVisibility Visibility { get; set; } //TODO can we make these fields private? Hack/Reflection around tests? 
+    internal int MaxGuests { get; set; }
     internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
     private List<Invitation> _invitations = new List<Invitation>();
-    public VeaEvent(EventId id) => EventId = id;
-    public EventTimeRange? TimeRange { get; internal set; }
+    internal EventTimeRange? TimeRange { get; set; }
     private VeaEvent(){}
     
 

@@ -7,9 +7,9 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
 {
     public class Invitation : Entity
     {
-        public EventId EventId { get; }
-        public GuestId GuestId { get; }
-        public InvitationStatus Status { get; private set; }
+        private EventId EventId { get; }
+        internal GuestId GuestId { get; }
+        internal InvitationStatus Status { get; private set; }
         
         private static Dictionary<(EventId, GuestId), Invitation> _cache = new Dictionary<(EventId, GuestId), Invitation>();
         private Invitation() {} //EFC

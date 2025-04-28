@@ -7,11 +7,10 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities
     public class Guest : AggregateRoot
     {
         public GuestId GuestId { get; }
-        public Email Email { get; internal set; }
-        public Name FirstName { get; internal set; }
-        public Name LastName { get; internal set; }
-        public Uri ProfilePictureUrl { get; internal set; }
-        public Guest(GuestId id) => GuestId = id;
+        public Email Email { get; internal set; } //TODO currently needed for GetByEmailGuest in EFC Repo, better solution is needed
+        internal Name FirstName { get; set; }
+        internal Name LastName { get; set; }
+        internal Uri ProfilePictureUrl { get; set; }
         private Guest(){}
 
         private Guest(Email email, Name firstName, Name lastName, Uri profilePictureUrl)

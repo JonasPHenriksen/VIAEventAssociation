@@ -1,15 +1,14 @@
 Build started...
 Build succeeded.
 CREATE TABLE "Events" (
-    "Id" TEXT NOT NULL CONSTRAINT "PK_Events" PRIMARY KEY,
-    "EventId" TEXT NOT NULL,
+    "EventId" TEXT NOT NULL CONSTRAINT "PK_Events" PRIMARY KEY,
     "Status" INTEGER NOT NULL,
     "Title" TEXT NOT NULL,
     "Description" TEXT NOT NULL,
     "Visibility" INTEGER NOT NULL,
     "MaxGuests" INTEGER NOT NULL,
-    "EndTime" TEXT NOT NULL,
-    "StartTime" TEXT NOT NULL
+    "StartTime" TEXT NULL,
+    "EndTime" TEXT NULL
 );
 
 
@@ -25,8 +24,8 @@ CREATE TABLE "Guests" (
 CREATE TABLE "GuestId" (
     "Id" INTEGER NOT NULL CONSTRAINT "PK_GuestId" PRIMARY KEY AUTOINCREMENT,
     "Value" TEXT NOT NULL,
-    "VeaEventId" TEXT NOT NULL,
-    CONSTRAINT "FK_GuestId_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE
+    "VeaEventEventId" TEXT NOT NULL,
+    CONSTRAINT "FK_GuestId_Events_VeaEventEventId" FOREIGN KEY ("VeaEventEventId") REFERENCES "Events" ("EventId") ON DELETE CASCADE
 );
 
 
@@ -35,12 +34,12 @@ CREATE TABLE "Invitation" (
     "VeaEventId" TEXT NOT NULL,
     "Status" TEXT NOT NULL,
     CONSTRAINT "PK_Invitation" PRIMARY KEY ("VeaEventId", "GuestId"),
-    CONSTRAINT "FK_Invitation_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Invitation_Events_VeaEventId" FOREIGN KEY ("VeaEventId") REFERENCES "Events" ("EventId") ON DELETE CASCADE,
     CONSTRAINT "FK_Invitation_Guests_GuestId" FOREIGN KEY ("GuestId") REFERENCES "Guests" ("GuestId") ON DELETE CASCADE
 );
 
 
-CREATE INDEX "IX_GuestId_VeaEventId" ON "GuestId" ("VeaEventId");
+CREATE INDEX "IX_GuestId_VeaEventEventId" ON "GuestId" ("VeaEventEventId");
 
 
 CREATE INDEX "IX_Invitation_GuestId" ON "Invitation" ("GuestId");
