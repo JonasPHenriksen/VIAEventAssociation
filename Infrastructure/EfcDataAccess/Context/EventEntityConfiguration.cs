@@ -46,11 +46,11 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
         builder
             .Property("MaxGuests");
         
-        builder.OwnsOne(e => e.TimeRange, b =>
+        builder.OwnsOne(typeof(EventTimeRange), "TimeRange", b =>
         {
-            b.Property(tr => tr.Start).HasColumnName("StartTime");
-            b.Property(tr => tr.End).HasColumnName("EndTime");
-            b.Ignore(tr => tr.SystemTime);
+            b.Property(typeof(DateTime), "Start").HasColumnName("StartTime");
+            b.Property(typeof(DateTime), "End").HasColumnName("EndTime");
+            b.Ignore("SystemTime");
         });
         
         builder.OwnsMany<GuestId>("Participants", participantBuilder =>
@@ -60,22 +60,22 @@ public class EventEntityConfiguration : IEntityTypeConfiguration<VeaEvent>
             participantBuilder.Property(x => x.Value);
         });
         
-        builder.OwnsMany<Invitation>("_invitations", valueBuilder =>
+        builder.OwnsMany(typeof(Invitation), "_invitations", valueBuilder =>
         {
             valueBuilder.WithOwner().HasForeignKey("VeaEventId");
-            
-            valueBuilder.OwnsOne(x => x.Status, statusBuilder =>
+
+            valueBuilder.OwnsOne(typeof(InvitationStatus), "Status", statusBuilder =>
             {
-                statusBuilder.Property(s => s.Value)
-                    .HasConversion<string>() 
-                    .HasColumnName("Status"); 
+                statusBuilder.Property(typeof(InvitationStatus.InvitationStatusEnum), "Value")
+                    .HasConversion<string>()
+                    .HasColumnName("Status");
             });
-            
+
             valueBuilder.HasKey("VeaEventId", "GuestId");
-            
-            valueBuilder.HasOne<Guest>() 
-                .WithMany() 
-                .HasForeignKey("GuestId"); 
+
+            valueBuilder.HasOne(typeof(Guest))
+                .WithMany()
+                .HasForeignKey("GuestId");
         });
     }
 }

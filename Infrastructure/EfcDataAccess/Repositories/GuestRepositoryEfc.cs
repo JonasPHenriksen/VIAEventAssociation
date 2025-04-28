@@ -1,6 +1,4 @@
-﻿using DCAExamples.Core.Domain.Common.Repositories;
-using EfcDataAccess.Context;
-using EfcMappingExamples;
+﻿using EfcDataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests;
 using VIAEventAssociation.Core.Domain.Aggregates.Guests.Entities;
@@ -14,5 +12,4 @@ public class GuestRepositoryEfc (MyDbContext context) : RepositoryBaseEfc<Guest,
     {
         return await context.Set<Guest>().SingleOrDefaultAsync(g => g.Email == email);
     }
-    
 }
