@@ -1,5 +1,4 @@
 using EfcDataAccess.Context;
-
 namespace IntegrationTests;
 
 public class DummyDataTests
