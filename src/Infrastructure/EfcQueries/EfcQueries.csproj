@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Infrastructure\EfcDataAccess\EfcDataAccess.csproj" />
+      <ProjectReference Include="..\..\QueryContracts\QueryContracts.csproj" />
     </ItemGroup>
 
 </Project>
