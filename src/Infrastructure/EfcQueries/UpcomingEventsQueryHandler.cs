@@ -9,13 +9,12 @@ public class UpcomingEventsQueryHandler(VeadatabaseProductionContext context) : 
 {
     public async Task<UpcomingEvents.Answer> HandleAsync(UpcomingEvents.Query query)
     {
-        var currentDateTime = DateTime.UtcNow.AddYears(-2);
+        var currentDateTime = DateTime.UtcNow;
         
         var upcomingEvents = await context.Events
             .Where(e => e.Status == 1 && e.StartTime != null)
-            .ToListAsync(); // Fetch all relevant events first
+            .ToListAsync();
 
-        // Now filter and parse in memory
         var filteredEvents = upcomingEvents
             .Where(e => DateTime.TryParse(e.StartTime, out var startTime) && startTime > currentDateTime)
             .Select(e => new UpcomingEvents.UpcomingEvent(

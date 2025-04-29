@@ -7,16 +7,15 @@ namespace IntegrationTests.QueryTests;
 public class QueryHandlerTests
 {
     [Fact]
-    public async Task DispatchAsync_ReturnsUpcomingEvents()
+    public async Task QueryHandler_ReturnsUpcomingEvents_Success()
     {
+        //Arrange
         await using var context = Seeds.SetupReadContext(); 
         var _handler = new UpcomingEventsQueryHandler(context);
-
-        // Act
         Seeds.Seed(context);
-
         var query = new UpcomingEvents.Query();
-
+        
+        // Act
         var result = await _handler.HandleAsync(query);
         
         // Assert
