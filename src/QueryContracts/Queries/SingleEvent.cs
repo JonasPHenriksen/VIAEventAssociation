@@ -2,7 +2,7 @@ using QueryContracts.Contract;
 
 namespace QueryContracts.Queries;
 
-public class ViewSingleEvent
+public class SingleEvent
 {
     public record Query(string EventId) : IQuery.IQuery<Answer>; //TODO maybe change Guid
 

@@ -5,9 +5,9 @@ using QueryContracts.Queries;
 
 namespace EfcQueries;
 
-public class ViewSingleEventHandler(VeadatabaseProductionContext context) : IQueryHandler<ViewSingleEvent.Query, ViewSingleEvent.Answer>
+public class SingleEventQueryHandler(VeadatabaseProductionContext context) : IQueryHandler<SingleEvent.Query, SingleEvent.Answer>
 {
-    public async Task<ViewSingleEvent.Answer> HandleAsync(ViewSingleEvent.Query query)
+    public async Task<SingleEvent.Answer> HandleAsync(SingleEvent.Query query)
     {
         var eventEntity = await context.Events
             .FirstOrDefaultAsync(e => e.EventId == query.EventId);
@@ -30,7 +30,7 @@ public class ViewSingleEventHandler(VeadatabaseProductionContext context) : IQue
         var guests = await context.Guests
             .Where(g => acceptedInvitations.Contains(g.GuestId))
             .OrderBy(g => g.FirstName)
-            .Select(g => new ViewSingleEvent.Guest(
+            .Select(g => new SingleEvent.Guest(
                 g.GuestId,
                 g.FirstName + " " + g.LastName,
                 g.ProfilePictureUrl
@@ -39,7 +39,7 @@ public class ViewSingleEventHandler(VeadatabaseProductionContext context) : IQue
 
         var guestCount = acceptedInvitations.Count;
 
-        return new ViewSingleEvent.Answer(
+        return new SingleEvent.Answer(
             eventEntity.Title,
             eventEntity.Description,
             eventEntity.StartTime,
