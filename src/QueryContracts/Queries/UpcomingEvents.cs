@@ -4,9 +4,7 @@ namespace QueryContracts.Queries;
 
 public class UpcomingEvents
 {
-    public record Query() : IQuery.IQuery<UpcomingEvents.Answer>; //TODO add pagination
-
-    public record Answer(List<UpcomingEvent> UpcomingEvents);
-    
-    public record UpcomingEvent(string title, string firstPartOfDescription, int NumberOfGuests, string Visibility, string startTime, string endTime);
+    public record Query(int Page, int PageSize) : IQuery.IQuery<Answer>;
+    public record Answer(List<UpcomingEvent> Events);
+    public record UpcomingEvent(string Title, string Description, int MaxGuests, int AcceptedCount, string Visibility, string StartTime, string EndTime);
 }
