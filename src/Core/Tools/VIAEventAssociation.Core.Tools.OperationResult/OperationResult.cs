@@ -51,7 +51,14 @@
             var errors = results.SelectMany(r => r.Errors).ToList();
             return errors.Count > 0 ? Failure(errors) : Success(results.Last().Value!);
         }
-
+        public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<List<Error>, TResult> onFailure)
+        {
+            if (IsSuccess)
+            {
+                return onSuccess(Value!); 
+            }
+            return onFailure(Errors);
+        }
         public static implicit operator OperationResult<T>(T value) => Success(value);
         public static implicit operator OperationResult<T>(Error error) => Failure(error.Code, error.Message, error.Type);
         public static implicit operator OperationResult<T>(List<Error> errors) => Failure(errors);
