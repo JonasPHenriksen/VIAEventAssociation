@@ -6,7 +6,7 @@ namespace Application.Common.CommandDispatcher;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCommandHandlers(this IServiceCollection services, Assembly assembly)
+    public static IServiceCollection RegisterCommandHandlers(this IServiceCollection services, Assembly assembly)
     {
         var handlers = assembly.GetTypes()
             .Where(t => !t.IsAbstract && !t.IsInterface)
@@ -20,6 +20,12 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+    
+    public static void RegisterCommandDispatching(this IServiceCollection services)
+    {
+        services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+    }
+    
 }
 
 // In application startup

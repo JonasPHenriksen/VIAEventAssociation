@@ -3,21 +3,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Common.CommandDispatcher;
 
-public class Dispatcher : ICommandDispatcher
+public class CommandDispatcher : ICommandDispatcher
 {
     private readonly IServiceProvider serviceProvider;
 
-    public Dispatcher(IServiceProvider serviceProvider)
+    public CommandDispatcher(IServiceProvider serviceProvider)
     {
         this.serviceProvider = serviceProvider;
     }
-
-    // I can use GetRequiredService because extension method, see using above
     public Task<TResult> DispatchAsync<TCommand, TResult>(TCommand command)
     {
         ICommandHandler<TCommand, TResult> service = serviceProvider
                             .GetRequiredService<ICommandHandler<TCommand, TResult>>();
 
+        //TODO ERROR IS HERE!
+        
         return service.HandleAsync(command);
     }
 }

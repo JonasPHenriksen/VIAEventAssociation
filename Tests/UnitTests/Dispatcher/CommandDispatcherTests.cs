@@ -10,14 +10,14 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace UnitTests;
 
-public class DispatcherTests
+public class CommandDispatcherTests
 {
     [Fact]
     public async Task DispatchAsync_NoHandlerRegistered_ThrowsException()
     {
         var services = new ServiceCollection();
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => dispatcher.DispatchAsync<string, string>("test"));
     }
@@ -29,7 +29,7 @@ public class DispatcherTests
         var mockHandler = new Mock<ICommandHandler<int, int>>();
         services.AddSingleton(mockHandler.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => dispatcher.DispatchAsync<string, string>("test"));
     }
@@ -43,7 +43,7 @@ public class DispatcherTests
         var services = new ServiceCollection();
         services.AddSingleton(mockHandler.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         var result = await dispatcher.DispatchAsync<string, string>("test");
 
@@ -64,7 +64,7 @@ public class DispatcherTests
         services.AddSingleton(correctMock.Object);
         services.AddSingleton(incorrectMock.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         var result = await dispatcher.DispatchAsync<string, string>("test");
 
@@ -80,7 +80,7 @@ public class DispatcherTests
         var mockHandler = new Mock<ICommandHandler<int, int>>();
         services.AddSingleton(mockHandler.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => dispatcher.DispatchAsync<string, string>("test"));
     }
@@ -94,7 +94,7 @@ public class DispatcherTests
         var services = new ServiceCollection();
         services.AddSingleton(mockHandler.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         await dispatcher.DispatchAsync<string, string>("test");
 
@@ -110,7 +110,7 @@ public class DispatcherTests
         var services = new ServiceCollection();
         services.AddSingleton(mockHandler.Object);
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         // No dispatch call
 
@@ -135,7 +135,7 @@ public class DispatcherTests
         services.AddSingleton<ICommandHandler<CreateGuestCommand, OperationResult<Guest>>, CreateGuestCommandHandler>();
     
         var serviceProvider = services.BuildServiceProvider();
-        var dispatcher = new Dispatcher(serviceProvider);
+        var dispatcher = new CommandDispatcher(serviceProvider);
 
         var command = CreateGuestCommand.Create("330943@via.dk", "John", "Doe", "http://profilepic.url");
 
