@@ -1,3 +1,8 @@
+using System.Reflection;
+using Application.Common.CommandDispatcher;
+using EfcDataAccess;
+using QueryContracts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//TODO register DB, Dispatchers, command handlers etc
+string connString =
+    @"Data Source = /home/jonas/RiderProjects/VIAEventAssociation/Infrastructure/EfcDataAccess/VEADatabaseProduction.db";
+
+builder.Services.RegisterCommandHandlers(Assembly.GetExecutingAssembly());
+builder.Services.RegisterCommandDispatching();
+builder.Services.RegisterReadPersistence(connString);
+builder.Services.RegisterWritePersistence(connString);
+builder.Services.RegisterQueryDispatching();
+//TODO Mapper config missing if it is needed
 
 var app = builder.Build();
 
