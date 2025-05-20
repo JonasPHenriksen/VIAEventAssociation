@@ -21,7 +21,7 @@ public class ParticipateInEventUnitTests
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Contains(guest.GuestId, newEvent.Participants);
+        Assert.Contains(guest.GuestId, newEvent.GetParticipants());
     }
 
     [Fact]

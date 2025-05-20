@@ -26,7 +26,7 @@ public class CreateEventEndPoint()
         return result.Match<ActionResult<CreateEventResponse>>(
             onSuccess: (none) => 
             {
-                var response = new CreateEventResponse(result.Value.EventId.ToString());
+                var response = new CreateEventResponse(result.Value.EventId.Value.ToString());
                 return Ok(response);
             },
             onFailure: errors => BadRequest(OperationResult<IEnumerable<Error>>.Failure(errors))

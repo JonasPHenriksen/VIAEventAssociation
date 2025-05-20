@@ -14,8 +14,8 @@ public class VeaEvent : AggregateRoot
     internal EventDescription Description { get; set; }
     internal EventVisibility Visibility { get; set; } //TODO can we make these fields private? Hack/Reflection around tests? 
     internal int MaxGuests { get; set; }
-    internal List<GuestId> Participants { get; private set; } = new List<GuestId>();
-    private List<Invitation> _invitations = new List<Invitation>();
+    internal List<GuestId> Participants { get; }
+    internal List<Invitation> _invitations;
     internal EventTimeRange? TimeRange { get; set; }
     private VeaEvent(){}
     
@@ -252,6 +252,7 @@ public class VeaEvent : AggregateRoot
         if (Participants.Contains(guestId))
             return OperationResult<Unit>.Failure("GuestAlreadyParticipate",
                 "The guest is already participating and can therefore not be invited");
+        
         if (Status != EventStatus.Ready && Status != EventStatus.Active)
             return OperationResult<Unit>.Failure("InvalidStatus",
                 "Guests can only be invited to events that are ready or active.");
@@ -285,9 +286,12 @@ public class VeaEvent : AggregateRoot
 
         if (_invitations.Count(i => i.Status.IsAccepted) + Participants.Count >= MaxGuests)
             return OperationResult<Unit>.Failure("NoMoreRoom", "The event is full, you cannot join.");
-        
-        //Add Time range check (If Event is in the past)
 
+        if (TimeRange != null && TimeRange.IsEventInPast())
+        {
+            return OperationResult<Unit>.Failure("PastEvent", "The event is in the past and cannot be joined.");
+        }
+       
         return invitation.Accept();
     }
 

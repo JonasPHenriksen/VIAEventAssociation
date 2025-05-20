@@ -30,10 +30,10 @@ public record ViewSingleEventResponse(
     string Visibility,
     int GuestCount,
     int MaxGuests,
-    List<Guest> Guests
+    List<QueryGuest> Guests
 );
 
-public record Guest(
+public record QueryGuest(
     string Id,
     string Name,
     string ProfileImageUrl
