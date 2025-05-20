@@ -22,3 +22,4 @@ public abstract class RepositoryBaseEfc<TAgg, TId>(DbContext context) :
     public virtual async Task AddAsync(TAgg aggregate)
         => await context.Set<TAgg>().AddAsync(aggregate);
 }
+

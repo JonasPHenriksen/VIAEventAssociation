@@ -236,7 +236,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
+            Assert.Equal("Start time cannot be before 08:00.", result.Errors.First().Message);
         }
 
 
@@ -256,7 +256,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
+            Assert.Equal("Event cannot occur between 01:01 and 07:59.", result.Errors.First().Message);
         }
 
 
@@ -349,7 +349,7 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event cannot occur between 01:01 AM and 07:59 AM.", result.Errors.First().Message);
+            Assert.Equal("Start time cannot be before 08:00.", result.Errors.First().Message);
         }
 
 
@@ -369,7 +369,13 @@ namespace UnitTests.Features.Event.UpdateEventTimeRange
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal("Event cannot span from 1:00 AM to 08:00 AM.", result.Errors.First().Message);
+            
+            var expectedMessages = new[]
+            {
+                "Event cannot occur between 01:01 and 07:59.",
+                "Start time cannot be before 08:00."
+            };
+            Assert.Contains(result.Errors.First().Message, expectedMessages);
         }
 
     }

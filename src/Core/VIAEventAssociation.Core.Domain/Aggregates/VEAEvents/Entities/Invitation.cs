@@ -10,8 +10,6 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
         private EventId EventId { get; }
         internal GuestId GuestId { get; }
         internal InvitationStatus Status { get; private set; }
-        
-        private static Dictionary<(EventId, GuestId), Invitation> _cache = new Dictionary<(EventId, GuestId), Invitation>();
         private Invitation() {} //EFC
         private Invitation(EventId eventId, GuestId guestId, InvitationStatus status)
         {
@@ -22,15 +20,7 @@ namespace VIAEventAssociation.Core.Domain.Aggregates.VEAEvents
         
         public static OperationResult<Invitation> Create(EventId eventId, GuestId guestId)
         {
-            if (eventId == null || guestId == null)
-                return OperationResult<Invitation>.Failure("InvalidData", "Event ID and Guest ID cannot be null.");
-
-            var key = (eventId, guestId);
-            if (_cache.ContainsKey(key))
-                return OperationResult<Invitation>.Failure("Duplicate", "An invitation with the same credentials already exists.");
-
             var invitation = new Invitation(eventId, guestId, InvitationStatus.Pending());
-            _cache[key] = invitation;
             return OperationResult<Invitation>.Success(invitation);
         }
 

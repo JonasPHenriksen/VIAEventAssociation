@@ -47,12 +47,17 @@ public record EventTimeRange
         if (duration.TotalHours > 10)
             return OperationResult<EventTimeRange>.Failure("InvalidDuration", "Event duration cannot exceed 10 hours.");
 
-        if (IsTimeInRestrictedRange(start.TimeOfDay) || IsTimeInRestrictedRange(end.TimeOfDay) || DoesEventSpanRestrictedRange(start, end))
-        {
-            return OperationResult<EventTimeRange>.Failure("InvalidTimeRange", "Event cannot occur between 01:01 AM and 07:59 AM.");
-        }
+        if (start.TimeOfDay < new TimeSpan(8, 0, 0))
+            return OperationResult<EventTimeRange>.Failure("InvalidTimeRange", "Start time cannot be before 08:00.");
+
+        if (IsTimeInRestrictedRange(start.TimeOfDay) || IsTimeInRestrictedRange(end.TimeOfDay) || OverlapsRestrictedRange(start, end))
+            return OperationResult<EventTimeRange>.Failure("InvalidTimeRange", "Event cannot occur between 01:01 and 07:59.");
 
         return OperationResult<EventTimeRange>.Success(new EventTimeRange(start, end, systemTime));
+    }
+    public bool IsEventInPast()
+    {
+        return SystemTime.Now > End; 
     }
     
     private static bool IsTimeInRestrictedRange(TimeSpan time)
@@ -60,16 +65,17 @@ public record EventTimeRange
         return time >= RestrictedStartTime && time <= RestrictedEndTime;
     }
 
-    private static bool DoesEventSpanRestrictedRange(DateTime start, DateTime end)
+    private static bool OverlapsRestrictedRange(DateTime start, DateTime end)
     {
-        var startTime = start.TimeOfDay;
-        var endTime = end.TimeOfDay;
-
-        if (start.Date != end.Date)
+        var current = start;
+        while (current < end)
         {
-            return (startTime < RestrictedStartTime && endTime > RestrictedEndTime);
-        }
+            var time = current.TimeOfDay;
+            if (time >= RestrictedStartTime && time <= RestrictedEndTime)
+                return true;
 
+            current = current.AddMinutes(1);
+        }
         return false;
     }
 
