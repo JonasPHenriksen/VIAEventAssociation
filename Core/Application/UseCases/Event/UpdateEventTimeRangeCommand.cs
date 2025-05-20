@@ -1,4 +1,5 @@
 using VIAEventAssociation.Core.Domain.Aggregates.VEAEvents;
+using VIAEventAssociation.Core.Domain.Contracts;
 using VIAEventAssociation.Core.Domain.Services;
 using VIAEventAssociation.Core.Tools.OperationResult;
 
@@ -7,6 +8,12 @@ public class UpdateEventTimeRangeCommand
     public EventId NewEventId { get; private set; }
     public EventTimeRange NewTimeRange { get; private set; }
 
+    private static ISystemTime _systemTime;
+    
+    public UpdateEventTimeRangeCommand(ISystemTime systemTime)
+    {
+        _systemTime = systemTime;
+    }
     public static OperationResult<UpdateEventTimeRangeCommand> Create(string eventId, string dateTimeFrom, string dateTimeTo)
     {
         var errors = new List<Error>();
@@ -21,7 +28,7 @@ public class UpdateEventTimeRangeCommand
             errors.Add(new Error("InvalidDateTimeTo", "The 'dateTimeTo' string is not a valid DateTime."));
         }
         
-        var timeRangeResult = EventTimeRange.Create(parsedDateTimeFrom, parsedDateTimeTo, new SystemTime());
+        var timeRangeResult = EventTimeRange.Create(parsedDateTimeFrom, parsedDateTimeTo, _systemTime);
 
         if (!timeRangeResult.IsSuccess)
         {

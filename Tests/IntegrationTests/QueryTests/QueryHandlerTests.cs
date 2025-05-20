@@ -67,6 +67,8 @@ public class QueryHandlerTests
         Assert.NotEmpty(result.Members);
         Assert.Equal("Aaliyah Armstrong", result.Members.First().Name);
         Assert.True(result.Members.First().TotalCount > 0);
+        Assert.True(result.Members.First().LastSixMonthsCount >= 0);
+        Assert.True(result.Members.First().TotalCount >= 0);
     }
     
     [Fact]
@@ -119,5 +121,4 @@ public class QueryHandlerTests
         Assert.NotEmpty(result.Readied);
         Assert.NotEmpty(result.Cancelled);
     }
-
 }

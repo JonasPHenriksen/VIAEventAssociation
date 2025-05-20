@@ -29,6 +29,7 @@ public class EventApiTest
         Assert.True(response.StatusCode == HttpStatusCode.OK);
         Assert.NotNull(veaEvent);
     }
+    
     /*
     [Fact]
     public async Task UpdateTitle_ValidInput_ShouldReturnOk()
