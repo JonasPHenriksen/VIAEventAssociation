@@ -20,7 +20,8 @@ public class UpdateTitleEndPoint(ICommandDispatcher dispatcher)
             var errors = new List<Error>();
             return TypedResults.BadRequest(OperationResult<IEnumerable<Error>>.Failure(errors));
         }
-        OperationResult<Unit> result = await dispatcher.DispatchAsync<UpdateEventTitleCommand, Unit>(cmdResult.Value);        return result.Match<Results<NoContent, BadRequest<OperationResult<IEnumerable<Error>>>>>(
+        OperationResult<Unit> result = await dispatcher.DispatchAsync<UpdateEventTitleCommand, Unit>(cmdResult.Value);        
+        return result.Match<Results<NoContent, BadRequest<OperationResult<IEnumerable<Error>>>>>(
             onSuccess: (none) => TypedResults.NoContent(),
             onFailure: errors => TypedResults.BadRequest(OperationResult<IEnumerable<Error>>.Failure(errors)) 
         );

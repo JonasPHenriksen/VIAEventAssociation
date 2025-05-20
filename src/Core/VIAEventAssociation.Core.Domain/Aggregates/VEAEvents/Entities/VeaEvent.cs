@@ -285,6 +285,8 @@ public class VeaEvent : AggregateRoot
 
         if (_invitations.Count(i => i.Status.IsAccepted) + Participants.Count >= MaxGuests)
             return OperationResult<Unit>.Failure("NoMoreRoom", "The event is full, you cannot join.");
+        
+        //Add Time range check (If Event is in the past)
 
         return invitation.Accept();
     }

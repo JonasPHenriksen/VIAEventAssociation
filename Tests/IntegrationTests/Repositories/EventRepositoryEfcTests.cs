@@ -103,25 +103,24 @@ public class EventRepositoryEfcTests
         var guestRepo = new GuestRepositoryEfc(context);
         var uow = new SqliteUnitOfWork(context);
 
-        var guest1 = GetGuest();
-        var guest2 = GetGuest();
-        await guestRepo.AddAsync(guest1);
-        await guestRepo.AddAsync(guest2);
+        var guest = GetGuest();
+        await guestRepo.AddAsync(guest);
         await uow.SaveChangesAsync();
 
-        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Ready).Build(); //TODO Stronger Constraint on Inviting Guests? TimeRange is not checked for example.
-        veaEvent.InviteGuest(guest2.GuestId);
+        context.ChangeTracker.Clear();
+
+        var veaEvent = EventFactory.Init().WithStatus(EventStatus.Ready).Build();
+        var repoGuest = await guestRepo.GetByEmailAsync(guest.Email);
+        veaEvent.InviteGuest(repoGuest.GuestId);
         await eventRepo.AddAsync(veaEvent);
         await uow.SaveChangesAsync();
 
         context.ChangeTracker.Clear();
-        
+
         var loadedEvent = await eventRepo.GetAsync(veaEvent.EventId);
-        var invitations = context.Entry(loadedEvent!).Collection("_invitations");
+        await context.Entry(loadedEvent!).Collection("_invitations").LoadAsync();
 
-        await invitations.LoadAsync();
-
-        Assert.Single(invitations.CurrentValue as IEnumerable<object>);
+        Assert.Single(context.Entry(loadedEvent).Collection("_invitations").CurrentValue as IEnumerable<object>);
     }
 
     [Fact]

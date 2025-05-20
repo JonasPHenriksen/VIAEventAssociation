@@ -20,5 +20,22 @@ public class ViewSingleEventEndpoint(IMapper mapper) //TODO Change the mapper in
     }
 }
 
-public record ViewSingleEventRequest([FromRoute] string Id);
-public record ViewSingleEventResponse([FromRoute] string title);
+public record ViewSingleEventRequest([FromRoute] string EventId);
+
+public record ViewSingleEventResponse(
+    string Title,
+    string Description,
+    string StartTime,
+    string EndTime,
+    string Visibility,
+    int GuestCount,
+    int MaxGuests,
+    List<Guest> Guests
+);
+
+public record Guest(
+    string Id,
+    string Name,
+    string ProfileImageUrl
+);
+

@@ -8,7 +8,7 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 public class CreateGuestCommandTest
 {
     [Fact]
-    public async Task CanCreateGuestWithValidData()
+    public async Task CanCreateGuestCommandWithValidData()
     {
         var command = CreateGuestCommand.Create("330943@via.dk", "Jane", "Smith", "https://example.com/profile.jpg");
 

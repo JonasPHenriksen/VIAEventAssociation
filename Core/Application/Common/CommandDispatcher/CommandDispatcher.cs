@@ -15,8 +15,6 @@ public class CommandDispatcher : ICommandDispatcher
     {
         ICommandHandler<TCommand, TResult> service = serviceProvider
                             .GetRequiredService<ICommandHandler<TCommand, TResult>>();
-
-        //TODO ERROR IS HERE!
         
         return service.HandleAsync(command);
     }
