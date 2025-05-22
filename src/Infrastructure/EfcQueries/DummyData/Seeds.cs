@@ -18,11 +18,16 @@ public class Seeds
         return context;
     }
 
-    public static VeadatabaseProductionContext SetupReadContext()
+    public static VeadatabaseProductionContext SetupReadContext(bool production) //TODO for test purpose ONLY
     {
         DbContextOptionsBuilder<VeadatabaseProductionContext> optionsBuilder = new();
-        string testDbName = "Test" + Guid.NewGuid() + ".db";
-        optionsBuilder.UseSqlite(@"Data Source=" + testDbName);
+        string connString =
+            @"Data Source = /home/jonas/RiderProjects/VIAEventAssociation/Infrastructure/EfcDataAccess/VEADatabaseProduction.db";
+        if (!production)
+        {
+            connString += "@\"Data Source = Test" + Guid.NewGuid() + ".db";
+        }
+        optionsBuilder.UseSqlite(connString);
         VeadatabaseProductionContext context = new(optionsBuilder.Options);
         context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
