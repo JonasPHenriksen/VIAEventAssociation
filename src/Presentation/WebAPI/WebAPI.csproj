@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Core\Application\Application.csproj" />
       <ProjectReference Include="..\..\Core\Tools\ObjectMapper\ObjectMapper.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\API\API.csproj" />
       <ProjectReference Include="..\..\Infrastructure\EfcQueries\EfcQueries.csproj" />
       <ProjectReference Include="..\..\QueryContracts\QueryContracts.csproj" />
     </ItemGroup>

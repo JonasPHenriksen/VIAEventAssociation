@@ -1,14 +1,9 @@
-using System.Reflection;
-using Application.Common.CommandDispatcher;
 using EfcDataAccess;
 using EfcDataAccess.Context;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using UnitTests.Fakes;
 using VIAEventAssociation.Core.Domain.Contracts;
 
@@ -32,7 +27,7 @@ internal class VeaWebApplicationFactory : WebApplicationFactory<Program>
             string connString = GetConnectionString();
             services.AddDbContext<MyDbContext>(options => { options.UseSqlite(connString); });
             services.AddDbContext<VeadatabaseProductionContext>(options => { options.UseSqlite(connString); });
-            services.AddScoped<ISystemTime, MockTime.SystemTime>();
+            services.AddScoped<ISystemTime, MockTime.SystemTime>(); 
             SetupCleanDatabase(services);
         });
     }

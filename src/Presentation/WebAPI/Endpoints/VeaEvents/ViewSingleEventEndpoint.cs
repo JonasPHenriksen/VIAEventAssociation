@@ -10,7 +10,7 @@ public class ViewSingleEventEndpoint(IMapper mapper) //TODO Change the mapper in
         .Query.WithRequest<ViewSingleEventRequest>
         .WithResponse<ViewSingleEventResponse>
 {
-    [HttpGet("events/{Id}")]
+    [HttpGet("events/{EventId}")]
     public override async Task<ActionResult<ViewSingleEventResponse>> HandleAsync([FromRoute] ViewSingleEventRequest request, IQueryDispatcher dispatcher)
     {
         SingleEvent.Query query = mapper.Map<SingleEvent.Query>(request);

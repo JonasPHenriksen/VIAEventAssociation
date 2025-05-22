@@ -52,6 +52,11 @@ public class EventApiTest
         var createGuestResponse = await client.PostAsync("/api/guests/create", JsonContent.Create(requestBody)); var createBody = (await createGuestResponse.Content.ReadFromJsonAsync<CreateGuestResponse>())!;
         string guestId = createBody.Id;
         
+        //TODO Requires the event to be ready
+        
+        var invitationResponse = await client.PostAsync(
+            $"/api/events/{eventId}/guests/{guestId}/invite", JsonContent.Create(new { }));
+        
         // Act
         var acceptResponse = await client.PostAsync(
             $"/api/events/{eventId}/guests/{guestId}/accept", JsonContent.Create(new { }));
@@ -68,7 +73,25 @@ public class EventApiTest
         Assert.NotNull(veaEvent);
         Assert.Contains(veaEvent._invitations, i => i.GuestId.Value.ToString() == guestId && i.Status.IsAccepted);
     }
+    
+    [Fact]
+    public async Task ViewSingleEvent_ShouldReturnEventData()
+    {
+        await using var webAppFac = new VeaWebApplicationFactory();
+        var client = webAppFac.CreateClient();
 
+        var createResp = await client.PostAsync("/api/events/create", JsonContent.Create(new { }));
+        var created = await createResp.Content.ReadFromJsonAsync<CreateEventResponse>();
+        var eventId = created!.Id.ToUpper(); //TODO this should be consistent, upper vs lower case GUIDs
+
+        //MyDbContext correctly makes a test db and uses that, but Scaffold keeps using the real one despite we tell it not to. Probably part of the queryhandler DI registration as it is in the constructor?
+        
+        var getResp = await client.GetAsync($"/api/events/{eventId}");
+        var eventData = await getResp.Content.ReadFromJsonAsync<ViewSingleEventResponse>();
+
+        Assert.True(getResp.IsSuccessStatusCode);
+        Assert.Equal(eventData!.GuestCount, 0);
+    }
     
     /*
     [Fact]

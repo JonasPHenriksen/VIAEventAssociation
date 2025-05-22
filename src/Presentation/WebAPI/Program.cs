@@ -5,10 +5,12 @@ using EfcDataAccess;
 using EfcDataAccess.Context;
 using EfcDataAccess.Repositories;
 using EfcMappingExamples;
+using EfcQueries;
 using Microsoft.EntityFrameworkCore;
-using QueryContracts;
+using ObjectMapper;
 using VIAEventAssociation.Core.Domain.Common.Contracts;
 using VIAEventAssociation.Core.Domain.Contracts;
+using VIAEventAssociation.Core.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,18 +24,17 @@ builder.Services.AddSwaggerGen();
 string connString =
     @"Data Source = /home/jonas/RiderProjects/VIAEventAssociation/Infrastructure/EfcDataAccess/VEADatabaseProduction.db";
 
-builder.Services.RegisterCommandHandlers(typeof(ICommandHandler<,>).Assembly);
-builder.Services.RegisterCommandDispatching();
+builder.Services.RegisterCommandHandlers(typeof(ICommandHandler<,>).Assembly).RegisterCommandDispatching();
+builder.Services.RegisterQueryHandlers(typeof(SingleEventQueryHandler).Assembly).RegisterQueryDispatching();
 //builder.Services.RegisterReadPersistence(connString);
 //builder.Services.RegisterWritePersistence(connString);
-builder.Services.RegisterQueryDispatching();
 builder.Services.AddScoped<IEventRepository, EventRepositoryEfc>();
-builder.Services.AddScoped<IGuestRepository, GuestRepositoryEfc>();
+builder.Services.AddScoped<IGuestRepository, GuestRepositoryEfc>(); //TODO cleanup and better injection is possible
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlite(connString), ServiceLifetime.Scoped);
+builder.Services.AddDbContext<VeadatabaseProductionContext>(options => options.UseSqlite(connString), ServiceLifetime.Scoped);
+builder.Services.AddScoped<ISystemTime, SystemTime>();
 builder.Services.AddScoped<IUnitOfWork, SqliteUnitOfWork>();
-
-
-//TODO Mapper config missing if it is needed
+builder.Services.AddScoped<IMapper, DefaultObjectMapper>();
 
 var app = builder.Build();
 

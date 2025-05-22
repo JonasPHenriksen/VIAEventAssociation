@@ -5,7 +5,7 @@ using VIAEventAssociation.Core.Tools.OperationResult;
 
 namespace WebAPI.Endpoints.VeaEvents;
 
-public class UpdateTitleEndPoint()
+public class UpdateTitleEndpoint()
     : EndPointBase
         .Command.WithRequest<UpdateEventTitleRequest>
         .AndResults<NoContent, BadRequest<OperationResult<IEnumerable<Error>>>>
