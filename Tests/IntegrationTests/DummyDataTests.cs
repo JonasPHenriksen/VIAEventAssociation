@@ -7,7 +7,7 @@ public class DummyDataTests
     public async Task Seed_ShouldPopulateDatabaseWithExpectedData()
     {
         // Arrange
-        await using var context = Seeds.SetupReadContext();
+        await using var context = Seeds.SetupReadContext(true);
 
         // Act
         Seeds.Seed(context);

@@ -11,7 +11,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_ReturnsUpcomingEvents_Success()
     {
         //Arrange
-        await using var context = Seeds.SetupReadContext(); 
+        await using var context = Seeds.SetupReadContext(false); 
         var _handler = new UpcomingEventsQueryHandler(context, new MockTime.SystemTime());
         Seeds.Seed(context);
         var query = new UpcomingEvents.Query(2,3);
@@ -30,7 +30,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_ReturnsSingleEvent_Success()
     {
         //Arrange
-        await using var context = Seeds.SetupReadContext(); 
+        await using var context = Seeds.SetupReadContext(false); 
         var _handler = new SingleEventQueryHandler(context);
         Seeds.Seed(context);
         var query = new SingleEvent.Query("40d73623-48d4-4862-b116-7ee7cdfda22f");
@@ -54,7 +54,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_ReturnsMostActiveMembers_Success()
     {
         // Arrange
-        await using var context = Seeds.SetupReadContext();
+        await using var context = Seeds.SetupReadContext(false);
         var handler = new MostActiveMembersQueryHandler(context, new MockTime.SystemTime());
         Seeds.Seed(context);
         var query = new MostActiveMembers.Query(1, 5);
@@ -75,7 +75,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_ReturnsPersonalProfile_Success()
     {
         // Arrange
-        await using var context = Seeds.SetupReadContext();
+        await using var context = Seeds.SetupReadContext(false);
         var handler = new PersonalProfileQueryHandler(context, new MockTime.SystemTime());
         var guestId = "53645f68-409e-4cab-9028-dc799a27dc61";
         Seeds.Seed(context);
@@ -95,7 +95,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_Throws_WhenGuestNotFound()
     {
         // Arrange
-        await using var context = Seeds.SetupReadContext();
+        await using var context = Seeds.SetupReadContext(false);
         var handler = new PersonalProfileQueryHandler(context, new MockTime.SystemTime());
         var query = new PersonalProfile.Query("nonexistent");
 
@@ -107,7 +107,7 @@ public class QueryHandlerTests
     public async Task QueryHandler_ReturnsEditingEvents_Success()
     {
         // Arrange
-        await using var context = Seeds.SetupReadContext();
+        await using var context = Seeds.SetupReadContext(false);
         var handler = new EditingEventsQueryHandler(context);
         Seeds.Seed(context); 
         var query = new EditingEvents.Query();
