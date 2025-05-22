@@ -23,7 +23,7 @@ public class InviteGuestCommand
             return OperationResult<InviteGuestCommand>.Failure(errors);
         }
         
-        var idResult2 = GuestId.FromString(eventId);
+        var idResult2 = GuestId.FromString(guestId);
         if (!idResult.IsSuccess)
         {
             errors.AddRange(idResult.Errors);

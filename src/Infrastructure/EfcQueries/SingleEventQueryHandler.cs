@@ -2,6 +2,7 @@ using EfcDataAccess;
 using Microsoft.EntityFrameworkCore;
 using QueryContracts.Contract;
 using QueryContracts.Queries;
+using VIAEventAssociation.Core.Domain.Common.Contracts;
 
 namespace EfcQueries;
 
@@ -11,7 +12,6 @@ public class SingleEventQueryHandler(VeadatabaseProductionContext context) : IQu
     {
         var eventEntity = await context.Events
             .FirstOrDefaultAsync(e => e.EventId == query.EventId);
-
         if (eventEntity == null)
             throw new Exception("Event not found");
 

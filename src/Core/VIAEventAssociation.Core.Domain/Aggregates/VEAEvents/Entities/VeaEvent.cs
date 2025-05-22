@@ -13,7 +13,7 @@ public class VeaEvent : AggregateRoot
     internal EventTitle Title { get; set; }
     internal EventDescription Description { get; set; }
     internal EventVisibility Visibility { get; set; } //TODO can we make these fields private? Hack/Reflection around tests? 
-    internal int MaxGuests { get; set; }
+    internal int MaxGuests { get; set; } 
     internal List<GuestId> Participants { get; }
     internal List<Invitation> _invitations;
     internal EventTimeRange? TimeRange { get; set; }
